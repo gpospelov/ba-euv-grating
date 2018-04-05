@@ -61,7 +61,7 @@ class Rectangle:
 
 
 class GratingShape:
-    def __init__(self, period=833.0, thickness=100.0, nslices = 50, grating_length=5.0*micrometer):
+    def __init__(self, period=833.0, thickness=300.0, nslices = 100, grating_length=5.0*micrometer):
         self.m_period = period
         self.m_thickness = thickness
         self.m_nslices = nslices
@@ -111,6 +111,9 @@ class GratingShape:
 
     def get_composition(self, material):
         result = ba.ParticleComposition()
+        # ff = ba.FormFactorLongBoxLorentz(self.m_grating_length, self.m_period * 0.05, 192)
+        # pos = ba.kvector_t(0, 0, -100)
+        # result.addParticle(ba.Particle(material, ff), pos)
         for r in self.rectangle_set():
             ff = ba.FormFactorLongBoxLorentz(self.m_grating_length, r.m_width, r.m_height)
             pos = ba.kvector_t(0, r.m_x+r.m_width/2, r.m_y)
@@ -119,12 +122,13 @@ class GratingShape:
 
 
 if __name__ == '__main__':
-    rect = GratingShape().rectangle_set()
+    shape = GratingShape()
+    rect = shape.rectangle_set()
 
     fig1 = plt.figure()
     ax1 = fig1.add_subplot(111, aspect='equal')
-    ax1.set_xlim([0, 850])
-    ax1.set_ylim([0, 400])
+    ax1.set_xlim([0, shape.m_period])
+    ax1.set_ylim([0, shape.m_thickness*1.1+shape.m_circle0.m_radius])
     for r in rect:
         ax1.add_patch(patches.Rectangle((r.m_x, r.m_y), r.m_width, r.m_height))
 

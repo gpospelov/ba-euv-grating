@@ -13,9 +13,10 @@ class GratingBuilder(ba.IMultiLayerBuilder):
         self.m_grating_length = ctypes.c_double(5.0*micrometer)
         self.m_grating_period = ctypes.c_double(814*nm)
         self.m_grating_height = ctypes.c_double(200*nm)
-        self.m_grating_bulk = ctypes.c_double(200*nm)
+        self.m_grating_bulk = ctypes.c_double(100*nm)
         self.m_rotation_angle = ctypes.c_double(0.0)  # 90.0 - perpendicular to grating
-        self.m_emulsion_layer_thickness = ctypes.c_double(100.0*nm)
+        self.m_emulsion_layer_thickness = ctypes.c_double(200.0*nm)
+        self.m_nslices= ctypes.c_double(20.0)
         self.m_substrate = None
         self.m_grating = None
         self.m_ambience = None
@@ -29,6 +30,7 @@ class GratingBuilder(ba.IMultiLayerBuilder):
         self.registerParameter("grating_height", ctypes.addressof(self.m_grating_height))
         self.registerParameter("rotation_angle", ctypes.addressof(self.m_rotation_angle))
         self.registerParameter("decay_length", ctypes.addressof(self.m_decay_length))
+        self.registerParameter("nslices", ctypes.addressof(self.m_nslices))
 
         self.init_materials()
 
@@ -75,7 +77,8 @@ class GratingBuilder(ba.IMultiLayerBuilder):
         if not material:
             material = self.m_grating
         #ff = ba.FormFactorBox(self.grating_length(), 0.25*self.grating_period(), self.grating_height())
-        ff = ba.FormFactorLongBoxLorentz(self.grating_length(), 0.05*self.grating_period(), self.grating_height())
+        # ff = ba.FormFactorLongBoxLorentz(self.grating_length(), 0.05*self.grating_period(), self.grating_height())
+        ff = ba.FormFactorLongBoxLorentz(self.grating_length(), 100, self.grating_height())
         #ff = ba.FormFactorLongBoxGauss(self.grating_length(), 0.25*self.grating_period(), self.grating_height())
         return ba.Particle(material, ff)
 
@@ -104,7 +107,7 @@ class GratingBuilder(ba.IMultiLayerBuilder):
         return composition
 
     def spherical_composition(self):
-        grshape = utils.GratingShape()
+        grshape = utils.GratingShape(period = self.grating_period(), grating_length=self.grating_length(), thickness=self.grating_bulk(), nslices=int(self.m_nslices.value))
         return grshape.get_composition(self.m_grating)
 
     def get_grating(self):

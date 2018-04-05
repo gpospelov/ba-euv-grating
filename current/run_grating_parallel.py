@@ -49,16 +49,16 @@ def plot_simulations(result, filename = None, detector_masks=None):
 
 
 def run_pack(builder):
-    # for i in range(0, 30):
-    #     height = 170+i*2
-    #     print("run_pack()", i, height)
-    #     builder.m_sample_builder.setParameterValue("grating_height", height)
-    #     run_single(builder)
-    for i in range(0, 20):
-        period = 820.0 + i
-        print("run_pack()", i, period)
-        builder.m_sample_builder.setParameterValue("grating_period", period)
+    for i in range(0, 30):
+        height = 170+i*2
+        print("run_pack()", i, height)
+        builder.m_sample_builder.setParameterValue("grating_height", height)
         run_single(builder)
+    # for i in range(0, 20):
+    #     period = 820.0 + i
+    #     print("run_pack()", i, period)
+    #     builder.m_sample_builder.setParameterValue("grating_period", period)
+    #     run_single(builder)
 
 
 def run_single(builder):

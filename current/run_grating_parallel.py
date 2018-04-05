@@ -1,6 +1,9 @@
 """
 Cosine ripple on a 2D lattice. Beam is parallel to the grating.
+To generate pdf from the 'output' produced by the script use
+markdown-pdf -s custom.css -r landscape *.md
 """
+
 import bornagain as ba
 from matplotlib import pyplot as plt
 from SimulationBuilder import ParallelBuilder

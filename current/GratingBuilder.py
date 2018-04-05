@@ -1,7 +1,7 @@
 import bornagain as ba
 from bornagain import deg, micrometer, nm
 import ctypes
-
+import utils
 
 class GratingBuilder(ba.IMultiLayerBuilder):
     """
@@ -103,6 +103,10 @@ class GratingBuilder(ba.IMultiLayerBuilder):
         composition.addParticle(self.sinusoidal_grating(self.m_poly), ba.kvector_t(0, 0, -(self.grating_height()+self.grating_bulk())))
         return composition
 
+    def spherical_composition(self):
+        grshape = utils.GratingShape()
+        return grshape.get_composition(self.m_grating)
+
     def get_grating(self):
         if self.m_grating_type == "box":
             return self.box_grating()
@@ -112,7 +116,9 @@ class GratingBuilder(ba.IMultiLayerBuilder):
             return self.sinusoidal_grating()
         elif self.m_grating_type == "sinusoidal_composition":
             return self.sinusoidal_composition()
-        else :
+        elif self.m_grating_type == "spherical":
+            return self.spherical_composition()
+        else:
             raise Exception("Unknown grating type")
 
 

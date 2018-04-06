@@ -32,7 +32,7 @@ class ParallelBuilder():
         self.m_sample_builder.setParameterValue("grating_height", 192*nm)
         self.m_sample_builder.setParameterValue("rotation_angle", 0.0*deg)
         self.m_sample_builder.setParameterValue("decay_length", 3000.)
-        self.m_sample_builder.m_grating_type = "spherical"
+        self.m_sample_builder.m_grating_type = "box_composition"
         self.m_beam_data_str = ""
 
         self.m_monte_carlo = False

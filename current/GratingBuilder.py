@@ -77,8 +77,7 @@ class GratingBuilder(ba.IMultiLayerBuilder):
         if not material:
             material = self.m_grating
         #ff = ba.FormFactorBox(self.grating_length(), 0.25*self.grating_period(), self.grating_height())
-        # ff = ba.FormFactorLongBoxLorentz(self.grating_length(), 0.05*self.grating_period(), self.grating_height())
-        ff = ba.FormFactorLongBoxLorentz(self.grating_length(), 100, self.grating_height())
+        ff = ba.FormFactorLongBoxLorentz(self.grating_length(), 0.05*self.grating_period(), self.grating_height())
         #ff = ba.FormFactorLongBoxGauss(self.grating_length(), 0.25*self.grating_period(), self.grating_height())
         return ba.Particle(material, ff)
 

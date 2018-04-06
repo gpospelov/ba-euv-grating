@@ -8,7 +8,8 @@ class GratingBuilder(ba.IMultiLayerBuilder):
 
     """
     def __init__(self):
-        ba.IMultiLayerBuilder.__init__(self)
+        # ba.IMultiLayerBuilder.__init__(self)
+        super(GratingBuilder, self).__init__()
 
         self.m_grating_length = ctypes.c_double(5.0*micrometer)
         self.m_grating_period = ctypes.c_double(814*nm)

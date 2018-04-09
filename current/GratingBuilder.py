@@ -12,8 +12,8 @@ class GratingBuilder(ba.IMultiLayerBuilder):
         super(GratingBuilder, self).__init__()
 
         self.m_grating_length = ctypes.c_double(5.0*micrometer)
-        self.m_grating_period = ctypes.c_double(814*nm)
-        self.m_grating_height = ctypes.c_double(200*nm)
+        self.m_grating_period = ctypes.c_double(830*nm)
+        self.m_grating_height = ctypes.c_double(192*nm)
         self.m_grating_bulk = ctypes.c_double(100*nm)
         self.m_rotation_angle = ctypes.c_double(0.0)  # 90.0 - perpendicular to grating
         self.m_emulsion_layer_thickness = ctypes.c_double(200.0*nm)
@@ -158,8 +158,8 @@ class GratingBuilder(ba.IMultiLayerBuilder):
         # assemble multilayer
         multi_layer = ba.MultiLayer()
         multi_layer.addLayer(air_layer)
-        multi_layer.addLayerWithTopRoughness(gold_layer, roughness)
-        multi_layer.addLayerWithTopRoughness(emulsion_layer, roughness)
+        # multi_layer.addLayerWithTopRoughness(gold_layer, roughness)
+        # multi_layer.addLayerWithTopRoughness(emulsion_layer, roughness)
         multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
         return multi_layer
 

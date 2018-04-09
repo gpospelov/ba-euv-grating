@@ -26,7 +26,7 @@ class SimpleBoxGrating(GratingBase):
         # assemble layers
         air_layer = ba.Layer(self.ambience_material())
         air_layer.addLayout(layout)
-        substrate_layer = ba.Layer(self.m_substrate)
+        substrate_layer = ba.Layer(self.substrate_material())
 
         roughness = ba.LayerRoughness()
         roughness.setSigma(25.0*nm)
@@ -39,3 +39,7 @@ class SimpleBoxGrating(GratingBase):
         multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
         return multi_layer
 
+
+if __name__ == '__main__':
+    grating = SimpleBoxGrating()
+    print(grating.parametersToString())

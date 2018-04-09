@@ -22,26 +22,35 @@ class GratingBase(ba.IMultiLayerBuilder):
         self.registerParameter("decay_length", ctypes.addressof(self.m_decay_length))
         self.registerParameter("rotation_angle", ctypes.addressof(self.m_rotation_angle))
 
+    def grating_length(self):
+        return self.m_grating_length.value
+
+    def grating_period(self):
+        return self.m_grating_period.value
+
     def decay_length(self):
         return self.m_decay_length.value
 
+    def rotation_angle(self):
+        return self.m_rotation_angle.value
+
     @staticmethod
-    def ambience_material(self, wavelength=1.0):
+    def ambience_material(wavelength=1.0):
         # no wavelength dependency for the moment
         return ba.HomogeneousMaterial("air", 0.0, 0.0)
 
     @staticmethod
-    def substrate_material(self, wavelength=1.0):
+    def substrate_material(wavelength=1.0):
         # no wavelength dependency for the moment
         return ba.HomogeneousMaterial("substrate",  0.00111570884, 0.0018275599)  # Si
 
     @staticmethod
-    def grating_material(self, wavelength=1.0):
+    def grating_material(wavelength=1.0):
         # no wavelength dependency for the moment
         return ba.HomogeneousMaterial("grating",  0.101456583, 0.0521341525)  # Au
 
     @staticmethod
-    def poly_material(self, wavelength=1.0):
+    def poly_material(wavelength=1.0):
         # no wavelength dependency for the moment
         return ba.HomogeneousMaterial("poly",  0.0234414786, 0.00490225013)  # something
 
@@ -56,3 +65,11 @@ class GratingBase(ba.IMultiLayerBuilder):
         interference.setDecayFunction(self.decay_function())
         return interference
 
+    def parameters(self):
+        result = []
+        pool = self.parameterPool()
+        names = pool.parameterNames()
+        for i in range(0, len(names)):
+            value = pool.parameter(names[i]).value()
+            result.append((names[i], "{0}".format(value)))
+        return result

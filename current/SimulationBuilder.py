@@ -6,6 +6,7 @@ import bornagain as ba
 from bornagain import deg, micrometer, nm
 from histogram_utils import *
 from SimpleBoxGrating import SimpleBoxGrating
+from TwoBoxGrating import TwoBoxGrating
 import time
 import glob
 import os
@@ -25,16 +26,13 @@ class ParallelBuilder():
         self.m_beam_intensity = 5e+4
         self.m_detector_resolution_sigma = 0.02
         self.m_constant_background = 5e+4
+
         # self.m_sample_builder = GratingBuilder()
-        self.m_sample_builder = SimpleBoxGrating()
+        # self.m_sample_builder = SimpleBoxGrating()
+        self.m_sample_builder = TwoBoxGrating()
+
         self.m_apply_detector_masks = True
         self.m_detector_masks = None
-        # self.m_sample_builder.setParameterValue("grating_length", 5*micrometer)
-        # self.m_sample_builder.setParameterValue("grating_period", 830*nm)
-        # self.m_sample_builder.setParameterValue("grating_height", 192*nm)
-        # self.m_sample_builder.setParameterValue("rotation_angle", 0.0*deg)
-        # self.m_sample_builder.setParameterValue("decay_length", 3000.)
-        # self.m_sample_builder.m_grating_type = "box"
         self.m_beam_data_str = ""
 
         self.m_monte_carlo = False

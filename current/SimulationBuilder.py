@@ -28,16 +28,16 @@ class ParallelBuilder():
         self.m_constant_background = 5e+4
 
         # self.m_sample_builder = GratingBuilder()
-        # self.m_sample_builder = SimpleBoxGrating()
-        self.m_sample_builder = TwoBoxGrating()
+        self.m_sample_builder = SimpleBoxGrating()
+        # self.m_sample_builder = TwoBoxGrating()
 
         self.m_apply_detector_masks = True
         self.m_detector_masks = None
         self.m_beam_data_str = ""
 
         self.m_monte_carlo = False
-        self.m_beam_divergence_alpha = (False, "gauss", 5, 0.05)
-        self.m_beam_divergence_phi = (False, "gauss", 5, 0.05)
+        self.m_beam_divergence_alpha = (True, "gauss", 5, 0.05)
+        self.m_beam_divergence_phi = (True, "gauss", 5, 0.05)
         self.m_time_spend = 0
 
     def parameters_str(self):

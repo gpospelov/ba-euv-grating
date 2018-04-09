@@ -18,8 +18,6 @@ def plot_simulations(result, filename = None, detector_masks=None):
 
     fig = plt.figure(figsize=(16, 8))
 
-    print(result.getMinimum(), result.getMaximum())
-
     gs1 = gridspec.GridSpec(1, 2)
     gs1.update(left=0.05, right=1.0, bottom=0.525, top=0.95, wspace=0.05)
 
@@ -49,16 +47,22 @@ def plot_simulations(result, filename = None, detector_masks=None):
 
 
 def run_pack(builder):
-    for i in range(0, 30):
-        height = 170+i*2
-        print("run_pack()", i, height)
-        builder.m_sample_builder.setParameterValue("grating_height", height)
-        run_single(builder)
-    # for i in range(0, 20):
-    #     period = 820.0 + i
-    #     print("run_pack()", i, period)
-    #     builder.m_sample_builder.setParameterValue("grating_period", period)
+    # for i in range(0, 30):
+    #     height = 170+i*2
+    #     print("run_pack()", i, height)
+    #     builder.m_sample_builder.setParameterValue("grating_height", height)
     #     run_single(builder)
+    # for i in range(0, 40):
+    #     value = 30 + i*3
+    #     print("run_pack()", i, value)
+    #     builder.m_sample_builder.setParameterValue("grating_width", value)
+    #     run_single(builder)
+
+    for i in range(0, 30):
+        value = 180 + i*1.0
+        print("run_pack()", i, value)
+        builder.m_sample_builder.setParameterValue("grating_height", value)
+        run_single(builder)
 
 
 def run_single(builder):
@@ -69,7 +73,7 @@ def run_single(builder):
 
 
 if __name__ == '__main__':
-    builder = ParallelBuilder("../reports/output/rectangular_setup")
+    builder = ParallelBuilder("../reports/output")
     run_single(builder)
     # run_pack(builder)
     plt.show()

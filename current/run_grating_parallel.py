@@ -58,7 +58,7 @@ def run_pack(builder):
     #     builder.m_sample_builder.setParameterValue("grating_width", value)
     #     run_single(builder)
 
-    for i in range(0, 30):
+    for i in range(0, 40):
         value = 180 + i*1.0
         print("run_pack()", i, value)
         builder.m_sample_builder.setParameterValue("grating_height", value)
@@ -74,6 +74,6 @@ def run_single(builder):
 
 if __name__ == '__main__':
     builder = ParallelBuilder("../reports/output")
-    run_single(builder)
-    # run_pack(builder)
+    # run_single(builder)
+    run_pack(builder)
     plt.show()

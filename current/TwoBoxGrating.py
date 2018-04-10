@@ -8,13 +8,13 @@ class TwoBoxGrating(GratingBase):
     def __init__(self):
         GratingBase.__init__(self)
 
-        self.m_grating_height = ctypes.c_double(192*nm)
+        self.m_grating_height = ctypes.c_double(197*nm)
         self.registerParameter("grating_height", ctypes.addressof(self.m_grating_height))
 
-        self.m_grating_with = ctypes.c_double(41.5*nm)
+        self.m_grating_with = ctypes.c_double(29.0*nm)
         self.registerParameter("grating_width", ctypes.addressof(self.m_grating_with))
 
-        self.m_grating_bulk = ctypes.c_double(200.0*nm)
+        self.m_grating_bulk = ctypes.c_double(197.0*nm)
         self.registerParameter("grating_bulk", ctypes.addressof(self.m_grating_bulk))
 
     def grating_height(self):
@@ -51,10 +51,11 @@ class TwoBoxGrating(GratingBase):
         intermediate = ba.Layer(self.ambience_material(), self.grating_height() + self.grating_bulk())
         intermediate.addLayout(layout)
 
+        under = ba.Layer(self.ambience_material(), 100*nm)
         substrate_layer = ba.Layer(self.substrate_material())
 
         roughness = ba.LayerRoughness()
-        roughness.setSigma(25.0*nm)
+        roughness.setSigma(5.0*nm)
         roughness.setHurstParameter(0.5)
         roughness.setLatteralCorrLength(10.0*nm)
 
@@ -64,7 +65,8 @@ class TwoBoxGrating(GratingBase):
         multi_layer = ba.MultiLayer()
         multi_layer.addLayer(air_layer)
         multi_layer.addLayer(intermediate)
-        multi_layer.addLayerWithTopRoughness(emulsion_layer, roughness)
+        multi_layer.addLayer(under)
+        # multi_layer.addLayerWithTopRoughness(emulsion_layer, roughness)
         multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
         return multi_layer
 

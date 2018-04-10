@@ -8,13 +8,13 @@ class BoxCompositionGrating(GratingBase):
     def __init__(self):
         GratingBase.__init__(self)
 
-        self.m_grating_height = ctypes.c_double(192*nm)
+        self.m_grating_height = ctypes.c_double(225*nm)
         self.registerParameter("grating_height", ctypes.addressof(self.m_grating_height))
 
-        self.m_grating_with = ctypes.c_double(41.5*nm)
+        self.m_grating_with = ctypes.c_double(45*nm)
         self.registerParameter("grating_width", ctypes.addressof(self.m_grating_with))
 
-        self.m_grating_bulk = ctypes.c_double(100.0*nm)
+        self.m_grating_bulk = ctypes.c_double(50.0*nm)
         self.registerParameter("grating_bulk", ctypes.addressof(self.m_grating_bulk))
 
     def grating_height(self):
@@ -30,8 +30,8 @@ class BoxCompositionGrating(GratingBase):
         ff = ba.FormFactorLongBoxLorentz(self.grating_length(), self.grating_width(), self.grating_height())
         topPart = ba.Particle(self.grating_material(), ff)
 
-        ff = ba.FormFactorLongBoxLorentz(self.grating_length(), self.grating_width(), self.grating_bulk())
-        bottomPart = ba.Particle(self.poly_material(), ff)
+        ff = ba.FormFactorLongBoxLorentz(self.grating_length(), self.grating_width(), self.grating_height())
+        bottomPart = ba.Particle(self.ambience_material(), ff)
 
         composition = ba.ParticleComposition()
         composition.addParticle(topPart, ba.kvector_t(0, 0, 0))
@@ -50,7 +50,7 @@ class BoxCompositionGrating(GratingBase):
 
         gold_layer = ba.Layer(self.grating_material(), self.grating_bulk()+self.grating_height())
 
-        emulsion_layer = ba.Layer(self.poly_material(), 200.0*nm)
+        emulsion_layer = ba.Layer(self.ambience_material(), 200.0*nm)
 
         roughness = ba.LayerRoughness()
         roughness.setSigma(25.0*nm)

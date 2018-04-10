@@ -47,21 +47,22 @@ def plot_simulations(result, filename = None, detector_masks=None):
 
 
 def run_pack(builder):
-    # for i in range(0, 30):
-    #     height = 170+i*2
-    #     print("run_pack()", i, height)
-    #     builder.m_sample_builder.setParameterValue("grating_height", height)
-    #     run_single(builder)
     # for i in range(0, 40):
     #     value = 30 + i*3
     #     print("run_pack()", i, value)
     #     builder.m_sample_builder.setParameterValue("grating_width", value)
     #     run_single(builder)
 
+    # for i in range(0, 40):
+    #     value = 180 + i*3.0
+    #     print("run_pack()", i, value)
+    #     builder.m_sample_builder.setParameterValue("grating_height", value)
+    #     run_single(builder)
+
     for i in range(0, 40):
-        value = 180 + i*1.0
+        value = 150 + i*10
         print("run_pack()", i, value)
-        builder.m_sample_builder.setParameterValue("grating_height", value)
+        builder.m_sample_builder.setParameterValue("grating_bulk", value)
         run_single(builder)
 
 

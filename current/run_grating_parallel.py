@@ -74,6 +74,6 @@ def run_single(builder):
 
 if __name__ == '__main__':
     builder = ParallelBuilder("../reports/output")
-    # run_single(builder)
-    run_pack(builder)
+    run_single(builder)
+    # run_pack(builder)
     plt.show()

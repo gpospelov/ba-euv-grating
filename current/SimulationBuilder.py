@@ -8,10 +8,17 @@ from histogram_utils import *
 from SimpleBoxGrating import SimpleBoxGrating
 from TwoBoxGrating import TwoBoxGrating
 from SimpleSinusGrating import SimpleSinusGrating
+from BoxCompositionGrating import BoxCompositionGrating
 import time
 import glob
 import os
 
+grating_builders = {
+    "box": SimpleBoxGrating(),
+    "two_box": TwoBoxGrating(),
+    "sinus": SimpleSinusGrating(),
+    "box_composition": BoxCompositionGrating()
+}
 
 class DivergenceData:
     FLAG, TYPE, NPOINTS, SIGMA = range(4)
@@ -22,6 +29,8 @@ class ParallelBuilder():
         self.m_output_index = 0
 
         self.m_title = "Box-grating: scanning grating period"
+        self.m_grating_type = "box_composition"
+
         self.m_alpha_inc = 10.71
         self.m_phi_inc = 0
         self.m_beam_intensity = 5e+4
@@ -31,7 +40,8 @@ class ParallelBuilder():
         # self.m_sample_builder = GratingBuilder()
         # self.m_sample_builder = SimpleBoxGrating()
         # self.m_sample_builder = TwoBoxGrating()
-        self.m_sample_builder = SimpleSinusGrating()
+        # self.m_sample_builder = SimpleSinusGrating()
+        self.m_sample_builder = grating_builders[self.m_grating_type]
 
         self.m_apply_detector_masks = True
         self.m_detector_masks = None
@@ -57,10 +67,11 @@ class ParallelBuilder():
         return result
 
     def parameters(self):
-        return self.m_sample_builder.parameters() + self.simul_parameters()
+        return self.simul_parameters() + self.m_sample_builder.parameters()
 
     def simul_parameters(self):
         result=[]
+        result.append(("Grating type", "{0}".format(self.m_grating_type)))
         result.append(("Inclination angle", "{0}".format(self.m_alpha_inc)))
         result.append(("Azimuthal angle", "{0}".format(self.m_phi_inc)))
         result.append(("Beam intensity", "{:g}".format(self.m_beam_intensity)))

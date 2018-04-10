@@ -39,7 +39,7 @@ class SimpleSinusGrating(GratingBase):
         intermediate.addLayout(layout)
 
         roughness = ba.LayerRoughness()
-        roughness.setSigma(5.0*nm)
+        roughness.setSigma(25.0*nm)
         roughness.setHurstParameter(0.5)
         roughness.setLatteralCorrLength(10.0*nm)
 

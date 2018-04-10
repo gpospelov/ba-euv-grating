@@ -13,7 +13,7 @@ class GratingBase(ba.IMultiLayerBuilder):
         self.m_grating_length = ctypes.c_double(5.0*micrometer)
         self.m_grating_period = ctypes.c_double(830*nm)
 
-        self.m_decay_length = ctypes.c_double(3000.*nm)
+        self.m_decay_length = ctypes.c_double(2200.*nm)
         self.m_rotation_angle = ctypes.c_double(0.0)  # 90.0 - beam is perpendicular to grating lines
 
         self.registerParameter("grating_length", ctypes.addressof(self.m_grating_length))

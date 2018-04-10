@@ -24,7 +24,7 @@ class GratingBuilder(ba.IMultiLayerBuilder):
 
         self.m_decay_length = ctypes.c_double(2200.*nm)
         self.m_decay_function_type = "gauss"
-        self.m_grating_type = "box"
+        self.m_grating_type = "box_composition"
 
         self.registerParameter("grating_length", ctypes.addressof(self.m_grating_length))
         self.registerParameter("grating_period", ctypes.addressof(self.m_grating_period))
@@ -158,8 +158,8 @@ class GratingBuilder(ba.IMultiLayerBuilder):
         # assemble multilayer
         multi_layer = ba.MultiLayer()
         multi_layer.addLayer(air_layer)
-        # multi_layer.addLayerWithTopRoughness(gold_layer, roughness)
-        # multi_layer.addLayerWithTopRoughness(emulsion_layer, roughness)
+        multi_layer.addLayerWithTopRoughness(gold_layer, roughness)
+        multi_layer.addLayerWithTopRoughness(emulsion_layer, roughness)
         multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
         return multi_layer
 

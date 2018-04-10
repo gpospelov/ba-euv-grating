@@ -24,7 +24,7 @@ class GratingBuilder(ba.IMultiLayerBuilder):
 
         self.m_decay_length = ctypes.c_double(2200.*nm)
         self.m_decay_function_type = "gauss"
-        self.m_grating_type = "box_composition"
+        self.m_grating_type = "spherical"
 
         self.registerParameter("grating_length", ctypes.addressof(self.m_grating_length))
         self.registerParameter("grating_period", ctypes.addressof(self.m_grating_period))

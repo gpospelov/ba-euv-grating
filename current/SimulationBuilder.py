@@ -9,6 +9,7 @@ from SimpleBoxGrating import SimpleBoxGrating
 from TwoBoxGrating import TwoBoxGrating
 from SimpleSinusGrating import SimpleSinusGrating
 from BoxCompositionGrating import BoxCompositionGrating
+from SphericalGrating import SphericalGrating
 import time
 import glob
 import os
@@ -17,7 +18,8 @@ grating_builders = {
     "box": SimpleBoxGrating(),
     "two_box": TwoBoxGrating(),
     "sinus": SimpleSinusGrating(),
-    "box_composition": BoxCompositionGrating()
+    "box_composition": BoxCompositionGrating(),
+    "spherical": SphericalGrating()
 }
 
 class DivergenceData:
@@ -29,7 +31,7 @@ class ParallelBuilder():
         self.m_output_index = 0
 
         self.m_title = "Box-grating: scanning grating period"
-        self.m_grating_type = "box_composition"
+        self.m_grating_type = "spherical"
 
         self.m_alpha_inc = 10.71
         self.m_phi_inc = 0

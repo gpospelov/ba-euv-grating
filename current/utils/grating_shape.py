@@ -61,13 +61,14 @@ class Rectangle:
 
 
 class GratingShape:
-    def __init__(self, period=833.0, thickness=300.0, nslices = 100, grating_length=5.0*micrometer):
+    def __init__(self, period=833.0, thickness=300.0, nslices=50, grating_length=5.0*micrometer):
         self.m_period = period
         self.m_thickness = thickness
         self.m_nslices = nslices
-        self.m_circle0 = Circle(0.0, 0.0, 225.0)
+        self.m_r0 = 225.0
+        self.m_circle0 = Circle(0.0, 0.0, self.m_r0)
         self.m_circle1 = Circle(period/2.0, 820.0-450.0, 360.0)
-        self.m_circle2 = Circle(period, 0.0, 225.0)
+        self.m_circle2 = Circle(period, 0.0, self.m_r0)
         self.m_grating_length = grating_length
 
     def get_y(self, x):

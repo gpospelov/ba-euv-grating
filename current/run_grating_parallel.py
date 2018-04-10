@@ -59,8 +59,8 @@ def run_pack(builder):
     #     builder.m_sample_builder.setParameterValue("grating_height", value)
     #     run_single(builder)
 
-    for i in range(0, 40):
-        value = 150 + i*10
+    for i in range(0, 10):
+        value = 400 + i*10
         print("run_pack()", i, value)
         builder.m_sample_builder.setParameterValue("grating_bulk", value)
         run_single(builder)

@@ -8,9 +8,9 @@ from bornagain import nm, deg, micrometer
 class GratingBase:
     def __init__(self):
 
-        self.m_grating_length = 5.0*micrometer
+        self.m_grating_length = 2.0*micrometer
         self.m_grating_period = 833*nm
-        self.m_decay_length = 2200.*nm
+        self.m_decay_length = 2500.*nm
         self.m_rotation_angle = 0.0  # 90.0 beam is perp to grating lines
 
     def add_parameters(self, run_parameters):

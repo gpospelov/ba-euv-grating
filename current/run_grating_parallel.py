@@ -61,8 +61,8 @@ if __name__ == '__main__':
     report = ReportManager()
 
     builder = ParallelBuilder()
-    # run_single(builder, report)
-    run_pack(builder, report)
+    run_single(builder, report)
+    # run_pack(builder, report)
 
     report.generate_pdf()
     plt.show()

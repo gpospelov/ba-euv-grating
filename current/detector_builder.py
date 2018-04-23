@@ -90,7 +90,7 @@ class DetectorBuilder:
 
     def apply_masks(self, simulation):
         simulation.maskAll()
-        simulation.addMask(ba.Ellipse(self.width()/2, self.height()*0.02, self.width()*0.7, self.height()*0.8), False)
+        simulation.addMask(ba.Ellipse(self.width()/2, self.height()*0.02, self.width()*0.69, self.height()*0.8), False)
         simulation.addMask(ba.Ellipse(self.width()/2, -self.height()*0.3, self.width()*0.62, self.height()*0.8), True)
 
         # simulation.addMask(ba.Rectangle(0, 0, self.width()*0.45, self.height()), True)

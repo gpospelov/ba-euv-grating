@@ -30,7 +30,7 @@ class SimpleBoxGrating(GratingBase):
                            ba.kvector_t(0.0, 0.0, -self.grating_height()),
                            ba.RotationZ(self.rotation_angle()))
         layout.setInterferenceFunction(self.interference())
-        # layout.setTotalParticleSurfaceDensity(2e-6)
+        layout.setTotalParticleSurfaceDensity(2)
 
         # assemble layers
         air_layer = ba.Layer(self.ambience_material())

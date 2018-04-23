@@ -12,8 +12,7 @@ from BoxCompositionGrating import BoxCompositionGrating
 from SphericalGrating import SphericalGrating
 from parameter_utils import RunParameters
 import time
-import glob
-import os
+
 
 grating_builders = {
     "box": SimpleBoxGrating(),
@@ -55,7 +54,7 @@ class ParallelBuilder():
         """
         result = RunParameters()
         result.add_parameters(self)
-        # self.m_sample_builder.add_parameters(result)
+        self.m_sample_builder.add_parameters(result)
         return result.parameter_tuple()
 
     def get_distribution(self, type, par1, par2):
@@ -98,7 +97,7 @@ class ParallelBuilder():
     def run_simulation(self, wavelength=13.52*nm, weight=1.0):
         self.m_beam_data_str += "({:5.2f},{:5.2f})".format(wavelength, weight)
         simulation = self.build_simulation(wavelength)
-        simulation.setSampleBuilder(self.m_sample_builder)
+        simulation.setSample(self.m_sample_builder.buildSample())
         simulation.runSimulation()
         return simulation.result().histogram2d()
 

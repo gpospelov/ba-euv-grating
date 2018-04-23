@@ -1,34 +1,27 @@
-import ctypes
 import bornagain as ba
-from GratingBase import GratingBase
+from grating_base import GratingBase
 from bornagain import nm, deg
 import utils
 
 
 class SphericalGrating(GratingBase):
     def __init__(self):
-        GratingBase.__init__(self)
-
-        self.m_grating_height = ctypes.c_double(225*nm)
-        self.registerParameter("grating_height", ctypes.addressof(self.m_grating_height))
-
-        self.m_grating_bulk = ctypes.c_double(100.0*nm)
-        self.registerParameter("grating_bulk", ctypes.addressof(self.m_grating_bulk))
-
-        self.m_nslices = ctypes.c_double(50.0)
-        self.registerParameter("nslices", ctypes.addressof(self.m_nslices))
+        super().__init__()
+        self.m_grating_height = 225*nm
+        self.m_grating_bulk = 100.0*nm
+        self.m_nslices = 50.0
 
     def grating_height(self):
-        return self.m_grating_height.value
+        return self.m_grating_height
 
     def grating_width(self):
-        return self.m_grating_with.value
+        return self.m_grating_with
 
     def grating_bulk(self):
-        return self.m_grating_bulk.value
+        return self.m_grating_bulk
 
     def grating(self):
-        grshape = utils.GratingShape(period = self.grating_period(), grating_length=self.grating_length(), thickness=self.grating_bulk(), nslices=int(self.m_nslices.value))
+        grshape = utils.GratingShape(period = self.grating_period(), grating_length=self.grating_length(), thickness=self.grating_bulk(), nslices=int(self.m_nslices))
         return grshape.get_composition(self.grating_material())
 
     def buildSample(self):

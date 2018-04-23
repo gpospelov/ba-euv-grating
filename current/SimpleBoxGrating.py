@@ -1,27 +1,27 @@
-import ctypes
 import bornagain as ba
-from GratingBase import GratingBase
+from grating_base import GratingBase
 from bornagain import nm, deg
 
 
 class SimpleBoxGrating(GratingBase):
     def __init__(self):
-        GratingBase.__init__(self)
+        super().__init__()
+        self.m_grating_height = 201*nm
+        self.m_grating_with = 29*nm
 
-        self.m_grating_height = ctypes.c_double(201*nm)
-        self.registerParameter("grating_height", ctypes.addressof(self.m_grating_height))
-
-        self.m_grating_with = ctypes.c_double(29*nm)
-        self.registerParameter("grating_width", ctypes.addressof(self.m_grating_with))
+    def add_parameters(self, run_parameters):
+        super().add_parameters(run_parameters)
+        run_parameters.add_parameters(self)
 
     def grating_height(self):
-        return self.m_grating_height.value
+        return self.m_grating_height
 
     def grating_width(self):
-        return self.m_grating_with.value
+        return self.m_grating_with
 
     def grating(self):
-        ff = ba.FormFactorLongBoxLorentz(self.grating_length(), self.grating_width(), self.grating_height())
+        ff = ba.FormFactorLongBoxLorentz(self.grating_length(), self.grating_width(),
+                                         self.grating_height())
         return ba.Particle(self.grating_material(), ff)
 
     def buildSample(self):
@@ -50,8 +50,3 @@ class SimpleBoxGrating(GratingBase):
         multi_layer.addLayer(under)
         multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
         return multi_layer
-
-
-if __name__ == '__main__':
-    grating = SimpleBoxGrating()
-    print(grating.parametersToString())

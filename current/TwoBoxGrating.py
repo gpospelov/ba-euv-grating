@@ -1,36 +1,33 @@
-import ctypes
 import bornagain as ba
-from GratingBase import GratingBase
+from grating_base import GratingBase
 from bornagain import nm, deg
 
 
 class TwoBoxGrating(GratingBase):
     def __init__(self):
-        GratingBase.__init__(self)
-
-        self.m_grating_height = ctypes.c_double(197*nm)
-        self.registerParameter("grating_height", ctypes.addressof(self.m_grating_height))
-
-        self.m_grating_with = ctypes.c_double(29.0*nm)
-        self.registerParameter("grating_width", ctypes.addressof(self.m_grating_with))
-
-        self.m_grating_bulk = ctypes.c_double(197.0*nm)
-        self.registerParameter("grating_bulk", ctypes.addressof(self.m_grating_bulk))
+        super().__init__()
+        self.m_grating_height = 197*nm
+        self.m_grating_with = 29.0*nm
+        self.m_grating_bulk = 197.0*nm
 
     def grating_height(self):
-        return self.m_grating_height.value
+        return self.m_grating_height
 
     def grating_width(self):
-        return self.m_grating_with.value
+        return self.m_grating_with
 
     def grating_bulk(self):
-        return self.m_grating_bulk.value
+        return self.m_grating_bulk
 
     def grating(self):
-        ff = ba.FormFactorLongBoxLorentz(self.grating_length(), self.grating_width(), self.grating_height())
+        ff = ba.FormFactorLongBoxLorentz(self.grating_length(),
+                                         self.grating_width(),
+                                         self.grating_height())
         topPart =  ba.Particle(self.grating_material(), ff)
 
-        ff = ba.FormFactorLongBoxLorentz(self.grating_length(), self.grating_period(), self.grating_bulk())
+        ff = ba.FormFactorLongBoxLorentz(self.grating_length(),
+                                         self.grating_period(),
+                                         self.grating_bulk())
         bottomPart =  ba.Particle(self.grating_material(), ff)
 
         composition = ba.ParticleComposition()
@@ -69,8 +66,3 @@ class TwoBoxGrating(GratingBase):
         # multi_layer.addLayerWithTopRoughness(emulsion_layer, roughness)
         multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
         return multi_layer
-
-
-if __name__ == '__main__':
-    grating = TwoBoxGrating()
-    print(grating.parametersToString())

@@ -1,30 +1,23 @@
-import ctypes
 import bornagain as ba
-from GratingBase import GratingBase
+from grating_base import GratingBase
 from bornagain import nm, deg
 
 
 class BoxCompositionGrating(GratingBase):
     def __init__(self):
-        GratingBase.__init__(self)
-
-        self.m_grating_height = ctypes.c_double(225*nm)
-        self.registerParameter("grating_height", ctypes.addressof(self.m_grating_height))
-
-        self.m_grating_with = ctypes.c_double(45*nm)
-        self.registerParameter("grating_width", ctypes.addressof(self.m_grating_with))
-
-        self.m_grating_bulk = ctypes.c_double(50.0*nm)
-        self.registerParameter("grating_bulk", ctypes.addressof(self.m_grating_bulk))
+        super().__init__()
+        self.m_grating_height = 225*nm
+        self.m_grating_with = 45*nm
+        self.m_grating_bulk = 50.0*nm
 
     def grating_height(self):
-        return self.m_grating_height.value
+        return self.m_grating_height
 
     def grating_width(self):
-        return self.m_grating_with.value
+        return self.m_grating_with
 
     def grating_bulk(self):
-        return self.m_grating_bulk.value
+        return self.m_grating_bulk
 
     def grating(self):
         ff = ba.FormFactorLongBoxLorentz(self.grating_length(), self.grating_width(), self.grating_height())

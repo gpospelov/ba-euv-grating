@@ -1,6 +1,6 @@
 import ctypes
 import bornagain as ba
-from GratingBase import GratingBase
+from grating_base import GratingBase
 from bornagain import nm, deg
 
 
@@ -9,10 +9,7 @@ class SimpleSinusGrating(GratingBase):
         GratingBase.__init__(self)
 
         self.m_grating_height = ctypes.c_double(201*nm)
-        self.registerParameter("grating_height", ctypes.addressof(self.m_grating_height))
-
         self.m_grating_with = ctypes.c_double(29*nm)
-        self.registerParameter("grating_width", ctypes.addressof(self.m_grating_with))
 
     def grating_height(self):
         return self.m_grating_height.value

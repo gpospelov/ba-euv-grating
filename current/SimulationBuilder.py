@@ -26,9 +26,7 @@ class DivergenceData:
     FLAG, TYPE, NPOINTS, SIGMA = range(4)
 
 class ParallelBuilder():
-    def __init__(self, output_dir="output"):
-        self.m_output_dir = output_dir
-        self.m_output_index = 0
+    def __init__(self):
 
         self.m_title = "Box-grating: scanning grating period"
         self.m_grating_type = "spherical"
@@ -133,8 +131,6 @@ class ParallelBuilder():
         return simulation.result().histogram2d()
 
     def run(self):
-        self.init_workspace()
-
         start = time.time()
 
         sum_hist = None
@@ -156,46 +152,3 @@ class ParallelBuilder():
 
         return sum_hist
 
-    def make_dir(self, dirname):
-        if not os.path.exists(dirname):
-            os.makedirs(dirname)
-
-    def init_workspace(self):
-        """
-        Analyses output directory and finds index of last file
-        """
-        self.make_dir(self.m_output_dir)
-        mdfiles = glob.glob(os.path.join(self.m_output_dir, '*.md'))
-        nums = set()
-        for f in mdfiles:
-            parts = f.split("-")
-            if len(parts) != 2:
-                raise Exception("Can't parse the name")
-            num = int(parts[1].split(".")[0])
-            nums.add(num)
-        self.m_output_index = 1
-        if len(nums):
-            self.m_output_index = list(nums)[-1] + 1
-
-    def output_md(self):
-        return '{}/run-{:02d}.md'.format(self.m_output_dir, self.m_output_index)
-
-    def output_png_full(self):
-        return '{}/run-{:02d}.png'.format(self.m_output_dir, self.m_output_index)
-
-    def output_png(self):
-        return 'run-{:02d}.png'.format(self.m_output_index)
-
-    def write_report(self):
-        print(self.output_md(), self.output_png())
-        with open(self.output_md(), "w") as f:
-            f.write("## {0}\n\n".format(self.m_title))
-            f.write("Comment: \n\n")
-            f.write("<pre>\n")
-            f.write(self.parameters_str())
-            f.write("</pre>\n")
-            f.write("\n")
-            f.write("![alt text]({0})\n\n".format(self.output_png()))
-            f.write("<div style=\"page-break-after: always;\"></div>\n\n")
-            f.write("\n")
-        print(self.parameters_str())

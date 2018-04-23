@@ -12,9 +12,10 @@ from matplotlib import rcParams
 rcParams['image.cmap'] = 'jet'
 import matplotlib.gridspec as gridspec
 from histogram_utils import *
+from report_manager import ReportManager
 
 
-def plot_simulations(result, filename = None, detector_masks=None):
+def plot_simulations(result, detector_masks=None):
 
     fig = plt.figure(figsize=(16, 8))
 
@@ -42,9 +43,6 @@ def plot_simulations(result, filename = None, detector_masks=None):
     plt.semilogy(sim_proj.getBinCenters(), sim_proj.getBinValues()+1, label=r'$\phi=0.0^{\circ}$')
     plt.ylim(5e+6, 1e+9)
 
-    if filename:
-        plt.savefig(filename)
-
 
 def run_pack(builder):
     # for i in range(0, 40):
@@ -66,15 +64,19 @@ def run_pack(builder):
         run_single(builder)
 
 
-def run_single(builder):
+def run_single(builder, report=None):
     result = builder.run()
-    builder.write_report()
-
-    plot_simulations(result, detector_masks=builder.m_detector_masks, filename=builder.output_png_full())
+    plot_simulations(result, detector_masks=builder.m_detector_masks)
+    if report:
+        report.write_report(builder.parameter_tuple())
 
 
 if __name__ == '__main__':
-    builder = ParallelBuilder("../reports/output")
+    report = ReportManager()
+
+    builder = ParallelBuilder()
     run_single(builder)
     # run_pack(builder)
+
+    report.generate_pdf()
     plt.show()

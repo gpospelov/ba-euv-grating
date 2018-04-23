@@ -38,8 +38,6 @@ class ParallelBuilder():
 
         self.m_sample_builder = grating_builders["box"]
 
-        self.m_apply_detector_masks = True
-        self.m_detector_masks = None
         self.m_beam_data_str = ""
 
         self.m_monte_carlo = False
@@ -77,9 +75,7 @@ class ParallelBuilder():
         simulation.setDetectorResolutionFunction(ba.ResolutionFunction2DGaussian(self.m_detector_resolution_sigma*deg, self.m_detector_resolution_sigma*deg))
         simulation.setBackground(ba.ConstantBackground(self.m_constant_background))
 
-        if self.m_apply_detector_masks:
-            self.m_detector_builder.apply_masks(simulation)
-            self.m_detector_masks = simulation.getInstrument().getDetectorMask().createHistogram()
+        self.m_detector_builder.apply_masks(simulation)
 
         if self.m_monte_carlo:
             simulation.getOptions().setMonteCarloIntegration(True, 50)
@@ -114,6 +110,5 @@ class ParallelBuilder():
         Returns experimental data in same units as simulated data.
         """
         data = self.m_detector_builder.get_histogram().array()
-        fitObject = ba.FitObject(self.m_simulation, data)
-        return fitObject.experimentalData()
+        return ba.ConvertData(self.m_simulation, data)
 

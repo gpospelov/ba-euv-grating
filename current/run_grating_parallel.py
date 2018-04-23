@@ -9,7 +9,6 @@ from detector_builder import DetectorBuilder
 from matplotlib import rcParams
 rcParams['image.cmap'] = 'jet'
 import matplotlib.gridspec as gridspec
-from histogram_utils import *
 from report_manager import ReportManager
 
 
@@ -23,13 +22,13 @@ def plot_simulations(sim_results, exp_data):
     units = ba.AxesUnits.DEGREES
 
     plt.subplot(gs1[0])
-    ba.plot_colormap(sim_results, zmin=1, zmax=1e+9, units=units)
+    ba.plot_colormap(sim_results, zmin=1, zmax=1e+9, units=units, zlabel="")
 
     plt.subplot(gs1[1])
-    ba.plot_colormap(exp_data, zmin=1, zmax=1e+9, units=units)
+    ba.plot_colormap(exp_data, zmin=1, zmax=1e+9, units=units, zlabel="")
 
     gs2 = gridspec.GridSpec(1, 1)
-    gs2.update(left=0.05, right=0.95, bottom=0.05, top=0.475, wspace=0.05)
+    gs2.update(left=0.05, right=0.95, bottom=0.05, top=0.455, wspace=0.05)
     plt.subplot(gs2[0])
     exp_proj = exp_data.histogram2d(units).projectionX()
     plt.semilogy(exp_proj.getBinCenters(), exp_proj.getBinValues()+1, label=r'$\phi=0.0^{\circ}$')
@@ -42,7 +41,7 @@ def plot_simulations(sim_results, exp_data):
 def run_pack(builder, report):
 
     report.m_title = "Grating height scan"
-    for i in range(0, 40):
+    for i in range(0, 4):
         value = 180 + i*3.0
         print("run_pack()", i, value)
         builder.m_sample_builder.m_grating_height = value

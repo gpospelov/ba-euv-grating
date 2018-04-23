@@ -75,7 +75,7 @@ if __name__ == '__main__':
     report = ReportManager()
 
     builder = ParallelBuilder()
-    run_single(builder)
+    run_single(builder, report)
     # run_pack(builder)
 
     report.generate_pdf()

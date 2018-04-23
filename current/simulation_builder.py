@@ -10,6 +10,7 @@ from TwoBoxGrating import TwoBoxGrating
 from SimpleSinusGrating import SimpleSinusGrating
 from BoxCompositionGrating import BoxCompositionGrating
 from SphericalGrating import SphericalGrating
+from parameter_utils import RunParameters
 import time
 import glob
 import os
@@ -22,14 +23,13 @@ grating_builders = {
     "spherical": SphericalGrating()
 }
 
+
 class DivergenceData:
     FLAG, TYPE, NPOINTS, SIGMA = range(4)
 
+
 class ParallelBuilder():
     def __init__(self):
-
-        self.m_title = "Box-grating: scanning grating period"
-        self.m_grating_type = "spherical"
 
         self.m_alpha_inc = 10.71
         self.m_phi_inc = 0
@@ -37,11 +37,7 @@ class ParallelBuilder():
         self.m_detector_resolution_sigma = 0.02
         self.m_constant_background = 5e+4
 
-        # self.m_sample_builder = GratingBuilder()
-        # self.m_sample_builder = SimpleBoxGrating()
-        # self.m_sample_builder = TwoBoxGrating()
-        # self.m_sample_builder = SimpleSinusGrating()
-        self.m_sample_builder = grating_builders[self.m_grating_type]
+        self.m_sample_builder = grating_builders["box"]
 
         self.m_apply_detector_masks = True
         self.m_detector_masks = None
@@ -52,37 +48,15 @@ class ParallelBuilder():
         self.m_beam_divergence_phi = (False, "gauss", 5, 0.05)
         self.m_time_spend = 0
 
-    def parameters_str(self):
-        pars = self.parameters()
-        result = str()
-        nrows, ncols = 7, 3
-        for row in range(0, nrows):
-            for col in range(0, ncols):
-                ipar = row + nrows*col
-                if ipar < len(pars):
-                    result += "{:22} {:1} {:30}".format(pars[ipar][0], ":", pars[ipar][1])
-                else:
-                    result += " "*56
-            result += "\n"
-        return result
-
-    def parameters(self):
-        return self.simul_parameters() + self.m_sample_builder.parameters()
-
-    def simul_parameters(self):
-        result=[]
-        result.append(("Grating type", "{0}".format(self.m_grating_type)))
-        result.append(("Inclination angle", "{0}".format(self.m_alpha_inc)))
-        result.append(("Azimuthal angle", "{0}".format(self.m_phi_inc)))
-        result.append(("Beam intensity", "{:g}".format(self.m_beam_intensity)))
-        result.append(("Beam wavelength", "{0}".format(self.m_beam_data_str)))
-        result.append(("Detector resolution", "{0}".format(self.m_detector_resolution_sigma)))
-        result.append(("Constant background", "{:g}".format(self.m_constant_background)))
-        result.append(("Beam div alpha", "{0}".format(self.m_beam_divergence_alpha)))
-        result.append(("Beam div phi", "{0}".format(self.m_beam_divergence_phi)))
-        result.append(("Montecarlo", "{0}".format(self.m_monte_carlo)))
-        result.append(("Time", "{:-6.2f}".format(self.m_time_spend)))
-        return result
+    def parameter_tuple(self):
+        """
+        Return RunParameters representing all registered parameter of 'self' and
+        other children.
+        """
+        result = RunParameters()
+        result.add_parameters(self)
+        # self.m_sample_builder.add_parameters(result)
+        return result.parameter_tuple()
 
     def get_distribution(self, type, par1, par2):
         if type == "gauss":
@@ -118,8 +92,6 @@ class ParallelBuilder():
             d = self.m_beam_divergence_phi
             distr = self.get_distribution(d[DivergenceData.TYPE], self.m_phi_inc*deg, d[DivergenceData.SIGMA]*deg)
             simulation.addParameterDistribution("*/Beam/AzimuthalAngle", distr, d[DivergenceData.NPOINTS])
-
-        print(simulation.parametersToString())
 
         return simulation
 

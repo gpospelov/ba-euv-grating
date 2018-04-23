@@ -1,6 +1,6 @@
 from bornagain import deg, nm
 from GratingBuilder import GratingBuilder
-from DetectorBuilder import DetectorBuilder
+from detector_builder import DetectorBuilder
 from BeamData import beam_data
 import bornagain as ba
 from bornagain import deg, micrometer, nm

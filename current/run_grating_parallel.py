@@ -7,7 +7,7 @@ markdown-pdf -s custom.css -r landscape *.md
 import bornagain as ba
 from matplotlib import pyplot as plt
 from SimulationBuilder import ParallelBuilder
-from DetectorBuilder import DetectorBuilder
+from detector_builder import DetectorBuilder
 from matplotlib import rcParams
 rcParams['image.cmap'] = 'jet'
 import matplotlib.gridspec as gridspec

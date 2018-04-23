@@ -26,7 +26,9 @@ class SimpleBoxGrating(GratingBase):
 
     def buildSample(self):
         layout = ba.ParticleLayout()
-        layout.addParticle(self.grating(), 1.0, ba.kvector_t(0.0, 0.0, -self.grating_height()), ba.RotationZ(self.rotation_angle()))
+        layout.addParticle(self.grating(), 1.0,
+                           ba.kvector_t(0.0, 0.0, -self.grating_height()),
+                           ba.RotationZ(self.rotation_angle()))
         layout.setInterferenceFunction(self.interference())
         # layout.setTotalParticleSurfaceDensity(2e-6)
 

@@ -1,4 +1,3 @@
-import ctypes
 import bornagain as ba
 from grating_base import GratingBase
 from bornagain import nm, deg
@@ -6,16 +5,19 @@ from bornagain import nm, deg
 
 class SimpleSinusGrating(GratingBase):
     def __init__(self):
-        GratingBase.__init__(self)
+        super().__init__()
+        self.m_grating_height = 201*nm
+        self.m_grating_width = 29*nm
 
-        self.m_grating_height = ctypes.c_double(201*nm)
-        self.m_grating_with = ctypes.c_double(29*nm)
+    def add_parameters(self, run_parameters):
+        super().add_parameters(run_parameters)
+        run_parameters.add_parameters(self)
 
     def grating_height(self):
-        return self.m_grating_height.value
+        return self.m_grating_height
 
     def grating_width(self):
-        return self.m_grating_with.value
+        return self.m_grating_width
 
     def grating(self):
         ff = ba.FormFactorLongRipple1Lorentz(self.grating_length(), self.grating_period(), self.grating_height())
@@ -23,7 +25,9 @@ class SimpleSinusGrating(GratingBase):
 
     def buildSample(self):
         layout = ba.ParticleLayout()
-        layout.addParticle(self.grating(), 1.0, ba.kvector_t(0.0, 0.0, -self.grating_height()), ba.RotationZ(self.rotation_angle()))
+        layout.addParticle(self.grating(), 1.0,
+                           ba.kvector_t(0.0, 0.0, -self.grating_height()),
+                           ba.RotationZ(self.rotation_angle()))
         layout.setInterferenceFunction(self.interference())
         layout.setTotalParticleSurfaceDensity(0.05)
 

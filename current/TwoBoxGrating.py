@@ -1,3 +1,6 @@
+"""
+Two box grating
+"""
 import bornagain as ba
 from grating_base import GratingBase
 from bornagain import nm, deg

@@ -11,7 +11,7 @@ class GratingBase:
         self.m_grating_length = 5.0*micrometer
         self.m_grating_period = 833*nm
         self.m_decay_length = 2200.*nm
-        self.m_rotation_angle = 0.0*deg  # 90.0 beam is perp to grating lines
+        self.m_rotation_angle = 0.0  # 90.0 beam is perp to grating lines
 
     def add_parameters(self, run_parameters):
         run_parameters.add_parameters(self)
@@ -26,7 +26,7 @@ class GratingBase:
         return self.m_decay_length
 
     def rotation_angle(self):
-        return self.m_rotation_angle
+        return self.m_rotation_angle*deg
 
     @staticmethod
     def ambience_material(wavelength=1.0):

@@ -47,6 +47,9 @@ class ParallelBuilder():
         self.m_beam_divergence_phi = (False, "gauss", 5, 0.05)
         self.m_time_spend = 0
 
+        self.m_detector_builder = DetectorBuilder()
+        self.m_simulation = None
+
     def parameter_tuple(self):
         """
         Return RunParameters representing all registered parameter of 'self' and
@@ -67,7 +70,7 @@ class ParallelBuilder():
         simulation = ba.GISASSimulation()
         simulation.setTerminalProgressMonitor()
 
-        simulation.setDetector(DetectorBuilder().create_detector())
+        simulation.setDetector(self.m_detector_builder.create_detector())
         simulation.setBeamParameters(wavelength, self.m_alpha_inc*deg, self.m_phi_inc*deg)
         simulation.setBeamIntensity(self.m_beam_intensity)
 
@@ -75,7 +78,7 @@ class ParallelBuilder():
         simulation.setBackground(ba.ConstantBackground(self.m_constant_background))
 
         if self.m_apply_detector_masks:
-            DetectorBuilder().apply_masks(simulation)
+            self.m_detector_builder.apply_masks(simulation)
             self.m_detector_masks = simulation.getInstrument().getDetectorMask().createHistogram()
 
         if self.m_monte_carlo:
@@ -95,31 +98,22 @@ class ParallelBuilder():
         return simulation
 
     def run_simulation(self, wavelength=13.52*nm, weight=1.0):
-        self.m_beam_data_str += "({:5.2f},{:5.2f})".format(wavelength, weight)
-        simulation = self.build_simulation(wavelength)
-        simulation.setSample(self.m_sample_builder.buildSample())
-        simulation.runSimulation()
-        return simulation.result().histogram2d()
-
-    def run(self):
         start = time.time()
+        self.m_beam_data_str += "({:5.2f},{:5.2f})".format(wavelength, weight)
 
-        sum_hist = None
+        self.m_simulation = self.build_simulation(wavelength)
+        self.m_simulation.setSample(self.m_sample_builder.buildSample())
+        self.m_simulation.runSimulation()
 
-        self.m_beam_data_str = ""
-        # for b in beam_data():
-        #     wavelength = b[0]
-        #     weight = b[1]
-        #     result = self.run_simulation(wavelength, weight)
-        #     if not sum_hist:
-        #         sum_hist = result
-        #     else:
-        #         add_to_histogram(sum_hist, result, weight)
+        self.m_time_spend = time.time() - start
 
-        sum_hist = self.run_simulation()
+        return self.m_simulation.result()
 
-        end = time.time()
-        self.m_time_spend = end - start
-
-        return sum_hist
+    def experimentalData(self):
+        """
+        Returns experimental data in same units as simulated data.
+        """
+        data = self.m_detector_builder.get_histogram().array()
+        fitObject = ba.FitObject(self.m_simulation, data)
+        return fitObject.experimentalData()
 

@@ -10,7 +10,7 @@ from TwoBoxGrating import TwoBoxGrating
 from SimpleSinusGrating import SimpleSinusGrating
 from BoxCompositionGrating import BoxCompositionGrating
 from SphericalGrating import SphericalGrating
-from parameter_utils import RunParameters
+from input_parameters import RunParameters
 import time
 
 

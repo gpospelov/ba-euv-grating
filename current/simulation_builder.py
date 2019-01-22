@@ -1,16 +1,14 @@
 from bornagain import deg, nm
-from GratingBuilder import GratingBuilder
 from detector_builder import DetectorBuilder
 from BeamData import beam_data
 import bornagain as ba
+from utils.parameter_utils import RunParameters
 from bornagain import deg, micrometer, nm
-from histogram_utils import *
 from SimpleBoxGrating import SimpleBoxGrating
 from TwoBoxGrating import TwoBoxGrating
 from SimpleSinusGrating import SimpleSinusGrating
 from BoxCompositionGrating import BoxCompositionGrating
 from SphericalGrating import SphericalGrating
-from input_parameters import RunParameters
 import time
 
 
@@ -27,7 +25,7 @@ class DivergenceData:
     FLAG, TYPE, NPOINTS, SIGMA = range(4)
 
 
-class ParallelBuilder():
+class SimulationBuilder():
     def __init__(self):
 
         self.m_alpha_inc = 10.71

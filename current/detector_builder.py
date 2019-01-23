@@ -27,6 +27,7 @@ class DetectorBuilder:
         self.m_spec_v = 683*self.m_pixel_size
         self.m_u0 = self.m_spec_u
         self.m_v0 = self.m_spec_v-(self.m_da + self.m_a)
+        self.m_arr = None
 
     def width(self):
         return self.m_nx*self.m_pixel_size
@@ -56,12 +57,14 @@ class DetectorBuilder:
 
     def read_file(self):
 
+        self.m_arr = np.zeros((1024, 1024), dtype="int64")
         arr = np.zeros((1024, 1024), dtype="float64")
 
         with gzip.open("../data/grt_scat_par.txt.gz", 'r') as f:
             nline = 0
             for l in f.readlines():
                 arr[nline] = l.split()
+                self.m_arr[nline] = l.split()
                 nline += 1
 
         arbitrary_scale = 100.0
@@ -69,6 +72,7 @@ class DetectorBuilder:
 
         hist = ba.Histogram2D(self.m_nx, 0.0, self.m_nx*self.m_pixel_size, self.m_ny, 0.0, self.m_ny*self.m_pixel_size)
 
+        # arr[arr<60000] = 0.0
         hist.setContent(arr)
         hist.save("../data/grt_scat_par.int.gz")
         return hist
@@ -103,6 +107,18 @@ if __name__ == '__main__':
     hist = ccd.read_file()
 
     fig = plt.figure(figsize=(16, 8))
-
     plot_histogram(hist)
+
+    fig = plt.figure(figsize=(16, 8))
+    print(ccd.m_arr, np.min(ccd.m_arr))
+
+    nhist, bin_edges  = np.histogram(ccd.m_arr, bins=1024, range=(-100, 65536.))
+    print(nhist)
+    print(bin_edges)
+    plt.semilogy(bin_edges[:-1], nhist)
+    plt.ylim(0, 1e+6)
+
+
+    # hist = plt.hist(ccd.m_arr, bins=100, range=(0.0, 65536.))
+
     plt.show()

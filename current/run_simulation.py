@@ -5,7 +5,6 @@ Cosine ripple on a 2D lattice. Beam is parallel to the grating.
 import bornagain as ba
 from matplotlib import pyplot as plt
 from simulation_builder import SimulationBuilder
-from detector_builder import DetectorBuilder
 from matplotlib import rcParams
 rcParams['image.cmap'] = 'jet'
 import matplotlib.gridspec as gridspec

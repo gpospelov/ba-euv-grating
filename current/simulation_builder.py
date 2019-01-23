@@ -46,6 +46,8 @@ class SimulationBuilder():
         self.m_detector_builder = DetectorBuilder()
         self.m_simulation = None
 
+        self.init_simulation()
+
     def parameter_tuple(self):
         """
         Return RunParameters representing all registered parameter of 'self' and
@@ -90,6 +92,10 @@ class SimulationBuilder():
             simulation.addParameterDistribution("*/Beam/AzimuthalAngle", distr, d[DivergenceData.NPOINTS])
 
         return simulation
+
+    def init_simulation(self, wavelength=13.52*nm):
+        self.m_simulation = self.build_simulation(wavelength)
+
 
     def run_simulation(self, wavelength=13.52*nm, weight=1.0):
         start = time.time()

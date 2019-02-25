@@ -1,0 +1,30 @@
+Hey Gennady,
+
+Finally, I could happily share two more results (Exp.II and Exp.III) for fitting and simulations. The position of grating is a bit different as to compare with last experiment. In current Exp.II the distance from grating to the CCD is 
+about 60 mm, i.e. ca. 20 mm more far and, as result, we see less orders in the detector plane.
+
+I have digged into saturated pixels. Here my shot summary about it:
+in the last experiment Exp.I (T_exp = 20 s)  we had 58 saturated pixels with intensity 65535 cts in just three orders "0", "-1" and "3". Now in the new image Exp.II (T_exp =5 s) I found 34 (50% less) saturated pixels, and all of them are 
+in "0"-order only (bottom one). The "1"-st oder (top one) looks also like it has saturated  pixels, however it actually has no 65535 cts.
+The images I send you are processed with background is substraction. Hence there are no 65535 cts, but you could detected them as so called "flat-tops".
+
+Attached are two original raw images in ASCII-format:
+
+Exp.II_grating-at-10-deg-lin.7z
+Exp.III_grating-at-05-deg-lin.7z
+
+In the separate attached pdf (Exp_II_III-geometry-settings.pdf) described our geometry, try to keep same definitions, as it was for previous experiment "Exp.I".
+
+Exp.II (10 deg incidence): Exposure  time T_exp = 5 s.
+there are two central peaks, both could be specular but only the bottom one has really saturated pixels (with values 65535 cts).
+
+In Exp.III (5 deg incidence): Exposure  time T_exp = 2 s.
+here no saturated pixels found.
+At the experiment time, I was looking more into fine structure resulted from scattering, so I let it some peaks be saturated, and there are exposure even 60s (attached with several views) 
+
+Note that Matlab's processed images are flipped over y-axis (1st pixel on the top left corner) (inset images in pdf )
+
+Looking forward if the simulation will converge better now. Ready to connect in Skype at anytime.
+
+Best wishes,
+Oleksiy

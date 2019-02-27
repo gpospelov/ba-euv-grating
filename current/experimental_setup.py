@@ -109,13 +109,14 @@ class ExperimentalSetup:
 
     def apply_masks(self, simulation):
         simulation.maskAll()
-
-        for xp, yp in zip(self.xpeaks, self.ypeaks):
-            simulation.addMask(ba.Ellipse(xp, yp, 0.5, 0.5), False)
+        simulation.addMask(ba.Ellipse(self.det_width()/2, self.det_height()*0.02, self.det_width()*0.69, self.det_height()*0.8), False)
+        simulation.addMask(ba.Ellipse(self.det_width()/2, -self.det_height()*0.3, self.det_width()*0.62, self.det_height()*0.8), True)
+        # for xp, yp in zip(self.xpeaks, self.ypeaks):
+        #     simulation.addMask(ba.Ellipse(xp, yp, 0.5, 0.5), False)
 
 
 if __name__ == '__main__':
-    setup = ExperimentalSetup("exp1")
+    setup = ExperimentalSetup("exp2")
     hist = setup.get_histogram()
 
     fig = plt.figure(figsize=(16, 8))

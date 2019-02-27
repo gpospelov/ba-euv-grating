@@ -28,7 +28,9 @@ class DivergenceData:
 class SimulationBuilder():
     def __init__(self):
 
-        self.m_alpha_inc = 10.71
+        # self.m_alpha_inc = 10.71
+        # self.m_alpha_inc = 10.64
+        self.m_alpha_inc = 5.57
         self.m_phi_inc = 0
         self.m_beam_intensity = 5e+4
         self.m_detector_resolution_sigma = 0.02
@@ -43,7 +45,7 @@ class SimulationBuilder():
         self.m_beam_divergence_phi = (False, "gauss", 5, 0.05)
         self.m_time_spend = 0
 
-        self.m_detector_builder = ExperimentalSetup("exp1")
+        self.m_detector_builder = ExperimentalSetup("exp3")
         self.m_simulation = None
 
         self.init_simulation()

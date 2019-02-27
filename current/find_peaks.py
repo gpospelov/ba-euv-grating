@@ -13,7 +13,9 @@ def find_peaks(exp_name):
     setup = ExperimentalSetup(exp_name)
     hist = setup.get_histogram()
 
-    peaks = ba.FindPeaks(hist, 3, "nomarkov", 0.1)
+    # peaks = ba.FindPeaks(hist, 3, "nomarkov", 0.1)
+    # peaks = ba.FindPeaks(hist, 5, "nobackgroundnomarkov", 0.01)
+    peaks = ba.FindPeaks(hist, 4, "nobackgroundnomarkov", 0.01)
     xpeaks = [peak[0] for peak in peaks]
     ypeaks = [peak[1] for peak in peaks]
 
@@ -30,7 +32,7 @@ def array_string(arr):
 
 
 if __name__ == '__main__':
-    xp, yp = find_peaks("exp1")
+    xp, yp = find_peaks("exp3")
     print(array_string(xp))
     print(array_string(yp))
 

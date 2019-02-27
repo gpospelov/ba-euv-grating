@@ -1,0 +1,29 @@
+{
+  "exp1" : {
+    "alpha_inc"  : 10.71,
+    "beta_a"     : 79.83,
+    "beta_b"     : 78.75,
+    "length_ccd" : 40.24,
+    "spec_x"     : 683,
+    "spec_y"     : 534,
+    "filename"   : "expdata1.txt.gz"
+  },
+  "exp2" : {
+    "alpha_inc"  : 10.64,
+    "beta_a"     : 79.83,
+    "beta_b"     : 78.89,
+    "length_ccd" : 60.45,
+    "spec_x"     : 458,
+    "spec_y"     : 460,
+    "filename"   : "expdata2.txt.gz"
+  },
+  "exp3" : {
+    "alpha_inc"  : 5.57,
+    "beta_a"     : 79.83,
+    "beta_b"     : 89.03,
+    "length_ccd" : 57.45,
+    "spec_x"     : 766,
+    "spec_y"     : 541,
+    "filename"   : "expdata3.txt.gz"
+  }
+}

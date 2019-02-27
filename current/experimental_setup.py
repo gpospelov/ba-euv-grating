@@ -104,7 +104,7 @@ class ExperimentalSetup:
 
 
 if __name__ == '__main__':
-    setup = ExperimentalSetup("exp1")
+    setup = ExperimentalSetup("exp3")
     hist = setup.get_histogram()
 
     fig = plt.figure(figsize=(16, 8))

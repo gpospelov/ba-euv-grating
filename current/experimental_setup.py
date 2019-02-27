@@ -30,6 +30,8 @@ class ExperimentalSetup:
         self.spec_v = None
         self.m_arr = None
         self.filename = None
+        self.xpeaks = None
+        self.ypeaks = None
 
         self.load_setup(setup_name)
         self.print()
@@ -54,6 +56,8 @@ class ExperimentalSetup:
             self.spec_u = setup["spec_y"]*self.pixel_size
             self.spec_v = setup["spec_x"]*self.pixel_size
             self.filename = setup["filename"]
+            self.xpeaks = setup["xpeaks"]
+            self.ypeaks = setup["ypeaks"]
 
     def det_normal(self):
         norm = np.cos(self.det_alpha_sm())*self.det_c_length()
@@ -105,8 +109,9 @@ class ExperimentalSetup:
 
     def apply_masks(self, simulation):
         simulation.maskAll()
-        simulation.addMask(ba.Ellipse(self.det_width()/2, self.det_height()*0.02, self.det_width()*0.69, self.det_height()*0.8), False)
-        simulation.addMask(ba.Ellipse(self.det_width()/2, -self.det_height()*0.3, self.det_width()*0.62, self.det_height()*0.8), True)
+
+        for xp, yp in zip(self.xpeaks, self.ypeaks):
+            simulation.addMask(ba.Ellipse(xp, yp, 0.5, 0.5), False)
 
 
 if __name__ == '__main__':
@@ -115,14 +120,5 @@ if __name__ == '__main__':
 
     fig = plt.figure(figsize=(16, 8))
     plot_histogram(hist)
-
-    fig = plt.figure(figsize=(16, 8))
-    print(setup.m_arr, np.min(setup.m_arr))
-
-    nhist, bin_edges  = np.histogram(setup.m_arr, bins=1024, range=(-100, 65536.))
-    print(nhist)
-    print(bin_edges)
-    plt.semilogy(bin_edges[:-1], nhist)
-    plt.ylim(0, 1e+6)
 
     plt.show()

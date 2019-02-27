@@ -1,7 +1,6 @@
 """
 Test plotting of peaks
 """
-from detector_builder import DetectorBuilder
 from matplotlib import pyplot as plt
 import bornagain as ba
 from utils.histogram_utils import plot_surf

@@ -97,17 +97,32 @@ class ExperimentalSetup:
     def get_histogram(self):
         filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", self.filename)
         print("loading histogram from: "+filename)
-        data = np.loadtxt(filename)
         result = ba.Histogram2D(self.nx, 0.0, self.det_width(), self.ny, 0.0, self.det_height())
-        result.setContent(data)
+
+        self.m_arr = np.loadtxt(filename)
+        result.setContent(self.m_arr)
         return result
+
+    def apply_masks(self, simulation):
+        simulation.maskAll()
+        simulation.addMask(ba.Ellipse(self.det_width()/2, self.det_height()*0.02, self.det_width()*0.69, self.det_height()*0.8), False)
+        simulation.addMask(ba.Ellipse(self.det_width()/2, -self.det_height()*0.3, self.det_width()*0.62, self.det_height()*0.8), True)
 
 
 if __name__ == '__main__':
-    setup = ExperimentalSetup("exp3")
+    setup = ExperimentalSetup("exp1")
     hist = setup.get_histogram()
 
     fig = plt.figure(figsize=(16, 8))
     plot_histogram(hist)
+
+    fig = plt.figure(figsize=(16, 8))
+    print(setup.m_arr, np.min(setup.m_arr))
+
+    nhist, bin_edges  = np.histogram(setup.m_arr, bins=1024, range=(-100, 65536.))
+    print(nhist)
+    print(bin_edges)
+    plt.semilogy(bin_edges[:-1], nhist)
+    plt.ylim(0, 1e+6)
 
     plt.show()

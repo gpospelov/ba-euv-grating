@@ -1,5 +1,4 @@
 from bornagain import deg, nm
-from detector_builder import DetectorBuilder
 from BeamData import beam_data
 import bornagain as ba
 from utils.parameter_utils import RunParameters
@@ -9,6 +8,7 @@ from TwoBoxGrating import TwoBoxGrating
 from SimpleSinusGrating import SimpleSinusGrating
 from BoxCompositionGrating import BoxCompositionGrating
 from SphericalGrating import SphericalGrating
+from experimental_setup import ExperimentalSetup
 import time
 
 
@@ -43,7 +43,7 @@ class SimulationBuilder():
         self.m_beam_divergence_phi = (False, "gauss", 5, 0.05)
         self.m_time_spend = 0
 
-        self.m_detector_builder = DetectorBuilder()
+        self.m_detector_builder = ExperimentalSetup("exp1")
         self.m_simulation = None
 
         self.init_simulation()

@@ -55,7 +55,7 @@ def convert_file(pars):
 
 
 if __name__ == '__main__':
-    raw, processed = convert_file(exp3)
+    raw, processed = convert_file(exp1)
 
     fig = plt.figure(figsize=(18, 18))
 

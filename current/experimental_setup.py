@@ -10,7 +10,7 @@ from bornagain import deg
 from bornagain.plot_utils import *
 import json
 import numpy as np
-import gzip
+from utils.json_utils import load_setup
 from matplotlib import pyplot as plt
 
 
@@ -18,46 +18,27 @@ DESCRIPTION = os.path.join(os.path.dirname(os.path.abspath(__file__)), "experime
 
 
 class ExperimentalSetup:
-    def __init__(self, setup_name):
+    def __init__(self, setup):
         self.nx = 1024
         self.ny = 1024
         self.pixel_size = 13*1e-03  # mm
-        self.alpha_inc = None
-        self.beta_a = None
-        self.beta_b = None
-        self.length_ccd = None
-        self.spec_u = None
-        self.spec_v = None
+        self.alpha_inc = setup["alpha_inc"]*deg
+        self.beta_a = setup["beta_a"]*deg
+        self.beta_b = setup["beta_b"]*deg
+        self.length_ccd = setup["length_ccd"]
+        self.spec_u = setup["spec_y"]*self.pixel_size
+        self.spec_v = setup["spec_x"]*self.pixel_size
         self.m_arr = None
-        self.filename = None
-        self.xpeaks = None
-        self.ypeaks = None
+        self.filename = setup["filename"]
+        self.xpeaks = setup["xpeaks"]
+        self.ypeaks = setup["ypeaks"]
 
-        self.load_setup(setup_name)
         self.print()
 
     def print(self):
         print("alpha_inc     : {0}".format(self.alpha_inc/deg))
         print("normal        : {0}".format(self.det_normal()))
         print("u0, v0        : {0}, {1}".format(self.det_u0(), self.det_v0()))
-
-    def load_setup(self, setup_name):
-        """
-        Loads json description of 3 experiments from current directory.
-        """
-        print("{0}\n{1}: '{2}'\n{3}".format('-'*80, "Experiment", setup_name, '-'*80))
-
-        with open(DESCRIPTION) as json_file:
-            setup = json.load(json_file)[setup_name]
-            self.alpha_inc = setup["alpha_inc"]*deg
-            self.beta_a = setup["beta_a"]*deg
-            self.beta_b = setup["beta_b"]*deg
-            self.length_ccd = setup["length_ccd"]
-            self.spec_u = setup["spec_y"]*self.pixel_size
-            self.spec_v = setup["spec_x"]*self.pixel_size
-            self.filename = setup["filename"]
-            self.xpeaks = setup["xpeaks"]
-            self.ypeaks = setup["ypeaks"]
 
     def det_normal(self):
         norm = np.cos(self.det_alpha_sm())*self.det_c_length()
@@ -116,7 +97,10 @@ class ExperimentalSetup:
 
 
 if __name__ == '__main__':
-    setup = ExperimentalSetup("exp2")
+
+    cfg = load_setup("exp2")
+    setup = ExperimentalSetup(cfg)
+
     hist = setup.get_histogram()
 
     fig = plt.figure(figsize=(16, 8))

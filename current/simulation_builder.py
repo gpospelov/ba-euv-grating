@@ -25,12 +25,12 @@ class DivergenceData:
     FLAG, TYPE, NPOINTS, SIGMA = range(4)
 
 
-class SimulationBuilder():
-    def __init__(self):
+class SimulationBuilder:
+    def __init__(self, config):
 
         # self.m_alpha_inc = 10.71
-        # self.m_alpha_inc = 10.64
-        self.m_alpha_inc = 5.57
+        self.m_alpha_inc = 10.64
+        # self.m_alpha_inc = 5.57
         self.m_phi_inc = 0
         self.m_beam_intensity = 5e+4
         self.m_detector_resolution_sigma = 0.02
@@ -45,7 +45,7 @@ class SimulationBuilder():
         self.m_beam_divergence_phi = (False, "gauss", 5, 0.05)
         self.m_time_spend = 0
 
-        self.m_detector_builder = ExperimentalSetup("exp3")
+        self.m_detector_builder = ExperimentalSetup(config)
         self.m_simulation = None
 
         self.init_simulation()
@@ -97,7 +97,6 @@ class SimulationBuilder():
 
     def init_simulation(self, wavelength=13.52*nm):
         self.m_simulation = self.build_simulation(wavelength)
-
 
     def run_simulation(self, wavelength=13.52*nm, weight=1.0):
         start = time.time()

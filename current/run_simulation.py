@@ -60,7 +60,7 @@ def run_single(builder, report=None):
 if __name__ == '__main__':
     report = ReportManager()
 
-    cfg = load_setup("exp1")
+    cfg = load_setup("exp3")
     builder = SimulationBuilder(cfg)
 
     run_single(builder, report)

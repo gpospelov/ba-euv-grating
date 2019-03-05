@@ -28,9 +28,7 @@ class DivergenceData:
 class SimulationBuilder:
     def __init__(self, config):
 
-        # self.m_alpha_inc = 10.71
-        self.m_alpha_inc = 10.64
-        # self.m_alpha_inc = 5.57
+        self.m_alpha_inc = config["alpha_inc"]*deg
         self.m_phi_inc = 0
         self.m_beam_intensity = 5e+4
         self.m_detector_resolution_sigma = 0.02
@@ -49,6 +47,12 @@ class SimulationBuilder:
         self.m_simulation = None
 
         self.init_simulation()
+
+    def alpha_inc(self):
+        return self.m_alpha_inc
+
+    def phi_inc(self):
+        return self.m_phi_inc
 
     def parameter_tuple(self):
         """
@@ -71,7 +75,7 @@ class SimulationBuilder:
         simulation.setTerminalProgressMonitor()
 
         simulation.setDetector(self.m_detector_builder.create_detector())
-        simulation.setBeamParameters(wavelength, self.m_alpha_inc*deg, self.m_phi_inc*deg)
+        simulation.setBeamParameters(wavelength, self.alpha_inc(), self.phi_inc())
         simulation.setBeamIntensity(self.m_beam_intensity)
 
         simulation.setDetectorResolutionFunction(ba.ResolutionFunction2DGaussian(self.m_detector_resolution_sigma*deg, self.m_detector_resolution_sigma*deg))
@@ -84,13 +88,13 @@ class SimulationBuilder:
 
         d = self.m_beam_divergence_alpha
         if d[DivergenceData.FLAG]:
-            distr = self.get_distribution(d[DivergenceData.TYPE], self.m_alpha_inc*deg, d[DivergenceData.SIGMA]*deg)
+            distr = self.get_distribution(d[DivergenceData.TYPE], self.alpha_inc(), d[DivergenceData.SIGMA]*deg)
             simulation.addParameterDistribution("*/Beam/InclinationAngle", distr, d[DivergenceData.NPOINTS])
 
         d = self.m_beam_divergence_phi
         if d[DivergenceData.FLAG]:
             d = self.m_beam_divergence_phi
-            distr = self.get_distribution(d[DivergenceData.TYPE], self.m_phi_inc*deg, d[DivergenceData.SIGMA]*deg)
+            distr = self.get_distribution(d[DivergenceData.TYPE], self.phi_inc(), d[DivergenceData.SIGMA]*deg)
             simulation.addParameterDistribution("*/Beam/AzimuthalAngle", distr, d[DivergenceData.NPOINTS])
 
         return simulation

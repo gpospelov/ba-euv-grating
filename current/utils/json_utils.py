@@ -6,7 +6,7 @@ import os
 import json
 
 
-def load_setup(self, config_name="exp1"):
+def load_setup(config_name="exp1"):
     """
     Loads json description of 3 experiments from current directory.
     """

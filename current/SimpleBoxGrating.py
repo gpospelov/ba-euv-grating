@@ -14,6 +14,7 @@ class SimpleBoxGrating:
         self.m_rough_sigma =  setup["r_sigma"]
         self.m_rough_hurst =  setup["r_hurst"]
         self.m_rough_corr =  setup["r_corr"]
+        self.m_surface_density = setup["surface_density"]
         self.materials = MaterialLibrary()
 
     def add_parameters(self, run_parameters):
@@ -55,7 +56,7 @@ class SimpleBoxGrating:
                            ba.kvector_t(0.0, 0.0, -self.grating_height()),
                            ba.RotationZ(self.m_rotation_angle))
         layout.setInterferenceFunction(self.interference())
-        layout.setTotalParticleSurfaceDensity(2)
+        layout.setTotalParticleSurfaceDensity(self.m_surface_density)
 
         # assemble layers
         air_layer = ba.Layer(mat_ambience)

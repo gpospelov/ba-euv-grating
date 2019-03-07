@@ -15,6 +15,7 @@ class SimpleSinusGrating:
         self.m_rough_sigma = setup["r_sigma"]
         self.m_rough_hurst = setup["r_hurst"]
         self.m_rough_corr = setup["r_corr"]
+        self.m_surface_density = setup["surface_density"]
         self.materials = MaterialLibrary()
 
     def add_parameters(self, run_parameters):
@@ -36,7 +37,8 @@ class SimpleSinusGrating:
         return self.m_rotation_angle
 
     def grating(self, material):
-        ff = ba.FormFactorLongRipple1Lorentz(self.grating_length(), self.grating_period(), self.grating_height())
+        #ff = ba.FormFactorLongRipple1Lorentz(self.grating_length(), self.grating_period(), self.grating_height())
+        ff = ba.FormFactorLongRipple1Gauss(self.grating_length(), self.grating_width(), self.grating_height())
         return ba.Particle(material, ff)
 
     def decay_function(self, decay_type="gauss"):
@@ -61,7 +63,7 @@ class SimpleSinusGrating:
                            ba.kvector_t(0.0, 0.0, -self.grating_height()),
                            ba.RotationZ(self.rotation_angle()))
         layout.setInterferenceFunction(self.interference())
-        layout.setTotalParticleSurfaceDensity(0.05)
+        layout.setTotalParticleSurfaceDensity(self.m_surface_density)
 
         # assemble layers
         air_layer = ba.Layer(mat_ambience)

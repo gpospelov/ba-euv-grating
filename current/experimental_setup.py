@@ -35,6 +35,9 @@ class ExperimentalSetup:
 
         self.print()
 
+    def alpha_inc(self):
+        return self.alpha_inc()
+
     def print(self):
         print("alpha_inc     : {0}".format(self.alpha_inc/deg))
         print("normal        : {0}".format(self.det_normal()))
@@ -92,15 +95,15 @@ class ExperimentalSetup:
 
     def apply_masks(self, simulation):
         simulation.maskAll()
-        simulation.addMask(ba.Ellipse(self.det_width()/2, self.det_height()*0.02, self.det_width()*0.69, self.det_height()*0.8), False)
-        simulation.addMask(ba.Ellipse(self.det_width()/2, -self.det_height()*0.3, self.det_width()*0.62, self.det_height()*0.8), True)
-        # for xp, yp in zip(self.xpeaks, self.ypeaks):
-        #     simulation.addMask(ba.Ellipse(xp, yp, 0.5, 0.5), False)
+        # simulation.addMask(ba.Ellipse(self.det_width()/2, self.det_height()*0.02, self.det_width()*0.69, self.det_height()*0.8), False)
+        # simulation.addMask(ba.Ellipse(self.det_width()/2, -self.det_height()*0.3, self.det_width()*0.62, self.det_height()*0.8), True)
+        for xp, yp in zip(self.xpeaks, self.ypeaks):
+            simulation.addMask(ba.Ellipse(xp, yp, 0.5, 0.5), False)
 
 
 if __name__ == '__main__':
 
-    cfg = load_setup("exp2")
+    cfg = load_setup("exp3")
     setup = ExperimentalSetup(cfg)
 
     hist = setup.get_histogram()

@@ -6,11 +6,11 @@ Info is used to manually update experiments.json
 from experimental_setup import ExperimentalSetup
 from matplotlib import pyplot as plt
 from bornagain.plot_utils import *
+from utils.json_utils import load_setup
 
 
-
-def find_peaks(exp_name):
-    setup = ExperimentalSetup(exp_name)
+def find_peaks(exp_config):
+    setup = ExperimentalSetup(exp_config)
     hist = setup.get_histogram()
 
     # peaks = ba.FindPeaks(hist, 3, "nomarkov", 0.1)
@@ -32,8 +32,10 @@ def array_string(arr):
 
 
 if __name__ == '__main__':
-    xp, yp = find_peaks("exp3")
-    print(array_string(xp))
-    print(array_string(yp))
+
+    cfg = load_setup("exp3")
+    xp, yp = find_peaks(cfg)
+    print("    \"xpeaks\"     : " + array_string(xp)+",")
+    print("    \"ypeaks\"     : " + array_string(yp))
 
     plt.show()

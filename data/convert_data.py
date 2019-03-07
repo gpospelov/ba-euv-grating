@@ -19,9 +19,9 @@ exp1 = {
 exp2 = {
     "file_in"  : "2019-02-15/Exp.II_grating-at-10-deg-lin.asc.gz",
     "file_out" : "expdata2.txt.gz",
-    "nrot"     : 2,
+    "nrot"     : 0,
     "scale"    : 100.0,
-    "flip"     : -1
+    "flip"     : 0
 }
 
 exp3 = {
@@ -81,7 +81,7 @@ def plot_data(raw, processed):
 
 
 if __name__ == '__main__':
-    raw, processed = convert_file(exp3)
+    raw, processed = convert_file(exp2)
     plot_data(raw, processed)
 
     # array = np.array([[0, 1, 2, 3, 4],[5, 6, 7, 8, 9], [10, 11, 12, 13, 14]])

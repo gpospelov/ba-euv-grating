@@ -30,7 +30,8 @@ class SimulationBuilder:
 
         self.m_alpha_inc = config["alpha_inc"]*deg
         self.m_phi_inc = 0
-        self.m_beam_intensity = 5e+4
+        self.m_beam_intensity = config["intensity"]
+        self.m_wavelength = config["wavelength"]
         self.m_detector_resolution_sigma = 0.02
         self.m_constant_background = 5e+4
 
@@ -54,6 +55,9 @@ class SimulationBuilder:
     def phi_inc(self):
         return self.m_phi_inc
 
+    def wavelength(self):
+        return self.m_wavelength
+
     def parameter_tuple(self):
         """
         Return RunParameters representing all registered parameter of 'self' and
@@ -70,12 +74,12 @@ class SimulationBuilder:
         else:
             raise Exception("Unknown distribution type")
 
-    def build_simulation(self, wavelength):
+    def build_simulation(self):
         simulation = ba.GISASSimulation()
         simulation.setTerminalProgressMonitor()
 
         simulation.setDetector(self.m_detector_builder.create_detector())
-        simulation.setBeamParameters(wavelength, self.alpha_inc(), self.phi_inc())
+        simulation.setBeamParameters(self.wavelength(), self.alpha_inc(), self.phi_inc())
         simulation.setBeamIntensity(self.m_beam_intensity)
 
         simulation.setDetectorResolutionFunction(ba.ResolutionFunction2DGaussian(self.m_detector_resolution_sigma*deg, self.m_detector_resolution_sigma*deg))
@@ -99,14 +103,14 @@ class SimulationBuilder:
 
         return simulation
 
-    def init_simulation(self, wavelength=13.52*nm):
-        self.m_simulation = self.build_simulation(wavelength)
+    def init_simulation(self):
+        self.m_simulation = self.build_simulation()
 
-    def run_simulation(self, wavelength=13.52*nm, weight=1.0):
+    def run_simulation(self):
         start = time.time()
-        self.m_beam_data_str += "({:5.2f},{:5.2f})".format(wavelength, weight)
+        self.m_beam_data_str += "({:5.2f},{:5.2f})".format(self.wavelength(), 1.0)
 
-        self.m_simulation = self.build_simulation(wavelength)
+        self.m_simulation = self.build_simulation()
         self.m_simulation.setSample(self.m_sample_builder.buildSample())
         self.m_simulation.runSimulation()
 

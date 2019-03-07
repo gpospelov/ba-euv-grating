@@ -1,6 +1,7 @@
 import bornagain as ba
 from bornagain import nm, deg
 from material_library import MaterialLibrary
+from utils.json_utils import load_sample_setup
 
 
 class SimpleBoxGrating:
@@ -78,3 +79,8 @@ class SimpleBoxGrating:
         multi_layer.addLayer(under)
         multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
         return multi_layer
+
+
+def get_sample():
+    sample_config = load_sample_setup("box")
+    return SimpleBoxGrating(sample_config).buildSample(1.0)

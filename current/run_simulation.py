@@ -10,6 +10,7 @@ rcParams['image.cmap'] = 'jet'
 import matplotlib.gridspec as gridspec
 from report_manager import ReportManager
 from utils.json_utils import load_setup
+import numpy as np
 
 
 def plot_simulations(sim_results, exp_data):
@@ -35,7 +36,11 @@ def plot_simulations(sim_results, exp_data):
 
     sim_proj = sim_results.histogram2d(units).projectionX()
     plt.semilogy(sim_proj.getBinCenters(), sim_proj.getBinValues()+1, label=r'$\phi=0.0^{\circ}$')
-    plt.ylim(5e+6, 1e+9)
+
+    amps = np.concatenate((exp_proj.getBinValues(), sim_proj.getBinValues()))
+    mean = np.mean(amps)
+
+    plt.ylim(mean*0.05, mean*50)
 
 
 def run_pack(builder, report):
@@ -60,7 +65,7 @@ def run_single(builder, report=None):
 if __name__ == '__main__':
     report = ReportManager()
 
-    cfg = load_setup("exp3")
+    cfg = load_setup("exp1")
     builder = SimulationBuilder(cfg)
 
     run_single(builder, report)

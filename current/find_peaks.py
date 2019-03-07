@@ -6,7 +6,7 @@ Info is used to manually update experiments.json
 from experimental_setup import ExperimentalSetup
 from matplotlib import pyplot as plt
 from bornagain.plot_utils import *
-from utils.json_utils import load_setup
+from utils.json_utils import load_experimental_setup
 
 
 def find_peaks(exp_config):
@@ -33,7 +33,7 @@ def array_string(arr):
 
 if __name__ == '__main__':
 
-    cfg = load_setup("exp3")
+    cfg = load_experimental_setup("exp3")
     xp, yp = find_peaks(cfg)
     print("    \"xpeaks\"     : " + array_string(xp)+",")
     print("    \"ypeaks\"     : " + array_string(yp)+",")

@@ -9,7 +9,8 @@ from matplotlib import rcParams
 rcParams['image.cmap'] = 'jet'
 import matplotlib.gridspec as gridspec
 from report_manager import ReportManager
-from utils.json_utils import load_setup
+from utils.json_utils import load_experimental_setup
+from utils.json_utils import load_sample_setup
 import numpy as np
 
 
@@ -65,8 +66,9 @@ def run_single(builder, report=None):
 if __name__ == '__main__':
     report = ReportManager()
 
-    cfg = load_setup("exp1")
-    builder = SimulationBuilder(cfg)
+    exp_config = load_experimental_setup("exp1")
+    sample_config = load_sample_setup("box")
+    builder = SimulationBuilder(exp_config)
 
     run_single(builder, report)
     # run_pack(builder, report)

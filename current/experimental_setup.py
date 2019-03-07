@@ -32,6 +32,7 @@ class ExperimentalSetup:
         self.filename = setup["filename"]
         self.xpeaks = setup["xpeaks"]
         self.ypeaks = setup["ypeaks"]
+        self.peak_radius = setup["peak_radius"]
 
         self.print()
 
@@ -98,7 +99,7 @@ class ExperimentalSetup:
         # simulation.addMask(ba.Ellipse(self.det_width()/2, self.det_height()*0.02, self.det_width()*0.69, self.det_height()*0.8), False)
         # simulation.addMask(ba.Ellipse(self.det_width()/2, -self.det_height()*0.3, self.det_width()*0.62, self.det_height()*0.8), True)
         for xp, yp in zip(self.xpeaks, self.ypeaks):
-            simulation.addMask(ba.Ellipse(xp, yp, 0.5, 0.5), False)
+            simulation.addMask(ba.Ellipse(xp, yp, self.peak_radius, self.peak_radius), False)
 
 
 if __name__ == '__main__':

@@ -36,6 +36,6 @@ if __name__ == '__main__':
     cfg = load_setup("exp3")
     xp, yp = find_peaks(cfg)
     print("    \"xpeaks\"     : " + array_string(xp)+",")
-    print("    \"ypeaks\"     : " + array_string(yp))
+    print("    \"ypeaks\"     : " + array_string(yp)+",")
 
     plt.show()

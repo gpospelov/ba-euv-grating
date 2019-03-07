@@ -24,7 +24,7 @@
     "filename"   : "expdata2.txt.gz",
     "intensity"  : 5e+3,
     "wavelength" : 13.52,
-    "background" : 5e+1,
+    "background" : 1e+2,
     "xpeaks"     : [6.00, 6.96, 9.90, 10.90, 2.07, 0.11, 3.01, 8.92, 4.01, 5.00, 12.88, 11.85, 7.95, 1.02],
     "ypeaks"     : [5.93, 5.97, 5.53, 5.19, 4.91, 3.72, 5.32, 5.75, 5.60, 5.82, 4.18, 4.74, 5.88, 4.37],
     "peak_radius": 1.0
@@ -37,9 +37,9 @@
     "spec_x"     : 766,
     "spec_y"     : 541,
     "filename"   : "expdata3.txt.gz",
-    "intensity"  : 5e+3,
+    "intensity"  : 5e+1,
     "wavelength" : 13.52,
-    "background" : 0,
+    "background" : 5e+1,
     "xpeaks"     : [7.05, 3.28, 10.82, 4.24, 8.00, 8.94, 9.86, 11.78, 6.13, 1.42, 5.15, 2.27],
     "ypeaks"     : [9.94, 8.63, 8.34, 9.26, 9.82, 9.55, 9.08, 7.08, 9.89, 5.62, 9.65, 7.52],
     "peak_radius": 1.0

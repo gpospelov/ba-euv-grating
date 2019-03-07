@@ -12,21 +12,24 @@ exp1 = {
     "file_in"  : "grt_scat_par.txt.gz",
     "file_out" : "expdata1.txt.gz",
     "nrot"     : 1,
-    "scale"    : 100.0
+    "scale"    : 100.0,
+    "flip"     : -1
 }
 
 exp2 = {
     "file_in"  : "2019-02-15/Exp.II_grating-at-10-deg-lin.asc.gz",
     "file_out" : "expdata2.txt.gz",
     "nrot"     : 2,
-    "scale"    : 100.0
+    "scale"    : 100.0,
+    "flip"     : -1
 }
 
 exp3 = {
     "file_in"  : "2019-02-15/Exp.III_grating-at-05-deg-lin.asc.gz",
     "file_out" : "expdata3.txt.gz",
-    "nrot"     : 2,
-    "scale"    : 100.0
+    "nrot"     : 0,
+    "scale"    : 100.0,
+    "flip"     : 0
 }
 
 
@@ -46,7 +49,15 @@ def convert_file(pars):
                 print(nline)
             nline += 1
 
-    processed = pars["scale"]*np.rot90(arr, pars["nrot"])
+    processed = np.copy(arr)
+    if pars["nrot"]>0:
+        processed = pars["scale"]*np.rot90(arr, pars["nrot"])
+
+    print(processed)
+    if pars["flip"] >= 0:
+        processed = np.flip(processed, pars["flip"])
+
+    print(processed)
     processed[processed<0] = 0.0
 
     np.savetxt(pars["file_out"], processed)
@@ -54,9 +65,7 @@ def convert_file(pars):
     return arr, processed
 
 
-if __name__ == '__main__':
-    raw, processed = convert_file(exp1)
-
+def plot_data(raw, processed):
     fig = plt.figure(figsize=(18, 18))
 
     plt.subplot(2, 2, 1)
@@ -69,5 +78,15 @@ if __name__ == '__main__':
     nhist, bin_edges  = np.histogram(raw, bins=1024, range=(-100, 65536.))
     plt.semilogy(bin_edges[:-1], nhist)
     plt.ylim(0, 1e+6)
+
+
+if __name__ == '__main__':
+    raw, processed = convert_file(exp3)
+    plot_data(raw, processed)
+
+    # array = np.array([[0, 1, 2, 3, 4],[5, 6, 7, 8, 9], [10, 11, 12, 13, 14]])
+    # plt.imshow(array, origin="lower")
+    # plot_array(array)
+
 
     plt.show()

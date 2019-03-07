@@ -33,6 +33,7 @@ class ExperimentalSetup:
         self.xpeaks = setup["xpeaks"]
         self.ypeaks = setup["ypeaks"]
         self.peak_radius = setup["peak_radius"]
+        self.det_dx = setup["det_dx"]
 
         self.print()
 
@@ -68,7 +69,7 @@ class ExperimentalSetup:
         return 180.0*deg - self.alpha_inc -self.beta_b - 90.0*deg
 
     def det_u0(self):
-        return self.spec_u
+        return self.spec_u + self.det_dx
 
     def det_v0(self):
         return self.spec_v-self.det_pb_length()

@@ -39,6 +39,8 @@ class ExperimentalSetup:
         print("alpha_inc     : {0}".format(self.alpha_inc/deg))
         print("normal        : {0}".format(self.det_normal()))
         print("u0, v0        : {0}, {1}".format(self.det_u0(), self.det_v0()))
+        print("nx, ny        : {0}, {1}".format(self.nx, self.ny))
+        print("width, height : {0}, {1}".format(self.det_width(), self.det_height()))
 
     def det_normal(self):
         norm = np.cos(self.det_alpha_sm())*self.det_c_length()

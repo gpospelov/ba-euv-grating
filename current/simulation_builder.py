@@ -33,7 +33,7 @@ class SimulationBuilder:
         self.m_beam_intensity = config["intensity"]
         self.m_wavelength = config["wavelength"]
         self.m_detector_resolution_sigma = 0.02
-        self.m_constant_background = 5e+4
+        self.m_constant_background = config["background"]
 
         self.m_sample_builder = grating_builders["box"]
 

@@ -59,15 +59,18 @@ class SimulationBuilder:
     def wavelength(self):
         return self.m_wavelength
 
+    def get_run_parameters(self):
+        result = RunParameters()
+        result.add_parameters(self)
+        self.m_sample_builder.add_parameters(result)
+        return result
+
     def parameter_tuple(self):
         """
         Return RunParameters representing all registered parameter of 'self' and
         other children.
         """
-        result = RunParameters()
-        result.add_parameters(self)
-        self.m_sample_builder.add_parameters(result)
-        return result.parameter_tuple()
+        return self.get_run_parameters().parameter_tuple()
 
     def get_distribution(self, type, par1, par2):
         if type == "gauss":
@@ -113,6 +116,9 @@ class SimulationBuilder:
 
         self.m_simulation = self.build_simulation()
         self.m_simulation.setSample(self.m_sample_builder.buildSample(self.wavelength()))
+
+        print(self.get_run_parameters().parameter_string())
+
         self.m_simulation.runSimulation()
 
         self.m_time_spend = time.time() - start

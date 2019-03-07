@@ -56,6 +56,7 @@ class RunParameters:
             for key, value in item_pars.items():
                 vstr = self.value_str(key, value)
                 result += "{0:30} : {1}\n".format(key, vstr)
+        return result
 
     def parameter_tuple(self):
         result = []

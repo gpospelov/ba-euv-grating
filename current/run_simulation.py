@@ -68,7 +68,7 @@ if __name__ == '__main__':
 
     exp_config = load_experimental_setup("exp1")
     sample_config = load_sample_setup("box")
-    builder = SimulationBuilder(exp_config)
+    builder = SimulationBuilder(exp_config, sample_config)
 
     run_single(builder, report)
     # run_pack(builder, report)

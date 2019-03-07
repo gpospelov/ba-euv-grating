@@ -12,13 +12,13 @@ from experimental_setup import ExperimentalSetup
 import time
 
 
-grating_builders = {
-    "box": SimpleBoxGrating(),
-    "two_box": TwoBoxGrating(),
-    "sinus": SimpleSinusGrating(),
-    "box_composition": BoxCompositionGrating(),
-    "spherical": SphericalGrating()
-}
+# grating_builders = {
+#     "box": SimpleBoxGrating(),
+#     "two_box": TwoBoxGrating(),
+#     "sinus": SimpleSinusGrating(),
+#     "box_composition": BoxCompositionGrating(),
+#     "spherical": SphericalGrating()
+# }
 
 
 class DivergenceData:
@@ -26,16 +26,14 @@ class DivergenceData:
 
 
 class SimulationBuilder:
-    def __init__(self, config):
+    def __init__(self, exp_config, sample_config):
 
-        self.m_alpha_inc = config["alpha_inc"]*deg
+        self.m_alpha_inc = exp_config["alpha_inc"] * deg
         self.m_phi_inc = 0
-        self.m_beam_intensity = config["intensity"]
-        self.m_wavelength = config["wavelength"]
+        self.m_beam_intensity = exp_config["intensity"]
+        self.m_wavelength = exp_config["wavelength"]
         self.m_detector_resolution_sigma = 0.02
-        self.m_constant_background = config["background"]
-
-        self.m_sample_builder = grating_builders["box"]
+        self.m_constant_background = exp_config["background"]
 
         self.m_beam_data_str = ""
 
@@ -44,8 +42,10 @@ class SimulationBuilder:
         self.m_beam_divergence_phi = (False, "gauss", 5, 0.05)
         self.m_time_spend = 0
 
-        self.m_detector_builder = ExperimentalSetup(config)
+        self.m_detector_builder = ExperimentalSetup(exp_config)
         self.m_simulation = None
+
+        self.m_sample_builder = SimpleBoxGrating(sample_config)
 
         self.init_simulation()
 
@@ -111,7 +111,7 @@ class SimulationBuilder:
         self.m_beam_data_str += "({:5.2f},{:5.2f})".format(self.wavelength(), 1.0)
 
         self.m_simulation = self.build_simulation()
-        self.m_simulation.setSample(self.m_sample_builder.buildSample())
+        self.m_simulation.setSample(self.m_sample_builder.buildSample(self.wavelength()))
         self.m_simulation.runSimulation()
 
         self.m_time_spend = time.time() - start

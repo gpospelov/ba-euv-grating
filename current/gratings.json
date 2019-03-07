@@ -2,18 +2,18 @@
   "box" : {
     "builder": "SimpleBoxGrating",
     "period": 833,
+    "length": 2000,
     "height": 201,
     "width": 29,
-    "length": 2000,
     "rotation": 0,
     "decay_length": 2500
   },
   "sinus" : {
     "builder": "SimpleSinusGrating",
     "period": 833,
+    "length": 2000,
     "height": 201,
     "width": 29,
-    "length": 2000,
     "rotation": 0,
     "decay_length": 2500
   }

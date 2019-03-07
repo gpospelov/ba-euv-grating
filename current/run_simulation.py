@@ -66,8 +66,8 @@ def run_single(builder, report=None):
 if __name__ == '__main__':
     report = ReportManager()
 
-    exp_config = load_experimental_setup("exp1")
-    sample_config = load_sample_setup("box")
+    exp_config = load_experimental_setup("exp3")
+    sample_config = load_sample_setup("sinus")
     builder = SimulationBuilder(exp_config, sample_config)
 
     run_single(builder, report)

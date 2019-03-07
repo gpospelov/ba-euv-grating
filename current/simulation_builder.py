@@ -20,6 +20,7 @@ import time
 #     "spherical": SphericalGrating()
 # }
 
+builders = { "SimpleBoxGrating": SimpleBoxGrating, "SimpleSinusGrating": SimpleSinusGrating}
 
 class DivergenceData:
     FLAG, TYPE, NPOINTS, SIGMA = range(4)
@@ -45,7 +46,7 @@ class SimulationBuilder:
         self.m_detector_builder = ExperimentalSetup(exp_config)
         self.m_simulation = None
 
-        self.m_sample_builder = SimpleBoxGrating(sample_config)
+        self.m_sample_builder = builders[sample_config["builder"]](sample_config)
 
         self.init_simulation()
 

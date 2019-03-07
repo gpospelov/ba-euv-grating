@@ -5,7 +5,6 @@ from material_library import MaterialLibrary
 
 class SimpleBoxGrating:
     def __init__(self, setup):
-        super().__init__()
         self.m_grating_period = setup["period"]
         self.m_grating_length = setup["length"]
         self.m_grating_height = setup["height"]

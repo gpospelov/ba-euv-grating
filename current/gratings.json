@@ -6,7 +6,10 @@
     "height": 201,
     "width": 29,
     "rotation": 0,
-    "decay_length": 2500
+    "decay_length": 2500,
+    "r_sigma" : 5.0,
+    "r_hurst" : 0.5,
+    "r_corr"  : 10.0
   },
   "sinus" : {
     "builder": "SimpleSinusGrating",
@@ -15,6 +18,10 @@
     "height": 201,
     "width": 29,
     "rotation": 0,
-    "decay_length": 2500
+    "decay_length": 2500,
+    "r_sigma" : 5.0,
+    "r_hurst" : 0.5,
+    "r_corr"  : 10.0
   }
 }
+

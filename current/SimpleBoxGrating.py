@@ -11,6 +11,9 @@ class SimpleBoxGrating:
         self.m_grating_width = setup["width"]
         self.m_rotation_angle = setup["rotation"]
         self.m_decay_length = setup["decay_length"]
+        self.m_rough_sigma =  setup["r_sigma"]
+        self.m_rough_hurst =  setup["r_hurst"]
+        self.m_rough_corr =  setup["r_corr"]
         self.materials = MaterialLibrary()
 
     def add_parameters(self, run_parameters):
@@ -63,9 +66,9 @@ class SimpleBoxGrating:
         intermediate.addLayout(layout)
 
         roughness = ba.LayerRoughness()
-        roughness.setSigma(5.0*nm)
-        roughness.setHurstParameter(0.5)
-        roughness.setLatteralCorrLength(10.0*nm)
+        roughness.setSigma(self.m_rough_sigma)
+        roughness.setHurstParameter(self.m_rough_hurst)
+        roughness.setLatteralCorrLength(self.m_rough_corr)
 
         # assemble multilayer
         multi_layer = ba.MultiLayer()

@@ -46,11 +46,18 @@ def plot_simulations(sim_results, exp_data):
 
 def run_pack(builder, report):
 
-    report.m_title = "Grating height scan"
-    for i in range(0, 4):
-        value = 180 + i*3.0
+    # report.m_title = "Grating height scan"
+    # for i in range(0, 20):
+    #     value = 180 + i*3.0
+    #     print("run_pack()", i, value)
+    #     builder.m_sample_builder.m_grating_height = value
+    #     run_single(builder, report)
+
+    report.m_title = "Period scan"
+    for i in range(0, 20):
+        value = 780 + i*3
         print("run_pack()", i, value)
-        builder.m_sample_builder.m_grating_height = value
+        builder.m_sample_builder.m_grating_period = value
         run_single(builder, report)
 
 
@@ -66,8 +73,8 @@ def run_single(builder, report=None):
 if __name__ == '__main__':
     report = ReportManager()
 
-    exp_config = load_experimental_setup("exp3")
-    sample_config = load_sample_setup("sinus")
+    exp_config = load_experimental_setup("exp1")
+    sample_config = load_sample_setup("box")
     builder = SimulationBuilder(exp_config, sample_config)
 
     run_single(builder, report)

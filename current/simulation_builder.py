@@ -20,7 +20,7 @@ import time
 #     "spherical": SphericalGrating()
 # }
 
-builders = { "SimpleBoxGrating": SimpleBoxGrating, "SimpleSinusGrating": SimpleSinusGrating}
+builders = { "SimpleBoxGrating": SimpleBoxGrating, "SimpleSinusGrating": SimpleSinusGrating, "SphericalGrating" : SphericalGrating}
 
 class DivergenceData:
     FLAG, TYPE, NPOINTS, SIGMA = range(4)

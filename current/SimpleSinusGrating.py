@@ -37,8 +37,8 @@ class SimpleSinusGrating:
         return self.m_rotation_angle
 
     def grating(self, material):
-        ff = ba.FormFactorLongRipple1Lorentz(self.grating_length(), self.grating_width(), self.grating_height())
-        # ff = ba.FormFactorLongRipple1Gauss(self.grating_length(), self.grating_width(), self.grating_height())
+        # ff = ba.FormFactorLongRipple1Lorentz(self.grating_length(), self.grating_width(), self.grating_height())
+        ff = ba.FormFactorLongRipple1Gauss(self.grating_length(), self.grating_width(), self.grating_height())
         return ba.Particle(material, ff)
 
     def decay_function(self, decay_type="gauss"):

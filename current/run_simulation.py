@@ -41,7 +41,7 @@ def plot_simulations(sim_results, exp_data):
     amps = np.concatenate((exp_proj.getBinValues(), sim_proj.getBinValues()))
     mean = np.mean(amps)
 
-    plt.ylim(mean*0.05, mean*50)
+    plt.ylim(mean*0.005, mean*50)
 
 
 def run_pack(builder, report):

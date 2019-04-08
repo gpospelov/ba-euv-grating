@@ -23,7 +23,7 @@
     "r_sigma" : 5.0,
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,
-    "surface_density": 0.1
+    "surface_density": 0.02
   },
   "spherical" : {
     "builder": "SphericalGrating",

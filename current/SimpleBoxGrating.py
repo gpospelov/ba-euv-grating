@@ -10,7 +10,7 @@ class SimpleBoxGrating:
         self.m_grating_length = setup["length"]
         self.m_grating_height = setup["height"]
         self.m_grating_width = setup["width"]
-        self.m_rotation_angle = setup["rotation"]
+        self.m_rotation_angle = setup["rotation"]*deg
         self.m_decay_length = setup["decay_length"]
         self.m_rough_sigma =  setup["r_sigma"]
         self.m_rough_hurst =  setup["r_hurst"]

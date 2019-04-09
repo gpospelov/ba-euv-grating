@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import bornagain as ba
-from bornagain import micrometer
+from utils.json_utils import load_sample_setup
 
 
 class Circle:
@@ -61,15 +61,16 @@ class Rectangle:
 
 
 class GratingShape:
-    def __init__(self, period=833.0, thickness=300.0, nslices=50, grating_length=5.0*micrometer):
-        self.m_period = period
-        self.m_thickness = thickness
-        self.m_nslices = nslices
-        self.m_r0 = 225.0
+    def __init__(self, setup):
+        self.m_period = setup["period"]
+        self.m_thickness = setup["bulk"]
+        self.m_nslices = setup["nslices"]
+        self.m_grating_length = setup["length"]
+        self.m_r0 = setup["r0"]
+        self.m_r1 = setup["r1"]
         self.m_circle0 = Circle(0.0, 0.0, self.m_r0)
-        self.m_circle1 = Circle(period/2.0, 820.0-450.0, 360.0)
-        self.m_circle2 = Circle(period, 0.0, self.m_r0)
-        self.m_grating_length = grating_length
+        self.m_circle1 = Circle(self.m_period/2.0, 820.0-450.0, self.m_r1)
+        self.m_circle2 = Circle(self.m_period, 0.0, self.m_r0)
 
     def get_y(self, x):
         """
@@ -124,7 +125,10 @@ class GratingShape:
 
 
 if __name__ == '__main__':
-    shape = GratingShape()
+
+    sample_config = load_sample_setup("spherical")
+
+    shape = GratingShape(sample_config)
     rect = shape.rectangle_set()
 
     fig1 = plt.figure()

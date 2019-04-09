@@ -4,7 +4,7 @@ three-spheres-shape-like profile grating.
 """
 import bornagain as ba
 from bornagain import nm, deg
-from utils.grating_shape import GratingShape
+from grating_shape import GratingShape
 from utils.json_utils import load_sample_setup
 from material_library import MaterialLibrary
 
@@ -21,12 +21,12 @@ class SphericalGrating:
         self.m_rough_hurst = setup["r_hurst"]
         self.m_rough_corr = setup["r_corr"]
         self.m_surface_density = setup["surface_density"]
-        self.m_grating_bulk = setup["bulk"]*nm
-        self.m_nslices = setup["nslices"]
         self.materials = MaterialLibrary()
+        self.m_grating_shape = GratingShape(setup)
 
     def add_parameters(self, run_parameters):
         run_parameters.add_parameters(self)
+        run_parameters.add_parameters(self.m_grating_shape)
 
     def grating_height(self):
         return self.m_grating_height
@@ -39,9 +39,6 @@ class SphericalGrating:
 
     def grating_period(self):
         return self.m_grating_period
-
-    def grating_bulk(self):
-        return self.m_grating_bulk
 
     def decay_function(self, decay_type="gauss"):
         if decay_type == "gauss":
@@ -56,11 +53,7 @@ class SphericalGrating:
         return interference
 
     def grating(self, material):
-        grshape = GratingShape(period=self.grating_period(),
-                                     grating_length=self.grating_length(),
-                                     thickness=self.grating_bulk(),
-                                     nslices=int(self.m_nslices))
-        return grshape.get_composition(material)
+        return self.m_grating_shape.get_composition(material)
 
     def buildSample(self, wavelength):
         mat_ambience = self.materials.ambience_material()

@@ -32,7 +32,7 @@ class SimulationBuilder:
         self.m_alpha_inc = exp_config["alpha_inc"] * deg
         self.m_phi_inc = 0
         self.m_beam_intensity = exp_config["intensity"]
-        self.m_wavelength = exp_config["wavelength"]
+        self.m_wavelength = exp_config["wavelength"]*nm
         self.m_detector_resolution_sigma = 0.02
         self.m_constant_background = exp_config["background"]
 

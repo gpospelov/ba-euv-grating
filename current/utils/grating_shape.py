@@ -117,6 +117,7 @@ class GratingShape:
         # result.addParticle(ba.Particle(material, ff), pos)
         for r in self.rectangle_set():
             ff = ba.FormFactorLongBoxLorentz(self.m_grating_length, r.m_width, r.m_height)
+            # ff = ba.FormFactorLongBox(self.m_grating_length, r.m_width, r.m_height)
             pos = ba.kvector_t(0, r.m_x+r.m_width/2, r.m_y)
             result.addParticle(ba.Particle(material, ff), pos)
         return result

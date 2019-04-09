@@ -2,7 +2,7 @@
   "box" : {
     "builder": "SimpleBoxGrating",
     "period": 833,
-    "length": 2000,
+    "length": 10000,
     "height": 201,
     "width": 29,
     "rotation": 0,

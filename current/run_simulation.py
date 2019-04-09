@@ -84,7 +84,7 @@ if __name__ == '__main__':
     report = ReportManager()
 
     exp_config = load_experimental_setup("exp2")
-    sample_config = load_sample_setup("sinus")
+    sample_config = load_sample_setup("box")
     builder = SimulationBuilder(exp_config, sample_config)
 
     run_single(builder, report)

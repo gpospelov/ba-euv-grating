@@ -54,6 +54,7 @@ def run_pack(builder, report):
         builder.m_sample_builder.m_grating_height = value
         run_single(builder, report)
 
+    ## optimal: 826
     # report.m_title = "Period scan"
     # for i in range(0, 30):
     #     value = 780 + i*2
@@ -61,6 +62,7 @@ def run_pack(builder, report):
     #     builder.m_sample_builder.m_grating_period = value
     #     run_single(builder, report)
 
+    ## Optimal: 0.2 deg
     # report.m_title = "Rotation scan"
     # for i in range(0, 21):
     #     value = -0.5 + i*0.05
@@ -82,11 +84,11 @@ if __name__ == '__main__':
     report = ReportManager()
 
     exp_config = load_experimental_setup("exp3")
-    sample_config = load_sample_setup("sinus")
+    sample_config = load_sample_setup("spherical")
     builder = SimulationBuilder(exp_config, sample_config)
 
-    # run_single(builder, report)
-    run_pack(builder, report)
+    run_single(builder, report)
+    # run_pack(builder, report)
 
     report.generate_pdf()
     plt.show()

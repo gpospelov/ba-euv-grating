@@ -12,9 +12,9 @@ class SimpleBoxGrating:
         self.m_grating_width = setup["width"]
         self.m_rotation_angle = setup["rotation"]*deg
         self.m_decay_length = setup["decay_length"]
-        self.m_rough_sigma =  setup["r_sigma"]
-        self.m_rough_hurst =  setup["r_hurst"]
-        self.m_rough_corr =  setup["r_corr"]
+        self.m_rough_sigma = setup["r_sigma"]
+        self.m_rough_hurst = setup["r_hurst"]
+        self.m_rough_corr = setup["r_corr"]
         self.m_surface_density = setup["surface_density"]
         self.materials = MaterialLibrary()
 

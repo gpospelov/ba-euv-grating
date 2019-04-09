@@ -36,7 +36,9 @@
     "r_sigma" : 5.0,
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,
-    "surface_density": 0.05
+    "surface_density": 0.05,
+    "bulk": 100,
+    "nslices" : 50
   }
 }
 

@@ -15,7 +15,7 @@
   "sinus" : {
     "builder": "SimpleSinusGrating",
     "period": 833,
-    "length": 5000,
+    "length": 10000,
     "height": 201,
     "width": 833,
     "rotation": 0,
@@ -23,22 +23,22 @@
     "r_sigma" : 5.0,
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,
-    "surface_density": 0.02
+    "surface_density": 0.001
   },
   "spherical" : {
     "builder": "SphericalGrating",
-    "period": 825,
-    "length": 5000,
+    "period": 833,
+    "length": 50000,
     "height": 201,
     "width": 400,
-    "rotation": 0,
+    "rotation": 0.2,
     "decay_length": 2500,
     "r_sigma" : 5.0,
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,
     "surface_density": 0.05,
     "bulk": 100,
-    "nslices" : 50
+    "nslices" : 100
   }
 }
 

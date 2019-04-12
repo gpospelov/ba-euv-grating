@@ -30,6 +30,7 @@ class SimulationBuilder:
     def __init__(self, exp_config, sample_config):
 
         self.m_alpha_inc = exp_config["alpha_inc"] * deg
+        self.m_sample_rotation = exp_config["alpha_inc"] * deg
         self.m_phi_inc = 0
         self.m_beam_intensity = exp_config["intensity"]
         self.m_wavelength = exp_config["wavelength"]*nm
@@ -46,7 +47,7 @@ class SimulationBuilder:
         self.m_detector_builder = ExperimentalSetup(exp_config)
         self.m_simulation = None
 
-        self.m_sample_builder = builders[sample_config["builder"]](sample_config)
+        self.m_sample_builder = builders[sample_config["builder"]](exp_config, sample_config)
 
         self.init_simulation()
 

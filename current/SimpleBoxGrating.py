@@ -5,17 +5,17 @@ from utils.json_utils import load_sample_setup
 
 
 class SimpleBoxGrating:
-    def __init__(self, setup):
-        self.m_grating_period = setup["period"]
-        self.m_grating_length = setup["length"]
-        self.m_grating_height = setup["height"]
-        self.m_grating_width = setup["width"]
-        self.m_rotation_angle = setup["rotation"]*deg
-        self.m_decay_length = setup["decay_length"]
-        self.m_rough_sigma = setup["r_sigma"]
-        self.m_rough_hurst = setup["r_hurst"]
-        self.m_rough_corr = setup["r_corr"]
-        self.m_surface_density = setup["surface_density"]
+    def __init__(self, exp_setup, sample_setup):
+        self.m_grating_period = sample_setup["period"]
+        self.m_grating_length = sample_setup["length"]
+        self.m_grating_height = sample_setup["height"]
+        self.m_grating_width = sample_setup["width"]
+        self.m_rotation_angle = exp_setup["sample_rotation"]*deg
+        self.m_decay_length = sample_setup["decay_length"]
+        self.m_rough_sigma = sample_setup["r_sigma"]
+        self.m_rough_hurst = sample_setup["r_hurst"]
+        self.m_rough_corr = sample_setup["r_corr"]
+        self.m_surface_density = sample_setup["surface_density"]
         self.materials = MaterialLibrary()
 
     def add_parameters(self, run_parameters):

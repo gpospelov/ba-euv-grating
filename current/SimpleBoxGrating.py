@@ -2,24 +2,22 @@ import bornagain as ba
 from bornagain import nm, deg
 from material_library import MaterialLibrary
 from utils.json_utils import load_sample_setup
+from grating_base import GratingBase
 
 
-class SimpleBoxGrating:
+class SimpleBoxGrating(GratingBase):
     def __init__(self, exp_setup, sample_setup):
+        super().__init__(exp_setup, sample_setup)
         self.m_grating_period = sample_setup["period"]
         self.m_grating_length = sample_setup["length"]
         self.m_grating_height = sample_setup["height"]
         self.m_grating_width = sample_setup["width"]
-        self.m_rotation_angle = exp_setup["sample_rotation"]*deg
         self.m_decay_length = sample_setup["decay_length"]
         self.m_rough_sigma = sample_setup["r_sigma"]
         self.m_rough_hurst = sample_setup["r_hurst"]
         self.m_rough_corr = sample_setup["r_corr"]
         self.m_surface_density = sample_setup["surface_density"]
         self.materials = MaterialLibrary()
-
-    def add_parameters(self, run_parameters):
-        run_parameters.add_parameters(self)
 
     def grating_height(self):
         return self.m_grating_height
@@ -43,7 +41,7 @@ class SimpleBoxGrating:
 
     def interference(self):
         interference = ba.InterferenceFunction1DLattice(
-            self.m_grating_period, 90.0*deg - self.m_rotation_angle)
+            self.m_grating_period, 90.0*deg - self.rotation_angle())
         interference.setDecayFunction(self.decay_function())
         return interference
 
@@ -55,7 +53,7 @@ class SimpleBoxGrating:
         layout = ba.ParticleLayout()
         layout.addParticle(self.grating(mat_grating), 1.0,
                            ba.kvector_t(0.0, 0.0, -self.grating_height()),
-                           ba.RotationZ(self.m_rotation_angle))
+                           ba.RotationZ(self.rotation_angle()))
         layout.setInterferenceFunction(self.interference())
         layout.setTotalParticleSurfaceDensity(self.m_surface_density)
 

@@ -25,7 +25,6 @@ class ExperimentalSetup:
         self.length_ccd = setup["length_ccd"]
         self.spec_u = setup["spec_y"]*self.pixel_size
         self.spec_v = setup["spec_x"]*self.pixel_size
-        self.m_arr = None
         self.filename = setup["filename"]
         self.xpeaks = setup["xpeaks"]
         self.ypeaks = setup["ypeaks"]
@@ -46,7 +45,6 @@ class ExperimentalSetup:
 
     def det_normal(self):
         norm = np.sin(self.beta_b)*self.length_ccd
-        print("xxx", norm)
         n_x = norm*np.cos(self.det_alpha_sm())
         n_y = 0.0
         n_z = -1.0*norm*np.sin(self.det_alpha_sm())

@@ -48,11 +48,11 @@ def plot_simulations(sim_results, exp_data):
 def run_pack(builder, report):
 
     # report.m_title = "Grating height scan"
-    for i in range(0, 40):
-        value = 180 + i*2.0
-        print("run_pack()", i, value)
-        builder.m_sample_builder.m_grating_height = value
-        run_single(builder, report)
+    # for i in range(0, 40):
+    #     value = 180 + i*2.0
+    #     print("run_pack()", i, value)
+    #     builder.m_sample_builder.m_grating_height = value
+    #     run_single(builder, report)
 
     ## optimal: 826
     # report.m_title = "Period scan"
@@ -62,13 +62,18 @@ def run_pack(builder, report):
     #     builder.m_sample_builder.m_grating_period = value
     #     run_single(builder, report)
 
-    ## Optimal: 0.2 deg
+    ## Optimal: 0.2 deg (exp1), -0.8 exp2
     # report.m_title = "Rotation scan"
-    # for i in range(0, 21):
-    #     value = -0.5 + i*0.05
-    #     print("run_pack()", i, value)
-    #     builder.m_sample_builder.m_rotation_angle = value*deg
+    # for value in np.linspace(-0.8, 0.5, 14):
+    #     print("run_pack()", value)
+    #     builder.m_sample_builder.m_rotation_angle = value
     #     run_single(builder, report)
+
+    report.m_title = "Rotation scan"
+    for value in np.linspace(-0.8, 0.5, 14):
+        print("run_pack()", value)
+        builder.m_sample_builder.m_rotation_angle = value
+        run_single(builder, report)
 
 
 def run_single(builder, report=None):
@@ -87,8 +92,8 @@ if __name__ == '__main__':
     sample_config = load_sample_setup("box")
     builder = SimulationBuilder(exp_config, sample_config)
 
-    run_single(builder, report)
-    # run_pack(builder, report)
+    # run_single(builder, report)
+    run_pack(builder, report)
 
     report.generate_pdf()
     plt.show()

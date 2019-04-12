@@ -52,9 +52,6 @@ class ExperimentalSetup:
         n_z = -1.0*norm*np.sin(self.det_alpha_sm())
         return [n_x, n_y, n_z]
 
-    def det_beta_ccd(self):
-        return 180.0*deg - self.beta_b - self.alpha_inc
-
     def det_pb_length(self):
         return np.sin(self.alpha_inc + self.det_alpha_sm())*self.length_ccd
 
@@ -75,7 +72,8 @@ class ExperimentalSetup:
 
     def create_detector(self):
         detector = ba.RectangularDetector(self.nx, self.det_width(), self.ny, self.det_height())
-        normal = ba.kvector_t(self.det_normal()[0], 0, self.det_normal()[2])
+        n = self.det_normal()
+        normal = ba.kvector_t(n[0], n[1], n[2])
         detector.setPosition(normal, self.det_u0(), self.det_v0())
         return detector
 

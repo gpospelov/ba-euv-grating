@@ -2,7 +2,6 @@
   "exp1" : {
     "alpha_inc"       : 10.71,
     "sample_rotation" : 0.0,
-    "beta_a"          : 79.83,
     "beta_b"          : 78.75,
     "length_ccd"      : 40.24,
     "spec_x"          : 683,
@@ -19,7 +18,6 @@
   "exp2" : {
     "alpha_inc"       : 10.64,
     "sample_rotation" : 0.0,
-    "beta_a"          : 79.83,
     "beta_b"          : 78.89,
     "length_ccd"      : 60.45,
     "spec_x"          : 458,
@@ -36,7 +34,6 @@
   "exp3" : {
     "alpha_inc"       : 5.57,
     "sample_rotation" : 0.0,
-    "beta_a"          : 79.83,
     "beta_b"          : 89.03,
     "length_ccd"      : 57.45,
     "spec_x"          : 766,

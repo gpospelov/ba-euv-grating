@@ -12,9 +12,7 @@ import json
 import numpy as np
 from utils.json_utils import load_setup
 from matplotlib import pyplot as plt
-
-
-DESCRIPTION = os.path.join(os.path.dirname(os.path.abspath(__file__)), "experiments.json")
+from utils.json_utils import load_experimental_setup
 
 
 class ExperimentalSetup:
@@ -23,7 +21,6 @@ class ExperimentalSetup:
         self.ny = 1024
         self.pixel_size = 13*1e-03  # mm
         self.alpha_inc = setup["alpha_inc"]*deg
-        self.beta_a = setup["beta_a"]*deg
         self.beta_b = setup["beta_b"]*deg
         self.length_ccd = setup["length_ccd"]
         self.spec_u = setup["spec_y"]*self.pixel_size
@@ -48,7 +45,8 @@ class ExperimentalSetup:
         print("width, height : {0}, {1}".format(self.det_width(), self.det_height()))
 
     def det_normal(self):
-        norm = np.cos(self.det_alpha_sm())*self.det_c_length()
+        norm = np.sin(self.beta_b)*self.length_ccd
+        print("xxx", norm)
         n_x = norm*np.cos(self.det_alpha_sm())
         n_y = 0.0
         n_z = -1.0*norm*np.sin(self.det_alpha_sm())
@@ -105,8 +103,8 @@ class ExperimentalSetup:
 
 if __name__ == '__main__':
 
-    cfg = load_setup("exp3")
-    setup = ExperimentalSetup(cfg)
+    exp_config = load_experimental_setup("exp2")
+    setup = ExperimentalSetup(exp_config)
 
     hist = setup.get_histogram()
 

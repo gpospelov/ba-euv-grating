@@ -8,18 +8,15 @@ from SimpleSinusGrating import SimpleSinusGrating
 from BoxCompositionGrating import BoxCompositionGrating
 from SphericalGrating import SphericalGrating
 from detector_builder import DetectorBuilder
+from SinusCompositionGrating import SinusCompositionGrating
 import time
 
-
-# grating_builders = {
-#     "box": SimpleBoxGrating(),
-#     "two_box": TwoBoxGrating(),
-#     "sinus": SimpleSinusGrating(),
-#     "box_composition": BoxCompositionGrating(),
-#     "spherical": SphericalGrating()
-# }
-
-builders = { "SimpleBoxGrating": SimpleBoxGrating, "SimpleSinusGrating": SimpleSinusGrating, "SphericalGrating" : SphericalGrating}
+builders = {
+    "SimpleBoxGrating": SimpleBoxGrating,
+    "SimpleSinusGrating": SimpleSinusGrating,
+    "SphericalGrating": SphericalGrating,
+    "SinusCompositionGrating": SinusCompositionGrating
+}
 
 class DivergenceData:
     FLAG, TYPE, NPOINTS, SIGMA = range(4)
@@ -90,6 +87,7 @@ class SimulationBuilder:
         simulation.setBackground(ba.ConstantBackground(self.m_constant_background))
 
         self.m_detector_builder.apply_masks(simulation)
+        simulation.getOptions().setIncludeSpecular(True)
 
         if self.m_monte_carlo:
             simulation.getOptions().setMonteCarloIntegration(True, 50)

@@ -43,7 +43,7 @@ class MaterialLibrary:
 if __name__ == '__main__':
     # factory = MaterialFactory()
 
-    wavelength = 135.2
+    wavelength = 10
 
     print("--- Si ---")
     print(pt.Si.density)
@@ -55,7 +55,8 @@ if __name__ == '__main__':
 
     print("--- Au ---")
     print(pt.Au.density)
-    rho, mu = pt.xray_sld({pt.Au: 1}, density=pt.Au.density, wavelength=wavelength)
+    au = pt.formula("Au")
+    rho, mu = pt.xray_sld(au, density=pt.Au.density, wavelength=wavelength)
     print("au rho_mu:",rho*1e-6, mu*1e-6)
     # ri = pt.xsf.index_of_refraction({pt.Au: 1}, density=pt.Au.density, wavelength=wavelength)
     # print("au refractive coeff:", ri, 1.0-ri.real, ri.imag)

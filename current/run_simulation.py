@@ -94,12 +94,12 @@ def run_single(builder, report=None):
 if __name__ == '__main__':
     report = ReportManager()
 
-    exp_config = load_experimental_setup("exp2")
-    sample_config = load_sample_setup("box")
+    exp_config = load_experimental_setup("exp3")
+    sample_config = load_sample_setup("sinuscomp")
     builder = SimulationBuilder(exp_config, sample_config)
 
-    # run_single(builder, report)
-    run_pack(builder, report)
+    run_single(builder, report)
+    # run_pack(builder, report)
 
     report.generate_pdf()
     plt.show()

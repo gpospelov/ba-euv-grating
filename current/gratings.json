@@ -23,6 +23,19 @@
     "r_corr"  : 10.0,
     "surface_density": 0.01
   },
+  "sinuscomp" : {
+    "builder": "SinusCompositionGrating",
+    "period": 833,
+    "length": 10000,
+    "height": 201,
+    "width": 833,
+    "grating_bulk": 200,
+    "decay_length": 2500,
+    "r_sigma" : 5.0,
+    "r_hurst" : 0.5,
+    "r_corr"  : 10.0,
+    "surface_density": 0.01
+  },
   "spherical" : {
     "builder": "SphericalGrating",
     "period": 833,

@@ -5,12 +5,8 @@ Contains detector geometry description for all 3 experiments and set of function
 to load experimental data and to build corresponding RectangularDetector.
 """
 import os
-import bornagain as ba
-from bornagain import deg
 from bornagain.plot_utils import *
-import json
 import numpy as np
-from utils.json_utils import load_setup
 from matplotlib import pyplot as plt
 from utils.json_utils import load_experimental_setup
 
@@ -18,49 +14,51 @@ NX, NY = 1024, 1024
 PIXEL_SIZE = 13 * 1e-03  # mm
 
 
-class ExperimentalSetup:
+class DetectorBuilder:
     def __init__(self, setup):
-        self.m_alpha_inc = setup["alpha_inc"]
+        self.alpha_inc_angle = setup["alpha_inc"]
         self.m_beta_b = setup["beta_b"]
-        self.length_ccd = setup["length_ccd"]
+        self.m_length_ccd = setup["length_ccd"]
         self.spec_u = setup["spec_y"]*PIXEL_SIZE
         self.spec_v = setup["spec_x"]*PIXEL_SIZE
         self.filename = setup["filename"]
         self.xpeaks = setup["xpeaks"]
         self.ypeaks = setup["ypeaks"]
         self.peak_radius = setup["peak_radius"]
-        self.det_dx = setup["det_dx"]
-
+        self.m_det_dx = setup["det_dx"]
         self.print()
 
+    def add_parameters(self, run_parameters):
+        run_parameters.add_parameters(self)
+
     def alpha_inc(self):
-        return self.m_alpha_inc*deg
+        return self.alpha_inc_angle*deg
 
     def beta_b(self):
         return self.m_beta_b*deg
 
     def print(self):
-        print("alpha_inc     : {0}".format(self.m_alpha_inc))
+        print("alpha_inc     : {0}".format(self.alpha_inc_angle))
         print("normal        : {0}".format(self.det_normal()))
         print("u0, v0        : {0}, {1}".format(self.det_u0(), self.det_v0()))
         print("nx, ny        : {0}, {1}".format(NX, NY))
         print("width, height : {0}, {1}".format(self.det_width(), self.det_height()))
 
     def det_normal(self):
-        norm = np.sin(self.beta_b())*self.length_ccd
+        norm = np.sin(self.beta_b())*self.m_length_ccd
         n_x = norm*np.cos(self.det_alpha_sm())
         n_y = 0.0
         n_z = -1.0*norm*np.sin(self.det_alpha_sm())
         return [n_x, n_y, n_z]
 
     def det_pb_length(self):
-        return np.sin(self.alpha_inc() + self.det_alpha_sm())*self.length_ccd
+        return np.sin(self.alpha_inc() + self.det_alpha_sm())*self.m_length_ccd
 
     def det_alpha_sm(self):
         return 180.0*deg - self.alpha_inc() -self.beta_b() - 90.0*deg
 
     def det_u0(self):
-        return self.spec_u + self.det_dx
+        return self.spec_u + self.m_det_dx
 
     def det_v0(self):
         return self.spec_v-self.det_pb_length()
@@ -98,7 +96,7 @@ class ExperimentalSetup:
 if __name__ == '__main__':
 
     exp_config = load_experimental_setup("exp2")
-    setup = ExperimentalSetup(exp_config)
+    setup = DetectorBuilder(exp_config)
 
     hist = setup.get_histogram()
 

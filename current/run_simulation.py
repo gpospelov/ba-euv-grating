@@ -69,10 +69,16 @@ def run_pack(builder, report):
     #     builder.m_sample_builder.m_rotation_angle = value
     #     run_single(builder, report)
 
-    report.m_title = "Beta_b"
-    for value in np.linspace(78.89-10.0, 78.89+10.0, 10):
+    # report.m_title = "Beta_b"
+    # for value in np.linspace(78.89-10.0, 78.89+10.0, 10):
+    #     print("run_pack()", value)
+    #     builder.m_detector_builder.m_beta_b = value
+    #     run_single(builder, report)
+
+    report.m_title = "Det DX"
+    for value in np.linspace(-1.0, 1.0, 11):
         print("run_pack()", value)
-        builder.m_detector_builder.m_beta_b = value
+        builder.m_detector_builder.m_det_dx = value
         run_single(builder, report)
 
 

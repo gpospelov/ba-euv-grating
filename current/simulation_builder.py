@@ -7,7 +7,7 @@ from SimpleBoxGrating import SimpleBoxGrating
 from SimpleSinusGrating import SimpleSinusGrating
 from BoxCompositionGrating import BoxCompositionGrating
 from SphericalGrating import SphericalGrating
-from experimental_setup import ExperimentalSetup
+from detector_builder import DetectorBuilder
 import time
 
 
@@ -42,7 +42,7 @@ class SimulationBuilder:
         self.m_beam_divergence_phi = (False, "gauss", 5, 0.05)
         self.m_time_spend = 0
 
-        self.m_detector_builder = ExperimentalSetup(exp_config)
+        self.m_detector_builder = DetectorBuilder(exp_config)
         self.m_simulation = None
 
         self.m_sample_builder = builders[sample_config["builder"]](exp_config, sample_config)
@@ -61,6 +61,7 @@ class SimulationBuilder:
     def get_run_parameters(self):
         result = RunParameters()
         result.add_parameters(self)
+        self.m_detector_builder.add_parameters(result)
         self.m_sample_builder.add_parameters(result)
         return result
 

@@ -56,12 +56,7 @@ class ExperimentalSetup:
         return 180.0*deg - self.beta_b - self.alpha_inc
 
     def det_pb_length(self):
-        a = np.sin(self.alpha_inc)*self.length_ccd/np.sin(self.det_beta_ccd())
-        da = np.sin(self.det_alpha_sm())*self.det_c_length()
-        return a + da
-
-    def det_c_length(self):
-        return np.sin(self.beta_b) * self.length_ccd / np.sin(self.det_beta_ccd())
+        return np.sin(self.alpha_inc + self.det_alpha_sm())*self.length_ccd
 
     def det_alpha_sm(self):
         return 180.0*deg - self.alpha_inc -self.beta_b - 90.0*deg

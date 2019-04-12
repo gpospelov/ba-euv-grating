@@ -4,7 +4,6 @@ import bornagain as ba
 from utils.parameter_utils import RunParameters
 from bornagain import deg, micrometer, nm
 from SimpleBoxGrating import SimpleBoxGrating
-from TwoBoxGrating import TwoBoxGrating
 from SimpleSinusGrating import SimpleSinusGrating
 from BoxCompositionGrating import BoxCompositionGrating
 from SphericalGrating import SphericalGrating

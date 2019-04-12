@@ -28,8 +28,7 @@ class DivergenceData:
 class SimulationBuilder:
     def __init__(self, exp_config, sample_config):
 
-        self.m_alpha_inc = exp_config["alpha_inc"] * deg
-        self.m_sample_rotation = exp_config["alpha_inc"] * deg
+        self.m_alpha_inc = exp_config["alpha_inc"]
         self.m_phi_inc = 0
         self.m_beam_intensity = exp_config["intensity"]
         self.m_wavelength = exp_config["wavelength"]*nm
@@ -51,7 +50,7 @@ class SimulationBuilder:
         self.init_simulation()
 
     def alpha_inc(self):
-        return self.m_alpha_inc
+        return self.m_alpha_inc*deg
 
     def phi_inc(self):
         return self.m_phi_inc

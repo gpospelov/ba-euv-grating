@@ -69,10 +69,10 @@ def run_pack(builder, report):
     #     builder.m_sample_builder.m_rotation_angle = value
     #     run_single(builder, report)
 
-    report.m_title = "Rotation scan"
-    for value in np.linspace(-0.8, 0.5, 14):
+    report.m_title = "Beta_b"
+    for value in np.linspace(78.89-10.0, 78.89+10.0, 10):
         print("run_pack()", value)
-        builder.m_sample_builder.m_rotation_angle = value
+        builder.m_detector_builder.m_beta_b = value
         run_single(builder, report)
 
 
@@ -92,8 +92,8 @@ if __name__ == '__main__':
     sample_config = load_sample_setup("box")
     builder = SimulationBuilder(exp_config, sample_config)
 
-    run_single(builder, report)
-    # run_pack(builder, report)
+    # run_single(builder, report)
+    run_pack(builder, report)
 
     report.generate_pdf()
     plt.show()

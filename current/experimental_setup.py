@@ -14,17 +14,17 @@ from utils.json_utils import load_setup
 from matplotlib import pyplot as plt
 from utils.json_utils import load_experimental_setup
 
+NX, NY = 1024, 1024
+PIXEL_SIZE = 13 * 1e-03  # mm
+
 
 class ExperimentalSetup:
     def __init__(self, setup):
-        self.nx = 1024
-        self.ny = 1024
-        self.pixel_size = 13*1e-03  # mm
         self.m_alpha_inc = setup["alpha_inc"]
         self.m_beta_b = setup["beta_b"]
         self.length_ccd = setup["length_ccd"]
-        self.spec_u = setup["spec_y"]*self.pixel_size
-        self.spec_v = setup["spec_x"]*self.pixel_size
+        self.spec_u = setup["spec_y"]*PIXEL_SIZE
+        self.spec_v = setup["spec_x"]*PIXEL_SIZE
         self.filename = setup["filename"]
         self.xpeaks = setup["xpeaks"]
         self.ypeaks = setup["ypeaks"]
@@ -43,7 +43,7 @@ class ExperimentalSetup:
         print("alpha_inc     : {0}".format(self.m_alpha_inc))
         print("normal        : {0}".format(self.det_normal()))
         print("u0, v0        : {0}, {1}".format(self.det_u0(), self.det_v0()))
-        print("nx, ny        : {0}, {1}".format(self.nx, self.ny))
+        print("nx, ny        : {0}, {1}".format(NX, NY))
         print("width, height : {0}, {1}".format(self.det_width(), self.det_height()))
 
     def det_normal(self):
@@ -66,13 +66,13 @@ class ExperimentalSetup:
         return self.spec_v-self.det_pb_length()
 
     def det_width(self):
-        return self.nx*self.pixel_size
+        return NX*PIXEL_SIZE
 
     def det_height(self):
-        return self.ny*self.pixel_size
+        return NY*PIXEL_SIZE
 
     def create_detector(self):
-        detector = ba.RectangularDetector(self.nx, self.det_width(), self.ny, self.det_height())
+        detector = ba.RectangularDetector(NX, self.det_width(), NY, self.det_height())
         n = self.det_normal()
         normal = ba.kvector_t(n[0], n[1], n[2])
         detector.setPosition(normal, self.det_u0(), self.det_v0())
@@ -81,7 +81,7 @@ class ExperimentalSetup:
     def get_histogram(self):
         filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", self.filename)
         print("loading histogram from: "+filename)
-        result = ba.Histogram2D(self.nx, 0.0, self.det_width(), self.ny, 0.0, self.det_height())
+        result = ba.Histogram2D(NX, 0.0, self.det_width(), NY, 0.0, self.det_height())
 
         self.m_arr = np.loadtxt(filename)
         result.setContent(self.m_arr)

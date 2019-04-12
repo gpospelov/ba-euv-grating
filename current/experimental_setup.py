@@ -20,8 +20,8 @@ class ExperimentalSetup:
         self.nx = 1024
         self.ny = 1024
         self.pixel_size = 13*1e-03  # mm
-        self.alpha_inc = setup["alpha_inc"]*deg
-        self.beta_b = setup["beta_b"]*deg
+        self.m_alpha_inc = setup["alpha_inc"]
+        self.m_beta_b = setup["beta_b"]
         self.length_ccd = setup["length_ccd"]
         self.spec_u = setup["spec_y"]*self.pixel_size
         self.spec_v = setup["spec_x"]*self.pixel_size
@@ -34,27 +34,30 @@ class ExperimentalSetup:
         self.print()
 
     def alpha_inc(self):
-        return self.alpha_inc()
+        return self.m_alpha_inc*deg
+
+    def beta_b(self):
+        return self.m_beta_b*deg
 
     def print(self):
-        print("alpha_inc     : {0}".format(self.alpha_inc/deg))
+        print("alpha_inc     : {0}".format(self.m_alpha_inc))
         print("normal        : {0}".format(self.det_normal()))
         print("u0, v0        : {0}, {1}".format(self.det_u0(), self.det_v0()))
         print("nx, ny        : {0}, {1}".format(self.nx, self.ny))
         print("width, height : {0}, {1}".format(self.det_width(), self.det_height()))
 
     def det_normal(self):
-        norm = np.sin(self.beta_b)*self.length_ccd
+        norm = np.sin(self.beta_b())*self.length_ccd
         n_x = norm*np.cos(self.det_alpha_sm())
         n_y = 0.0
         n_z = -1.0*norm*np.sin(self.det_alpha_sm())
         return [n_x, n_y, n_z]
 
     def det_pb_length(self):
-        return np.sin(self.alpha_inc + self.det_alpha_sm())*self.length_ccd
+        return np.sin(self.alpha_inc() + self.det_alpha_sm())*self.length_ccd
 
     def det_alpha_sm(self):
-        return 180.0*deg - self.alpha_inc -self.beta_b - 90.0*deg
+        return 180.0*deg - self.alpha_inc() -self.beta_b() - 90.0*deg
 
     def det_u0(self):
         return self.spec_u + self.det_dx

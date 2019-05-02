@@ -81,7 +81,7 @@ class SinusCompositionGrating(GratingBase):
         # assemble multilayer
         multi_layer = ba.MultiLayer()
         multi_layer.addLayer(air_layer)
-        multi_layer.addLayer(intermediate)
+        multi_layer.addLayerWithTopRoughness(intermediate, roughness)
         # multi_layer.addLayer(under)
         multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
         return multi_layer
@@ -90,6 +90,7 @@ def get_sample():
     exp_config = load_experimental_setup("exp3")
     sample_config = load_sample_setup("sinuscomp")
     return SinusCompositionGrating(exp_config, sample_config).buildSample(1.0)
+
 
 if __name__ == '__main__':
     print(get_sample().treeToString())

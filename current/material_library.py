@@ -1,69 +1,39 @@
 from bornagain import ba
-from bornagain import nm
+from bornagain import nm, angstrom
 import periodictable as pt
 from periodictable.xsf import xray_energy, xray_sld_from_atoms, xray_sld
 from periodictable.xsf import index_of_refraction, mirror_reflectivity
 
 
 class MaterialLibrary:
-    def __init__(self, use_sld=True):
-        self.m_use_sld = use_sld
+    def __init__(self):
         pass
 
-    def ambience_material(self):
-        # return ba.HomogeneousMaterial("air", 0.0, 0.0)
-        if self.m_use_sld:
-            return ba.MaterialBySLD("air", 0.0, 0.0)
-        else:
-            return ba.HomogeneousMaterial("air", 0.0, 0.0)
-
-    def substrate_material(self):
-        # return ba.HomogeneousMaterial("substrate",  0.00111570884, 0.0018275599)  # Si
-        return self.get_si()
-
-    def grating_material(self):
-        # return ba.HomogeneousMaterial("grating",  0.101456583, 0.0521341525)  # Au
-        return self.get_au()
-
     def get_air(self, wavelength=None):
-        # return ba.HomogeneousMaterial("air", 0.0, 0.0)
-        if self.m_use_sld:
-            return ba.MaterialBySLD("air", 0.0, 0.0)
-        else:
-            return ba.HomogeneousMaterial("air", 0.0, 0.0)
+        return ba.MaterialBySLD("air", 0.0, 0.0)
 
     def get_si(self, wavelength=None):
-        if self.m_use_sld:
-            return ba.MaterialBySLD("si", 3.8419756509395133e-07, 6.282115314984396e-07)
-            # return ba.MaterialBySLD("si", 2.0071e-05, 4.5816e-07)
-        else:
-            return ba.HomogeneousMaterial("si", 0.001117707391540712, -0.0018275927179164807)
+        si = pt.formula("Si")
+        dens = pt.Si.density
+        rho, mu = pt.xray_sld(si, density=pt.Si.density, wavelength=wavelength/angstrom)
+        rho *= 1e-6
+        mu *= 1e-6
+        print("MaterialLibrary > wavelength:{0} formula:{1} density:{2} rho:{3} mu:{4}".format(wavelength, si, dens, rho, mu))
+        return ba.MaterialBySLD("si", rho, mu)
 
     def get_au(self, wavelength=None):
-        if self.m_use_sld:
-            return ba.MaterialBySLD("au", 3.4838805704272005e-05, 1.7905760965614288e-05)
-            # return ba.MaterialBySLD("au", 0.0001249, 1.2871e-05)
-        else:
-            return ba.HomogeneousMaterial("au", 0.001117707391540712, -0.0018275927179164807)
+        au = pt.formula("Au")
+        dens = pt.Au.density
+        rho, mu = pt.xray_sld(au, density=dens, wavelength=wavelength/angstrom)
+        rho *= 1e-6
+        mu *= 1e-6
+        print("MaterialLibrary > wavelength:{0} formula:{1} density:{2} rho:{3} mu:{4}".format(wavelength, au, dens, rho, mu))
+        return ba.MaterialBySLD("au", rho, mu)
 
 
 if __name__ == '__main__':
-    # factory = MaterialFactory()
-
-    wavelength = 10
-
+    wavelength = 13.52*nm
     print("--- Si ---")
-    print(pt.Si.density)
-    si = pt.formula("Si")
-    rho, mu = pt.xray_sld(si, density=pt.Si.density, wavelength=wavelength)
-    print("si rho_mu:",rho*1e-6, mu*1e-6)
-    # ri = pt.xsf.index_of_refraction({pt.Si: 1}, density=pt.Si.density, wavelength=wavelength)
-    # print("si refractive coeff:",ri, 1.0-ri.real, ri.imag)
-
+    MaterialLibrary().get_si(wavelength)
     print("--- Au ---")
-    print(pt.Au.density)
-    au = pt.formula("Au")
-    rho, mu = pt.xray_sld(au, density=pt.Au.density, wavelength=wavelength)
-    print("au rho_mu:",rho*1e-6, mu*1e-6)
-    # ri = pt.xsf.index_of_refraction({pt.Au: 1}, density=pt.Au.density, wavelength=wavelength)
-    # print("au refractive coeff:", ri, 1.0-ri.real, ri.imag)
+    MaterialLibrary().get_au(wavelength)

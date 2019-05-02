@@ -1,7 +1,6 @@
 import bornagain as ba
 from grating_base import GratingBase
 from bornagain import nm, deg
-from material_library import MaterialLibrary
 from grating_base import GratingBase
 from utils.json_utils import load_sample_setup
 from utils.json_utils import load_experimental_setup
@@ -20,7 +19,6 @@ class SinusCompositionGrating(GratingBase):
         self.m_rough_corr = sample_setup["r_corr"]
         self.m_surface_density = sample_setup["surface_density"]
         self.m_grating_bulk = sample_setup["grating_bulk"]
-        self.materials = MaterialLibrary()
 
     def grating_height(self):
         return self.m_grating_height
@@ -56,9 +54,9 @@ class SinusCompositionGrating(GratingBase):
         return interference
 
     def buildSample(self, wavelength):
-        mat_ambience = self.materials.ambience_material()
-        mat_substrate = self.materials.substrate_material()
-        mat_grating = self.materials.grating_material()
+        mat_ambience = self.ambience_material(wavelength)
+        mat_substrate = self.substrate_material(wavelength)
+        mat_grating = self.grating_material(wavelength)
 
         layout = ba.ParticleLayout()
         layout.addParticle(self.grating(mat_grating, mat_ambience), 1.0,
@@ -73,7 +71,7 @@ class SinusCompositionGrating(GratingBase):
         under = ba.Layer(mat_ambience, 10*nm)
         substrate_layer = ba.Layer(mat_substrate)
 
-        # intermediate.addLayout(layout)
+        intermediate.addLayout(layout)
 
         roughness = ba.LayerRoughness()
         roughness.setSigma(self.m_rough_sigma)
@@ -84,7 +82,7 @@ class SinusCompositionGrating(GratingBase):
         multi_layer = ba.MultiLayer()
         multi_layer.addLayer(air_layer)
         multi_layer.addLayer(intermediate)
-        multi_layer.addLayer(under)
+        # multi_layer.addLayer(under)
         multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
         return multi_layer
 

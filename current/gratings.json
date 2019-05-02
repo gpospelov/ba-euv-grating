@@ -29,7 +29,7 @@
     "length": 10000,
     "height": 201,
     "width": 833,
-    "grating_bulk": 200,
+    "grating_bulk": 500,
     "decay_length": 2500,
     "r_sigma" : 5.0,
     "r_hurst" : 0.5,

@@ -24,27 +24,19 @@ class DivergenceData:
 
 class SimulationBuilder:
     def __init__(self, exp_config, sample_config):
-
         self.m_alpha_inc = exp_config["alpha_inc"]
         self.m_phi_inc = 0
         self.m_beam_intensity = exp_config["intensity"]
         self.m_wavelength = exp_config["wavelength"]*nm
         self.m_detector_resolution_sigma = 0.02
         self.m_constant_background = exp_config["background"]
-
         self.m_beam_data_str = ""
-
         self.m_monte_carlo = False
         self.m_beam_divergence_alpha = (False, "gauss", 5, 0.05)
         self.m_beam_divergence_phi = (False, "gauss", 5, 0.05)
         self.m_time_spend = 0
-
         self.m_detector_builder = DetectorBuilder(exp_config)
-        self.m_simulation = None
-
         self.m_sample_builder = builders[sample_config["builder"]](exp_config, sample_config)
-
-        self.init_simulation()
 
     def alpha_inc(self):
         return self.m_alpha_inc*deg
@@ -71,7 +63,7 @@ class SimulationBuilder:
 
     def get_distribution(self, type, par1, par2):
         if type == "gauss":
-            return  ba.DistributionGaussian(par1, par2)
+            return ba.DistributionGaussian(par1, par2)
         else:
             raise Exception("Unknown distribution type")
 
@@ -87,7 +79,6 @@ class SimulationBuilder:
         simulation.setBackground(ba.ConstantBackground(self.m_constant_background))
 
         self.m_detector_builder.apply_masks(simulation)
-        simulation.getOptions().setIncludeSpecular(True)
 
         if self.m_monte_carlo:
             simulation.getOptions().setMonteCarloIntegration(True, 50)
@@ -103,30 +94,27 @@ class SimulationBuilder:
             distr = self.get_distribution(d[DivergenceData.TYPE], self.phi_inc(), d[DivergenceData.SIGMA]*deg)
             simulation.addParameterDistribution("*/Beam/AzimuthalAngle", distr, d[DivergenceData.NPOINTS])
 
+        simulation.setSample(self.m_sample_builder.buildSample(self.wavelength()))
         return simulation
-
-    def init_simulation(self):
-        self.m_simulation = self.build_simulation()
 
     def run_simulation(self):
         start = time.time()
         self.m_beam_data_str += "({:5.2f},{:5.2f})".format(self.wavelength(), 1.0)
 
-        self.m_simulation = self.build_simulation()
-        self.m_simulation.setSample(self.m_sample_builder.buildSample(self.wavelength()))
-
+        simulation = self.build_simulation()
         print(self.get_run_parameters().parameter_string())
 
-        self.m_simulation.runSimulation()
+        simulation.runSimulation()
 
         self.m_time_spend = time.time() - start
 
-        return self.m_simulation.result()
+        return simulation.result()
 
     def experimentalData(self):
         """
         Returns experimental data in same units as simulated data.
         """
         data = self.m_detector_builder.get_histogram().array()
-        return ba.ConvertData(self.m_simulation, data)
+        simulation = self.build_simulation()
+        return ba.ConvertData(simulation, data)
 

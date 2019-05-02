@@ -8,6 +8,7 @@ from SimpleSinusGrating import SimpleSinusGrating
 from BoxCompositionGrating import BoxCompositionGrating
 from SphericalGrating import SphericalGrating
 from detector_builder import DetectorBuilder
+from detector_builder import PIXEL_SIZE
 from SinusCompositionGrating import SinusCompositionGrating
 import time
 
@@ -28,7 +29,7 @@ class SimulationBuilder:
         self.m_phi_inc = 0
         self.m_beam_intensity = exp_config["intensity"]
         self.m_wavelength = exp_config["wavelength"]*nm
-        self.m_detector_resolution_sigma = 0.02
+        self.m_detector_resolution_sigma = PIXEL_SIZE*2
         self.m_constant_background = exp_config["background"]
         self.m_beam_data_str = ""
         self.m_monte_carlo = False
@@ -75,7 +76,7 @@ class SimulationBuilder:
         simulation.setBeamParameters(self.wavelength(), self.alpha_inc(), self.phi_inc())
         simulation.setBeamIntensity(self.m_beam_intensity)
 
-        simulation.setDetectorResolutionFunction(ba.ResolutionFunction2DGaussian(self.m_detector_resolution_sigma*deg, self.m_detector_resolution_sigma*deg))
+        simulation.setDetectorResolutionFunction(ba.ResolutionFunction2DGaussian(self.m_detector_resolution_sigma, self.m_detector_resolution_sigma))
         simulation.setBackground(ba.ConstantBackground(self.m_constant_background))
 
         self.m_detector_builder.apply_masks(simulation)

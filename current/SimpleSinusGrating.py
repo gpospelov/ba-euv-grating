@@ -61,7 +61,7 @@ class SimpleSinusGrating(GratingBase):
         # assemble layers
         air_layer = ba.Layer(mat_ambience)
         intermediate = ba.Layer(mat_ambience, self.grating_height())
-        under = ba.Layer(mat_ambience, 100*nm)
+        # under = ba.Layer(mat_ambience, 100*nm)
         substrate_layer = ba.Layer(mat_substrate)
 
         intermediate.addLayout(layout)
@@ -75,6 +75,6 @@ class SimpleSinusGrating(GratingBase):
         multi_layer = ba.MultiLayer()
         multi_layer.addLayer(air_layer)
         multi_layer.addLayer(intermediate)
-        multi_layer.addLayer(under)
+        # multi_layer.addLayer(under)
         multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
         return multi_layer

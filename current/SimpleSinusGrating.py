@@ -1,7 +1,6 @@
 import bornagain as ba
 from grating_base import GratingBase
 from bornagain import nm, deg
-from material_library import MaterialLibrary
 from grating_base import GratingBase
 
 
@@ -17,7 +16,6 @@ class SimpleSinusGrating(GratingBase):
         self.m_rough_hurst = sample_setup["r_hurst"]
         self.m_rough_corr = sample_setup["r_corr"]
         self.m_surface_density = sample_setup["surface_density"]
-        self.materials = MaterialLibrary()
 
     def grating_height(self):
         return self.m_grating_height
@@ -49,9 +47,9 @@ class SimpleSinusGrating(GratingBase):
         return interference
 
     def buildSample(self, wavelength):
-        mat_ambience = self.materials.ambience_material()
-        mat_substrate = self.materials.substrate_material()
-        mat_grating = self.materials.grating_material()
+        mat_ambience = self.ambience_material(wavelength)
+        mat_substrate = self.substrate_material(wavelength)
+        mat_grating = self.grating_material(wavelength)
 
         layout = ba.ParticleLayout()
         layout.addParticle(self.grating(mat_grating), 1.0,

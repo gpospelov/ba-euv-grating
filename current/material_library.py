@@ -25,14 +25,21 @@ class MaterialLibrary:
         # return ba.HomogeneousMaterial("grating",  0.101456583, 0.0521341525)  # Au
         return self.get_au()
 
-    def get_si(self):
+    def get_air(self, wavelength=None):
+        # return ba.HomogeneousMaterial("air", 0.0, 0.0)
+        if self.m_use_sld:
+            return ba.MaterialBySLD("air", 0.0, 0.0)
+        else:
+            return ba.HomogeneousMaterial("air", 0.0, 0.0)
+
+    def get_si(self, wavelength=None):
         if self.m_use_sld:
             return ba.MaterialBySLD("si", 3.8419756509395133e-07, 6.282115314984396e-07)
             # return ba.MaterialBySLD("si", 2.0071e-05, 4.5816e-07)
         else:
             return ba.HomogeneousMaterial("si", 0.001117707391540712, -0.0018275927179164807)
 
-    def get_au(self):
+    def get_au(self, wavelength=None):
         if self.m_use_sld:
             return ba.MaterialBySLD("au", 3.4838805704272005e-05, 1.7905760965614288e-05)
             # return ba.MaterialBySLD("au", 0.0001249, 1.2871e-05)

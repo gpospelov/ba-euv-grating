@@ -6,7 +6,6 @@ import bornagain as ba
 from bornagain import nm, deg
 from grating_shape import GratingShape
 from utils.json_utils import load_sample_setup
-from material_library import MaterialLibrary
 from grating_base import GratingBase
 
 
@@ -22,12 +21,7 @@ class SphericalGrating(GratingBase):
         self.m_rough_hurst = sample_setup["r_hurst"]
         self.m_rough_corr = sample_setup["r_corr"]
         self.m_surface_density = sample_setup["surface_density"]
-        self.materials = MaterialLibrary()
         self.m_grating_shape = GratingShape(sample_setup)
-
-    def add_parameters(self, run_parameters):
-        super().add_parameters(self)
-        run_parameters.add_parameters(self.m_grating_shape)
 
     def grating_height(self):
         return self.m_grating_height
@@ -57,9 +51,9 @@ class SphericalGrating(GratingBase):
         return self.m_grating_shape.get_composition(material)
 
     def buildSample(self, wavelength):
-        mat_ambience = self.materials.ambience_material()
-        mat_substrate = self.materials.substrate_material()
-        mat_grating = self.materials.grating_material()
+        mat_ambience = self.ambience_material(wavelength)
+        mat_substrate = self.substrate_material(wavelength)
+        mat_grating = self.grating_material(wavelength)
 
         layout = ba.ParticleLayout()
         layout.addParticle(self.grating(mat_grating), 1.0,

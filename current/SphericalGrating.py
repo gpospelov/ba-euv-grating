@@ -14,20 +14,12 @@ class SphericalGrating(GratingBase):
         super().__init__(exp_setup, sample_setup)
         self.m_grating_period = sample_setup["period"]
         self.m_grating_length = sample_setup["length"]
-        self.m_grating_height = sample_setup["height"]
-        self.m_grating_width = sample_setup["width"]
         self.m_decay_length = sample_setup["decay_length"]
         self.m_rough_sigma = sample_setup["r_sigma"]
         self.m_rough_hurst = sample_setup["r_hurst"]
         self.m_rough_corr = sample_setup["r_corr"]
         self.m_surface_density = sample_setup["surface_density"]
         self.m_grating_shape = GratingShape(sample_setup)
-
-    def grating_height(self):
-        return self.m_grating_height
-
-    def grating_width(self):
-        return self.m_grating_width
 
     def grating_length(self):
         return self.m_grating_length
@@ -57,7 +49,7 @@ class SphericalGrating(GratingBase):
 
         layout = ba.ParticleLayout()
         layout.addParticle(self.grating(mat_grating), 1.0,
-                           ba.kvector_t(0.0, 0.0, 100.0),
+                           ba.kvector_t(0.0, 0.0, 0.0),
                            ba.RotationZ(self.rotation_angle()))
         layout.setTotalParticleSurfaceDensity(self.m_surface_density)
         layout.setInterferenceFunction(self.interference())

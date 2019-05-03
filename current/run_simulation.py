@@ -81,10 +81,16 @@ def run_pack(exp_config, sample_config, report):
     #     builder.m_detector_builder.m_det_dx = value
     #     run_single(builder, report)
 
-    report.m_title = "Para Omega"
-    for value in np.linspace(0.1, 10000.0, 10):
+    # report.m_title = "Para Omega"
+    # for value in np.linspace(0.1, 100.0, 10):
+    #     print("run_pack()", value)
+    #     sample_config["interf"]["omega"] = value
+    #     run_single(exp_config, sample_config, report)
+
+    report.m_title = "Exp2 parabox domainsize"
+    for value in np.linspace(0.1, 100000.0, 10):
         print("run_pack()", value)
-        sample_config["interf"]["omega"] = value
+        sample_config["interf"]["domain_size"] = value
         run_single(exp_config, sample_config, report)
 
 
@@ -105,8 +111,8 @@ if __name__ == '__main__':
     exp_config = load_experimental_setup("exp2")
     sample_config = load_sample_setup("parabox")
 
-    # run_single(exp_config, sample_config, report)
-    run_pack(exp_config, sample_config, report)
+    run_single(exp_config, sample_config, report)
+    # run_pack(exp_config, sample_config, report)
 
     report.generate_pdf()
     plt.show()

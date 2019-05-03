@@ -35,9 +35,6 @@ class SimpleBoxGrating(GratingBase):
                                          self.grating_height())
         return ba.Particle(material, ff)
 
-    def interference(self):
-        return self.interference_function
-
     def buildSample(self, wavelength):
         mat_ambience = self.ambience_material(wavelength)
         mat_substrate = self.substrate_material(wavelength)

@@ -17,19 +17,19 @@
   },
   "exp2" : {
     "alpha_inc"       : 10.64,
-    "sample_rotation" : 0.0,
-    "beta_b"          : 78.89,
+    "sample_rotation" : -0.727,
+    "beta_b"          : 72.12,
     "length_ccd"      : 60.45,
     "spec_x"          : 458,
     "spec_y"          : 460,
     "filename"        : "expdata2.txt.gz",
-    "intensity"       : 5e+3,
+    "intensity"       : 5e+4,
     "wavelength"      : 13.52,
     "background"      : 1e+2,
     "xpeaks"          : [6.00, 6.96, 9.90, 10.90, 2.07, 0.11, 3.01, 8.92, 4.01, 5.00, 12.88, 11.85, 7.95, 1.02],
     "ypeaks"          : [5.93, 5.97, 5.53, 5.19, 4.91, 3.72, 5.32, 5.75, 5.60, 5.82, 4.18, 4.74, 5.88, 4.37],
     "peak_radius"     : 1.2,
-    "det_dx"          : 0.0
+    "det_dx"          : 0.00225
   },
   "exp3" : {
     "alpha_inc"       : 5.57,

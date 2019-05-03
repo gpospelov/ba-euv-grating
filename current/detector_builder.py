@@ -93,8 +93,7 @@ class DetectorBuilder:
         if self.setup["mask_center"]:
             xp = self.setup["center_peak_x"]
             yp = self.setup["center_peak_y"]
-            r = self.peak_radius/3.
-            simulation.addMask(ba.Ellipse(xp, yp, r, r), True)
+            simulation.addMask(ba.Ellipse(xp, yp, self.peak_radius/2, self.peak_radius/2.5), True)
 
 
 if __name__ == '__main__':

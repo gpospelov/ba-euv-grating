@@ -16,7 +16,7 @@ def get_simulation(params):
 
     sample_config["grating_period"] = params["grating_period"]
     sample_config["grating_width"] = params["grating_period"]
-    sample_config["grating_height"] = params["grating_height"]
+    # sample_config["grating_height"] = params["grating_height"]
 
     builder = SimulationBuilder(exp_config, sample_config)
 
@@ -43,17 +43,17 @@ def run_fitting():
     # params.add("sample_rotation", -0.72, min=-0.72-0.25, max=-0.72+0.25, step=0.1)
     # params.add("det_dx", 0.0, min=-0.02, max=0.02, step=0.001)
     # params.add("beta_b", 78.89, min=78.89-10.0, max=78.89+10.0, step=1.0)
-    params.add("grating_height", 201, min=201-50.0, max=201+100.0, step=10.0)
-    params.add("grating_period", 833, min=833-10.0, max=833+10.0, step=1.0)
+    # params.add("grating_height", 201, min=201-50.0, max=201+100.0, step=10.0)
+    params.add("grating_period", 833, min=833-5.0, max=833+5.0, step=0.5)
 
     minimizer = ba.Minimizer()
-    minimizer.setMinimizer("Genetic", "", "MaxIterations=5;RandomSeed=1")
-    result = minimizer.minimize(fit_objective.evaluate, params)
-    fit_objective.finalize(result)
-
-    best_params_so_far = result.parameters()
+    # minimizer.setMinimizer("Genetic", "", "MaxIterations=5;RandomSeed=1")
+    # result = minimizer.minimize(fit_objective.evaluate, params)
+    # fit_objective.finalize(result)
+    #
+    # best_params_so_far = result.parameters()
     minimizer.setMinimizer("Minuit2", "Migrad")
-    result = minimizer.minimize(fit_objective.evaluate, best_params_so_far)
+    result = minimizer.minimize(fit_objective.evaluate, params)
 
     fit_objective.finalize(result)
     print("Fitting completed.")

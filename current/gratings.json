@@ -35,7 +35,7 @@
   },
   "sinus" : {
     "builder": "SimpleSinusGrating",
-    "grating_period": 833.6,
+    "grating_period": 834.2,
     "length": 10000,
     "grating_height": 201,
     "grating_width": 833.6,
@@ -51,7 +51,7 @@
   },
   "parasinus" : {
     "builder": "SimpleSinusGrating",
-    "grating_period": 833.6,
+    "grating_period": 834.2,
     "length": 10000,
     "grating_height": 201,
     "grating_width": 833.6,

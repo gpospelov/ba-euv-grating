@@ -7,10 +7,10 @@ from grating_base import GratingBase
 class SimpleSinusGrating(GratingBase):
     def __init__(self, exp_setup, sample_setup):
         super().__init__(exp_setup, sample_setup)
-        self.m_grating_period = sample_setup["period"]
+        self.m_grating_period = sample_setup["grating_period"]
         self.m_grating_length = sample_setup["length"]
-        self.m_grating_height = sample_setup["height"]
-        self.m_grating_width = sample_setup["width"]
+        self.m_grating_height = sample_setup["grating_height"]
+        self.m_grating_width = sample_setup["grating_width"]
         self.m_rough_sigma = sample_setup["r_sigma"]
         self.m_rough_hurst = sample_setup["r_hurst"]
         self.m_rough_corr = sample_setup["r_corr"]

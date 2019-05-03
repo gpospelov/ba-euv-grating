@@ -42,7 +42,7 @@
     "r_sigma" : 10.0,
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,
-    "surface_density": 0.0001,
+    "surface_density": 0.0005,
     "interf": {
       "type" : "1dlattice",
       "decay_type" : "gauss",
@@ -55,16 +55,16 @@
     "length": 10000,
     "height": 201,
     "width": 833.6,
-    "r_sigma" : 10.0,
+    "r_sigma" : 5.0,
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,
-    "surface_density": 0.0001,
+    "surface_density": 0.0005,
     "interf": {
       "type" : "1dpara",
       "distr_type" : "cauchy",
       "damping_length" : 0,
       "domain_size": 100000.0,
-      "omega" : 1.0
+      "omega" : 0.5
     }
   },
   "sinuscomp" : {

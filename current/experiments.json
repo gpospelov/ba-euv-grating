@@ -18,7 +18,7 @@
   },
   "exp2" : {
     "alpha_inc"       : 10.64,
-    "sample_rotation" : -0.729,
+    "sample_rotation" : -0.731,
     "beta_b"          : 72.12,
     "length_ccd"      : 60.45,
     "spec_x"          : 458,

@@ -39,9 +39,15 @@ class SimpleBoxGrating(GratingBase):
             raise Exception("Unknown decay function type")
 
     def interference(self):
-        interference = ba.InterferenceFunction1DLattice(
-            self.m_grating_period, 90.0*deg - self.rotation_angle())
-        interference.setDecayFunction(self.decay_function())
+        # interference = ba.InterferenceFunction1DLattice(
+        #     self.m_grating_period, 90.0*deg - self.rotation_angle())
+        # interference.setDecayFunction(self.decay_function())
+
+        interference = ba.InterferenceFunctionRadialParaCrystal(
+            self.m_grating_period, 0 * nm)
+        pdf = ba.FTDistribution1DGauss(1 * nm)
+        interference.setProbabilityDistribution(pdf)
+
         return interference
 
     def buildSample(self, wavelength):

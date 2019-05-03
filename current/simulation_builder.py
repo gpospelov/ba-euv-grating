@@ -29,7 +29,7 @@ class SimulationBuilder:
         self.m_phi_inc = 0
         self.m_beam_intensity = exp_config["intensity"]
         self.m_wavelength = exp_config["wavelength"]*nm
-        self.m_detector_resolution_sigma = PIXEL_SIZE*2
+        self.m_detector_resolution_sigma = PIXEL_SIZE*6
         self.m_constant_background = exp_config["background"]
         self.m_beam_data_str = ""
         self.m_monte_carlo = False

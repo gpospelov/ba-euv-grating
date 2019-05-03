@@ -45,7 +45,7 @@ def plot_simulations(sim_results, exp_data):
     plt.ylim(mean*0.005, mean*50)
 
 
-def run_pack(builder, report):
+def run_pack(exp_config, sample_config, report):
 
     # report.m_title = "Grating height scan"
     # for i in range(0, 40):
@@ -55,12 +55,12 @@ def run_pack(builder, report):
     #     run_single(builder, report)
 
     # optimal: 826
-    report.m_title = "Period scan"
-    for i in range(0, 3):
-        value = 780 + i*2
-        print("run_pack()", i, value)
-        builder.m_sample_builder.m_grating_period = value
-        run_single(builder, report)
+    # report.m_title = "Period scan"
+    # for i in range(0, 3):
+    #     value = 780 + i*2
+    #     print("run_pack()", i, value)
+    #     builder.m_sample_builder.m_grating_period = value
+    #     run_single(builder, report)
 
     ## Optimal: 0.2 deg (exp1), -0.8 exp2
     # report.m_title = "Rotation scan"
@@ -81,8 +81,16 @@ def run_pack(builder, report):
     #     builder.m_detector_builder.m_det_dx = value
     #     run_single(builder, report)
 
+    report.m_title = "Para Omega"
+    for value in np.linspace(0.1, 10000.0, 10):
+        print("run_pack()", value)
+        sample_config["interf"]["omega"] = value
+        run_single(exp_config, sample_config, report)
 
-def run_single(builder, report=None):
+
+def run_single(exp_config, sample_config, report=None):
+    builder = SimulationBuilder(exp_config, sample_config)
+
     sim_result = builder.run_simulation()
     exp_data = builder.experimentalData()
     plot_simulations(sim_result, exp_data)
@@ -96,10 +104,9 @@ if __name__ == '__main__':
 
     exp_config = load_experimental_setup("exp2")
     sample_config = load_sample_setup("parabox")
-    builder = SimulationBuilder(exp_config, sample_config)
 
-    run_single(builder, report)
-    # run_pack(builder, report)
+    # run_single(exp_config, sample_config, report)
+    run_pack(exp_config, sample_config, report)
 
     report.generate_pdf()
     plt.show()

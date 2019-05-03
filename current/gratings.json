@@ -27,9 +27,9 @@
     "surface_density": 0.01,
     "interf": {
       "type" : "1dpara",
-      "distr_type" : "gauss",
-      "damping_length" : 1000,
-      "domain_size": 0.0,
+      "distr_type" : "cauchy",
+      "damping_length" : 0,
+      "domain_size": 100000.0,
       "omega" : 1.0
     }
   },

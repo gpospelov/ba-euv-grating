@@ -25,6 +25,15 @@ class SimpleBoxGrating(GratingBase):
             self.m_decay_type = interf_setup["decay_type"]
             self.m_decay_length = interf_setup["decay_length"]
             self.interference_function.setDecayFunction(self.decay_function(self.m_decay_type, self.m_decay_length))
+        elif interf_setup["type"] == "1dpara":
+            self.m_distr_type = interf_setup["distr_type"]
+            self.m_damping_length = interf_setup["damping_length"]
+            self.m_domain_size = interf_setup["domain_size"]
+            self.m_omega = interf_setup["omega"]
+            self.interference_function = ba.InterferenceFunctionRadialParaCrystal(self.m_grating_period, self.m_damping_length)
+            self.interference_function.setProbabilityDistribution(self.probability_distribution(self.m_distr_type, self.m_omega))
+            if self.m_domain_size != 0.0:
+                self.interference_function.setDomainSize(self.m_domain_size)
         else:
             raise Exception("Unknown interference function")
 
@@ -42,24 +51,17 @@ class SimpleBoxGrating(GratingBase):
                                          self.grating_height())
         return ba.Particle(material, ff)
 
-    def decay_function(self, decay_type, decay_value):
-        if decay_type == "gauss":
-            return ba.FTDecayFunction1DGauss(decay_value)
-        elif decay_type == "cauchy":
-            return ba.FTDecayFunction1DCauchy(decay_value)
-        else:
-            raise Exception("Unknown decay function type")
-
     def interference(self):
         # interference = ba.InterferenceFunction1DLattice(
         #     self.m_grating_period, 90.0*deg - self.rotation_angle())
         # interference.setDecayFunction(self.decay_function())
 
         # interference = ba.InterferenceFunctionRadialParaCrystal(
-        #     self.m_grating_period, 0 * nm)
-        # pdf = ba.FTDistribution1DGauss(0.01 * nm)
+        #     self.m_grating_period, 1000 * nm)
+        # pdf = ba.FTDistribution1DGauss(1 * nm)
         # interference.setProbabilityDistribution(pdf)
-
+        # return interference
+        #
         return self.interference_function
 
     def buildSample(self, wavelength):

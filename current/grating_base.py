@@ -29,3 +29,27 @@ class GratingBase:
 
     def interference(self):
         return self.interference_function
+
+    def decay_function(self, decay_type, decay_value):
+        if decay_type == "gauss":
+            return ba.FTDecayFunction1DGauss(decay_value)
+        elif decay_type == "cauchy":
+            return ba.FTDecayFunction1DCauchy(decay_value)
+        else:
+            raise Exception("Unknown decay function type")
+
+    def probability_distribution(self, distr_type, omega):
+        if distr_type == "gauss":
+            return ba.FTDistribution1DGauss(omega)
+        elif distr_type == "cauchy":
+            return ba.FTDistribution1DCauchy(omega)
+        elif distr_type == "gate":
+            return ba.FTDistribution1DGate(omega)
+        elif distr_type == "triangle":
+            return ba.FTDistribution1DTriangle(omega)
+        elif distr_type == "cosine":
+            return ba.FTDistribution1DCosine(omega)
+        else:
+            raise Exception("Unknown distr function type")
+
+

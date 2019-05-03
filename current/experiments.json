@@ -31,7 +31,10 @@
     "ypeaks"          : [5.93, 5.97, 5.53, 5.19, 4.91, 3.72, 5.32, 5.75, 5.60, 5.82, 4.18, 4.74, 5.88, 4.37],
     "peak_radius"     : 1.2,
     "det_dx"          : 0.00225,
-    "det_sigma_factor": 3.0
+    "det_sigma_factor": 3.0,
+    "center_peak_x"   : 6.00,
+    "center_peak_y"   : 5.93,
+    "mask_center"     : true
   },
   "exp3" : {
     "alpha_inc"       : 5.57,

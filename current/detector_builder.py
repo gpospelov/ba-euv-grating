@@ -16,6 +16,7 @@ PIXEL_SIZE = 13 * 1e-03  # mm
 
 class DetectorBuilder:
     def __init__(self, setup):
+        self.setup = setup
         self.alpha_inc_angle = setup["alpha_inc"]
         self.m_beta_b = setup["beta_b"]
         self.m_length_ccd = setup["length_ccd"]
@@ -87,10 +88,13 @@ class DetectorBuilder:
 
     def apply_masks(self, simulation):
         simulation.maskAll()
-        # simulation.addMask(ba.Ellipse(self.det_width()/2, self.det_height()*0.02, self.det_width()*0.69, self.det_height()*0.8), False)
-        # simulation.addMask(ba.Ellipse(self.det_width()/2, -self.det_height()*0.3, self.det_width()*0.62, self.det_height()*0.8), True)
         for xp, yp in zip(self.xpeaks, self.ypeaks):
             simulation.addMask(ba.Ellipse(xp, yp, self.peak_radius, self.peak_radius), False)
+        if self.setup["mask_center"]:
+            xp = self.setup["center_peak_x"]
+            yp = self.setup["center_peak_y"]
+            r = self.peak_radius/3.
+            simulation.addMask(ba.Ellipse(xp, yp, r, r), True)
 
 
 if __name__ == '__main__':

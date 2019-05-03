@@ -12,11 +12,21 @@ class SimpleBoxGrating(GratingBase):
         self.m_grating_length = sample_setup["length"]
         self.m_grating_height = sample_setup["height"]
         self.m_grating_width = sample_setup["width"]
-        self.m_decay_length = sample_setup["decay_length"]
         self.m_rough_sigma = sample_setup["r_sigma"]
         self.m_rough_hurst = sample_setup["r_hurst"]
         self.m_rough_corr = sample_setup["r_corr"]
         self.m_surface_density = sample_setup["surface_density"]
+        self.init_interference(sample_setup["interf"])
+
+    def init_interference(self, interf_setup):
+        self.m_interftype = interf_setup["type"]
+        if interf_setup["type"] == "1dlattice":
+            self.interference_function = ba.InterferenceFunction1DLattice(self.m_grating_period, 90.0*deg - self.rotation_angle())
+            self.m_decay_type = interf_setup["decay_type"]
+            self.m_decay_length = interf_setup["decay_length"]
+            self.interference_function.setDecayFunction(self.decay_function(self.m_decay_type, self.m_decay_length))
+        else:
+            raise Exception("Unknown interference function")
 
     def grating_height(self):
         return self.m_grating_height
@@ -32,23 +42,25 @@ class SimpleBoxGrating(GratingBase):
                                          self.grating_height())
         return ba.Particle(material, ff)
 
-    def decay_function(self, decay_type="gauss"):
+    def decay_function(self, decay_type, decay_value):
         if decay_type == "gauss":
-            return ba.FTDecayFunction1DGauss(self.m_decay_length)
+            return ba.FTDecayFunction1DGauss(decay_value)
+        elif decay_type == "cauchy":
+            return ba.FTDecayFunction1DCauchy(decay_value)
         else:
             raise Exception("Unknown decay function type")
 
     def interference(self):
-        interference = ba.InterferenceFunction1DLattice(
-            self.m_grating_period, 90.0*deg - self.rotation_angle())
-        interference.setDecayFunction(self.decay_function())
+        # interference = ba.InterferenceFunction1DLattice(
+        #     self.m_grating_period, 90.0*deg - self.rotation_angle())
+        # interference.setDecayFunction(self.decay_function())
 
         # interference = ba.InterferenceFunctionRadialParaCrystal(
         #     self.m_grating_period, 0 * nm)
-        # pdf = ba.FTDistribution1DGauss(1 * nm)
+        # pdf = ba.FTDistribution1DGauss(0.01 * nm)
         # interference.setProbabilityDistribution(pdf)
 
-        return interference
+        return self.interference_function
 
     def buildSample(self, wavelength):
         mat_ambience = self.ambience_material(wavelength)

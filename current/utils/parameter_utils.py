@@ -17,7 +17,7 @@ class ClassParameters:
         keys = sorted(keys)
         for key in keys:
             var = item.__dict__[key]
-            if "m_" in key and isinstance(var, (int, float)):
+            if "m_" in key and isinstance(var, (int, float, str)):
                 self.m_parameters[key] = var
 
     def items(self):

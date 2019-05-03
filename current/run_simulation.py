@@ -54,13 +54,13 @@ def run_pack(builder, report):
     #     builder.m_sample_builder.m_grating_height = value
     #     run_single(builder, report)
 
-    ## optimal: 826
-    # report.m_title = "Period scan"
-    # for i in range(0, 30):
-    #     value = 780 + i*2
-    #     print("run_pack()", i, value)
-    #     builder.m_sample_builder.m_grating_period = value
-    #     run_single(builder, report)
+    # optimal: 826
+    report.m_title = "Period scan"
+    for i in range(0, 3):
+        value = 780 + i*2
+        print("run_pack()", i, value)
+        builder.m_sample_builder.m_grating_period = value
+        run_single(builder, report)
 
     ## Optimal: 0.2 deg (exp1), -0.8 exp2
     # report.m_title = "Rotation scan"
@@ -75,11 +75,11 @@ def run_pack(builder, report):
     #     builder.m_detector_builder.m_beta_b = value
     #     run_single(builder, report)
 
-    report.m_title = "Det DX"
-    for value in np.linspace(-1.0, 1.0, 11):
-        print("run_pack()", value)
-        builder.m_detector_builder.m_det_dx = value
-        run_single(builder, report)
+    # report.m_title = "Det DX"
+    # for value in np.linspace(-1.0, 1.0, 11):
+    #     print("run_pack()", value)
+    #     builder.m_detector_builder.m_det_dx = value
+    #     run_single(builder, report)
 
 
 def run_single(builder, report=None):
@@ -98,8 +98,8 @@ if __name__ == '__main__':
     sample_config = load_sample_setup("box")
     builder = SimulationBuilder(exp_config, sample_config)
 
-    run_single(builder, report)
-    # run_pack(builder, report)
+    # run_single(builder, report)
+    run_pack(builder, report)
 
     report.generate_pdf()
     plt.show()

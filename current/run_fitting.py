@@ -11,9 +11,9 @@ builder = None
 
 def get_simulation(params):
     builder.m_sample_builder.m_rotation_angle = params["sample_rotation"]
-    builder.m_detector_builder.m_beta_b = params["beta_b"]
-    builder.m_detector_builder.m_det_dx = params["det_dx"]
-    # builder.m_sample_builder.m_grating_period = params["grating_period"]
+    # builder.m_detector_builder.m_beta_b = params["beta_b"]
+    # builder.m_detector_builder.m_det_dx = params["det_dx"]
+    builder.m_sample_builder.m_grating_period = params["grating_period"]
     return builder.build_simulation()
 
 
@@ -28,14 +28,20 @@ def run_fitting():
     fit_objective.initPlot(1)
 
     params = ba.Parameters()
-    params.add("sample_rotation", 0.0, min=-1.0, max=1.0, step=0.1)
-    params.add("det_dx", 0.0, min=-0.02, max=0.02, step=0.001)
-    params.add("beta_b", 78.89, min=78.89-10.0, max=78.89+10.0, step=1.0)
-    # params.add("grating_period", 833, min=833-50.0, max=833+50.0, step=1.0)
+    params.add("sample_rotation", -0.72, min=-0.72-0.25, max=-0.72+0.25, step=0.1)
+    # params.add("det_dx", 0.0, min=-0.02, max=0.02, step=0.001)
+    # params.add("beta_b", 78.89, min=78.89-10.0, max=78.89+10.0, step=1.0)
+    params.add("grating_period", 833, min=833-50.0, max=833+50.0, step=1.0)
 
     minimizer = ba.Minimizer()
-    minimizer.setMinimizer("Genetic", "", "MaxIterations=5;RandomSeed=1")
+    minimizer.setMinimizer("Genetic", "", "MaxIterations=3;RandomSeed=1")
     result = minimizer.minimize(fit_objective.evaluate, params)
+    fit_objective.finalize(result)
+
+    best_params_so_far = result.parameters()
+    minimizer.setMinimizer("Minuit2", "Migrad")
+    result = minimizer.minimize(fit_objective.evaluate, best_params_so_far)
+
     fit_objective.finalize(result)
     print("Fitting completed.")
 

@@ -29,7 +29,7 @@ class SimulationBuilder:
         self.m_phi_inc = 0
         self.m_beam_intensity = exp_config["intensity"]
         self.m_wavelength = exp_config["wavelength"]*nm
-        self.m_detector_resolution_sigma = PIXEL_SIZE*6
+        self.m_resolution_sigma_factor = exp_config["det_sigma_factor"]
         self.m_constant_background = exp_config["background"]
         self.m_beam_data_str = ""
         self.m_monte_carlo = False
@@ -38,6 +38,9 @@ class SimulationBuilder:
         self.m_time_spend = 0
         self.m_detector_builder = DetectorBuilder(exp_config)
         self.m_sample_builder = builders[sample_config["builder"]](exp_config, sample_config)
+
+    def detector_resolution_sigma(self):
+        return PIXEL_SIZE*self.m_resolution_sigma_factor
 
     def alpha_inc(self):
         return self.m_alpha_inc*deg
@@ -76,7 +79,7 @@ class SimulationBuilder:
         simulation.setBeamParameters(self.wavelength(), self.alpha_inc(), self.phi_inc())
         simulation.setBeamIntensity(self.m_beam_intensity)
 
-        simulation.setDetectorResolutionFunction(ba.ResolutionFunction2DGaussian(self.m_detector_resolution_sigma, self.m_detector_resolution_sigma))
+        simulation.setDetectorResolutionFunction(ba.ResolutionFunction2DGaussian(self.detector_resolution_sigma(), self.detector_resolution_sigma()))
         simulation.setBackground(ba.ConstantBackground(self.m_constant_background))
 
         self.m_detector_builder.apply_masks(simulation)

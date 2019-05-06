@@ -21,6 +21,10 @@ class SphericalGrating(GratingBase):
         self.m_grating_shape = GratingShape(sample_setup)
         self.init_interference(sample_setup["interf"])
 
+    def add_parameters(self, run_parameters):
+        run_parameters.add_parameters(self)
+        run_parameters.add_parameters(self.m_grating_shape)
+
     def grating_length(self):
         return self.m_grating_length
 

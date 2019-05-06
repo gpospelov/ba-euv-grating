@@ -93,10 +93,16 @@ def run_pack(exp_config, sample_config, report):
     #     sample_config["interf"]["domain_size"] = value
     #     run_single(exp_config, sample_config, report)
 
-    report.m_title = "Exp2 parasinus height"
-    for value in np.linspace(150, 300.0, 10):
+    # report.m_title = "Exp2 parasinus height"
+    # for value in np.linspace(150, 300.0, 10):
+    #     print("run_pack()", value)
+    #     sample_config["height"] = value
+    #     run_single(exp_config, sample_config, report)
+
+    report.m_title = "Exp2 spherical r0"
+    for value in np.linspace(225-20.0, 225+20.0, 10):
         print("run_pack()", value)
-        sample_config["height"] = value
+        sample_config["r0"] = value
         run_single(exp_config, sample_config, report)
 
 
@@ -117,8 +123,8 @@ if __name__ == '__main__':
     exp_config = load_experimental_setup("exp2")
     sample_config = load_sample_setup("spherical")
 
-    run_single(exp_config, sample_config, report)
-    # run_pack(exp_config, sample_config, report)
+    # run_single(exp_config, sample_config, report)
+    run_pack(exp_config, sample_config, report)
 
     report.generate_pdf()
     plt.show()

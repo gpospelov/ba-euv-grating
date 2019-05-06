@@ -62,7 +62,7 @@ class Rectangle:
 
 class GratingShape:
     def __init__(self, setup):
-        self.m_period = setup["period"]
+        self.m_period = setup["grating_period"]
         self.m_thickness = setup["bulk"]
         self.m_nslices = setup["nslices"]
         self.m_grating_length = setup["length"]

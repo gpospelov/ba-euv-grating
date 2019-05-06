@@ -69,15 +69,15 @@
   },
   "sinuscomp" : {
     "builder": "SinusCompositionGrating",
-    "grating_period": 833,
+    "grating_period": 834.2,
     "length": 10000,
     "grating_height": 201,
-    "grating_width": 833,
-    "grating_bulk": 500,
-    "r_sigma" : 10.0,
+    "grating_width": 834.2,
+    "grating_bulk": 400,
+    "r_sigma" : 5.0,
     "r_hurst" : 0.9,
     "r_corr"  : 10.0,
-    "surface_density": 0.01,
+    "surface_density": 0.0002,
     "interf": {
       "type" : "1dlattice",
       "decay_type" : "gauss",
@@ -86,17 +86,21 @@
   },
   "spherical" : {
     "builder": "SphericalGrating",
-    "grating_period": 833,
+    "grating_period": 834.2,
     "length": 20000,
-    "decay_length": 2500,
     "r_sigma" : 5.0,
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,
-    "surface_density": 0.05,
+    "surface_density": 0.0002,
     "bulk": 450,
-    "nslices" : 50,
+    "nslices" : 100,
     "r0": 225,
-    "r1" : 360
+    "r1" : 360,
+    "interf": {
+      "type" : "1dlattice",
+      "decay_type" : "gauss",
+      "decay_length" : 2500
+    }
   }
 }
 

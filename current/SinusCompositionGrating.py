@@ -56,7 +56,7 @@ class SinusCompositionGrating(GratingBase):
         # assemble layers
         air_layer = ba.Layer(mat_ambience)
         intermediate = ba.Layer(mat_grating, self.m_grating_bulk)
-        under = ba.Layer(mat_ambience, 10*nm)
+        # under = ba.Layer(mat_ambience, 10*nm)
         substrate_layer = ba.Layer(mat_substrate)
 
         intermediate.addLayout(layout)

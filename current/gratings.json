@@ -101,6 +101,26 @@
       "decay_type" : "gauss",
       "decay_length" : 2500
     }
+  },
+  "paraspherical" : {
+    "builder": "SphericalGrating",
+    "grating_period": 834.2,
+    "length": 20000,
+    "r_sigma" : 5.0,
+    "r_hurst" : 0.5,
+    "r_corr"  : 10.0,
+    "surface_density": 0.0002,
+    "bulk": 450,
+    "nslices" : 100,
+    "r0": 225,
+    "r1" : 360,
+    "interf": {
+      "type" : "1dpara",
+      "distr_type" : "cauchy",
+      "damping_length" : 0,
+      "domain_size": 100000.0,
+      "omega" : 0.5
+    }
   }
 }
 

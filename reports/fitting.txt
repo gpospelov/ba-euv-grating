@@ -21,3 +21,11 @@ params.add("grating_period", 833, min=833-50.0, max=833+50.0, step=1.0)
 
 sample_rotation -7.200e-01   limited(-9.70e-01,-4.70e-01)  -7.287e-01    4.258e-03
 grating_period 8.330e+02   limited(7.83e+02,8.83e+02)    8.336e+02    3.813e-01
+
+
+----------------------------------
+Fitting #3
+----------------------------------
+exp2, parasinus
+params.add("grating_height", 201, min=201-50.0, max=201+100.0, step=10.0)
+grating_height 2.010e+02   limited(1.51e+02,3.01e+02)    1.610e+02    1.881e-01 

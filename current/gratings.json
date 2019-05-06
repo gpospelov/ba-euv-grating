@@ -74,11 +74,15 @@
     "grating_height": 201,
     "grating_width": 833,
     "grating_bulk": 500,
-    "decay_length": 2500,
     "r_sigma" : 10.0,
     "r_hurst" : 0.9,
     "r_corr"  : 10.0,
-    "surface_density": 0.01
+    "surface_density": 0.01,
+    "interf": {
+      "type" : "1dlattice",
+      "decay_type" : "gauss",
+      "decay_length" : 2500
+    }
   },
   "spherical" : {
     "builder": "SphericalGrating",

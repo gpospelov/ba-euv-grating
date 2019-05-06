@@ -9,16 +9,16 @@ from utils.json_utils import load_experimental_setup
 class SinusCompositionGrating(GratingBase):
     def __init__(self, exp_setup, sample_setup):
         super().__init__(exp_setup, sample_setup)
-        self.m_grating_period = sample_setup["period"]
+        self.m_grating_period = sample_setup["grating_period"]
         self.m_grating_length = sample_setup["length"]
-        self.m_grating_height = sample_setup["height"]
-        self.m_grating_width = sample_setup["width"]
-        self.m_decay_length = sample_setup["decay_length"]
+        self.m_grating_height = sample_setup["grating_height"]
+        self.m_grating_width = sample_setup["grating_width"]
         self.m_rough_sigma = sample_setup["r_sigma"]
         self.m_rough_hurst = sample_setup["r_hurst"]
         self.m_rough_corr = sample_setup["r_corr"]
         self.m_surface_density = sample_setup["surface_density"]
         self.m_grating_bulk = sample_setup["grating_bulk"]
+        self.init_interference(sample_setup["interf"])
 
     def grating_height(self):
         return self.m_grating_height
@@ -40,18 +40,6 @@ class SinusCompositionGrating(GratingBase):
         composition.addParticle(top, ba.kvector_t(0.0, 0.0, self.m_grating_bulk))
         composition.addParticle(bottom, ba.kvector_t(0.0, 0.0, 0.0))
         return composition
-
-    def decay_function(self, decay_type="gauss"):
-        if decay_type == "gauss":
-            return ba.FTDecayFunction1DGauss(self.m_decay_length)
-        else:
-            raise Exception("Unknown decay function type")
-
-    def interference(self):
-        interference = ba.InterferenceFunction1DLattice(
-            self.m_grating_period, 90.0*deg - self.rotation_angle())
-        interference.setDecayFunction(self.decay_function())
-        return interference
 
     def buildSample(self, wavelength):
         mat_ambience = self.ambience_material(wavelength)

@@ -9,14 +9,18 @@ from utils.json_utils import load_sample_setup
 
 def get_simulation(params):
     exp_config = load_experimental_setup("exp2")
-    sample_config = load_sample_setup("parasinus")
+    sample_config = load_sample_setup("spherical")
 
     # sample_config["period"] = params["grating_period"]
     # exp_config["sample_rotation"] = params["sample_rotation"]
 
     # sample_config["grating_period"] = params["grating_period"]
     # sample_config["grating_width"] = params["grating_period"]
-    sample_config["grating_height"] = params["grating_height"]
+    # sample_config["grating_height"] = params["grating_height"]
+
+    sample_config["r0"] = params["r0"]
+    sample_config["r1"] = params["r1"]
+    sample_config["bulk"] = params["bulk"]
 
     builder = SimulationBuilder(exp_config, sample_config)
 
@@ -43,11 +47,15 @@ def run_fitting():
     # params.add("sample_rotation", -0.72, min=-0.72-0.25, max=-0.72+0.25, step=0.1)
     # params.add("det_dx", 0.0, min=-0.02, max=0.02, step=0.001)
     # params.add("beta_b", 78.89, min=78.89-10.0, max=78.89+10.0, step=1.0)
-    params.add("grating_height", 201, min=201-50.0, max=201+100.0, step=10.0)
+    # params.add("grating_height", 201, min=201-50.0, max=201+100.0, step=10.0)
     # params.add("grating_period", 833, min=833-5.0, max=833+5.0, step=0.5)
 
+    params.add("r0", 225, min=225-12.0, max=225+12.0, step=0.2)
+    params.add("r1", 360, min=360-12.0, max=360+12.0, step=0.2)
+    params.add("bulk", 450, min=450-200.0, max=450+100.0, step=10.0)
+
     minimizer = ba.Minimizer()
-    minimizer.setMinimizer("Genetic", "", "MaxIterations=5;RandomSeed=1")
+    minimizer.setMinimizer("Genetic", "", "MaxIterations=50;RandomSeed=1;PopulationSize=30")
     result = minimizer.minimize(fit_objective.evaluate, params)
     fit_objective.finalize(result)
 

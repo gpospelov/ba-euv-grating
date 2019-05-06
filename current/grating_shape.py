@@ -123,11 +123,20 @@ class GratingShape:
             result.addParticle(ba.Particle(material, ff), pos)
         return result
 
+def stress_test(sample_config):
+    for r0 in np.linspace(225-12.0, 225+12.0, 10):
+        for r1 in np.linspace(360 - 12.0, 360 + 12.0, 10):
+            for bulk in np.linspace(450 - 200.0, 450 + 100.0, 10):
+                print(r0, r1, bulk)
+                sample_config["r0"] = r0
+                sample_config["r1"] = r1
+                sample_config["bulk"] = bulk
+                shape = GratingShape(sample_config)
+                rect = shape.rectangle_set()
+                print(len(rect))
 
-if __name__ == '__main__':
 
-    sample_config = load_sample_setup("spherical")
-
+def test_plt(sample_config):
     shape = GratingShape(sample_config)
     rect = shape.rectangle_set()
 
@@ -139,3 +148,10 @@ if __name__ == '__main__':
         ax1.add_patch(patches.Rectangle((r.m_x, r.m_y), r.m_width, r.m_height))
 
     plt.show()
+
+if __name__ == '__main__':
+
+    sample_config = load_sample_setup("spherical")
+    stress_test(sample_config)
+    # test_plt(sample_config)
+

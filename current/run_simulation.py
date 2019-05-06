@@ -99,10 +99,10 @@ def run_pack(exp_config, sample_config, report):
     #     sample_config["height"] = value
     #     run_single(exp_config, sample_config, report)
 
-    report.m_title = "Exp2 spherical r0"
-    for value in np.linspace(225-20.0, 225+20.0, 10):
+    report.m_title = "Exp2 spherical bulk"
+    for value in np.linspace(450-20.0, 450+20.0, 10):
         print("run_pack()", value)
-        sample_config["r0"] = value
+        sample_config["bulk"] = value
         run_single(exp_config, sample_config, report)
 
 

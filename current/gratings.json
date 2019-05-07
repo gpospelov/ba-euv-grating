@@ -87,7 +87,7 @@
   "spherical" : {
     "builder": "SphericalGrating",
     "grating_period": 834.2,
-    "length": 20000,
+    "length": 10000,
     "r_sigma" : 5.0,
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,

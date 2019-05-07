@@ -123,8 +123,8 @@ if __name__ == '__main__':
     exp_config = load_experimental_setup("exp2")
     sample_config = load_sample_setup("spherical")
 
-    # run_single(exp_config, sample_config, report)
-    run_pack(exp_config, sample_config, report)
+    run_single(exp_config, sample_config, report)
+    # run_pack(exp_config, sample_config, report)
 
     report.generate_pdf()
     plt.show()

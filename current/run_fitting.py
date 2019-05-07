@@ -41,7 +41,7 @@ def run_fitting():
     fit_objective.addSimulationAndData(get_simulation, builder.experimentalData().array())
 
     fit_objective.initPrint(1)
-    fit_objective.initPlot(1)
+    fit_objective.initPlot(10)
 
     params = ba.Parameters()
     # params.add("sample_rotation", -0.72, min=-0.72-0.25, max=-0.72+0.25, step=0.1)
@@ -52,10 +52,10 @@ def run_fitting():
 
     params.add("r0", 225, min=225-12.0, max=225+12.0, step=0.2)
     params.add("r1", 360, min=360-12.0, max=360+12.0, step=0.2)
-    params.add("bulk", 450, min=450-200.0, max=450+100.0, step=10.0)
+    params.add("bulk", 450, min=450-75.0, max=450+50.0, step=10.0)
 
     minimizer = ba.Minimizer()
-    minimizer.setMinimizer("Genetic", "", "MaxIterations=50;RandomSeed=1;PopulationSize=30")
+    minimizer.setMinimizer("Genetic", "", "MaxIterations=200;RandomSeed=1;PopSize=30")
     result = minimizer.minimize(fit_objective.evaluate, params)
     fit_objective.finalize(result)
 

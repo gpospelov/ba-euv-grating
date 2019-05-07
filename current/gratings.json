@@ -92,10 +92,10 @@
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,
     "surface_density": 0.0002,
-    "bulk": 250,
+    "bulk": 393.0,
     "nslices" : 100,
-    "r0": 225,
-    "r1" : 360,
+    "r0": 233.3,
+    "r1" : 372.0,
     "interf": {
       "type" : "1dlattice",
       "decay_type" : "gauss",

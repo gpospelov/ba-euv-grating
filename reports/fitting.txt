@@ -29,3 +29,19 @@ Fitting #3
 exp2, parasinus
 params.add("grating_height", 201, min=201-50.0, max=201+100.0, step=10.0)
 grating_height 2.010e+02   limited(1.51e+02,3.01e+02)    1.610e+02    1.881e-01 
+
+
+----------------------------------
+Fitting #4
+----------------------------------
+
+exp2, spherical
+
+params.add("r0", 225, min=225-12.0, max=225+12.0, step=0.2)
+params.add("r1", 360, min=360-12.0, max=360+12.0, step=0.2)
+params.add("bulk", 450, min=450-75.0, max=450+50.0, step=10.0)
+    
+Name       StartValue  Limits                        FitValue     Error
+# r0       2.250e+02   limited(2.13e+02,2.37e+02)    2.333e+02    1.512e-01 
+# r1       3.600e+02   limited(3.48e+02,3.72e+02)    3.720e+02    7.013e-02 
+# bulk     4.500e+02   limited(3.75e+02,5.00e+02)    3.930e+02    2.699e-01 

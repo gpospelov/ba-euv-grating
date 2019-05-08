@@ -6,23 +6,49 @@ from matplotlib import pyplot as plt
 from simulation_builder import SimulationBuilder
 from utils.json_utils import load_experimental_setup
 from utils.json_utils import load_sample_setup
+import numpy as np
+
+
+class MyObjective(ba.FitObjective):
+    """
+    FitObjective extension for custom fitting metric.
+    """
+    def __init__(self):
+        super(MyObjective, self).__init__()
+
+    def evaluate_residuals(self, params):
+        """
+        Provides custom calculation of vector of residuals
+        """
+        # calling parent's evaluate functions to run simulations
+        super(MyObjective, self).evaluate(params)
+
+        # accessing simulated and experimental data as flat numpy arrays
+        # applying sqrt to every element
+        sim = np.sqrt(np.asarray(self.simulation_array()))
+        exp = np.sqrt(np.asarray(self.experimental_array()))
+        print(np.max(sim-exp))
+
+        # return vector of residuals
+        return sim - exp
+
 
 def get_simulation(params):
     exp_config = load_experimental_setup("exp2")
-    sample_config = load_sample_setup("sinus")
+    sample_config = load_sample_setup("spherical")
 
     # sample_config["period"] = params["grating_period"]
-    exp_config["sample_rotation"] = params["sample_rotation"]
-    exp_config["det_dx"] = params["det_dx"]
-    exp_config["beta_b"] = params["beta_b"]
+    # exp_config["sample_rotation"] = params["sample_rotation"]
+    # exp_config["det_dx"] = params["det_dx"]
+    # exp_config["beta_b"] = params["beta_b"]
 
-    sample_config["grating_period"] = params["grating_period"]
+    # sample_config["grating_period"] = params["grating_period"]
     # sample_config["grating_width"] = params["grating_period"]
     # sample_config["grating_height"] = params["grating_height"]
 
-    # sample_config["r0"] = params["r0"]
-    # sample_config["r1"] = params["r1"]
-    # sample_config["bulk"] = params["bulk"]
+    sample_config["r0"] = params["r0"]
+    sample_config["r1"] = params["r1"]
+    sample_config["bulk"] = params["bulk"]
 
     builder = SimulationBuilder(exp_config, sample_config)
 
@@ -36,29 +62,29 @@ def get_simulation(params):
 def run_fitting():
 
     exp_config = load_experimental_setup("exp2")
-    sample_config = load_sample_setup("sinus")
+    sample_config = load_sample_setup("spherical")
     builder = SimulationBuilder(exp_config, sample_config)
 
-    fit_objective = ba.FitObjective()
+    fit_objective = MyObjective()
     fit_objective.addSimulationAndData(get_simulation, builder.experimentalData().array())
 
     fit_objective.initPrint(1)
-    fit_objective.initPlot(10)
+    fit_objective.initPlot(1)
 
     params = ba.Parameters()
-    params.add("sample_rotation", -0.731, min=-0.731-0.2, max=-0.731+0.2, step=0.01)
-    params.add("det_dx", 0.00225, min=0.00225-0.005, max=0.00225+0.005, step=0.0005)
-    params.add("beta_b", 72.12, min=72.12-5.0, max=72.12+5.0, step=0.5)
+    # params.add("sample_rotation", -0.731, min=-0.731-0.2, max=-0.731+0.2, step=0.01)
+    # params.add("det_dx", 0.00225, min=0.00225-0.005, max=0.00225+0.005, step=0.0005)
+    # params.add("beta_b", 72.12, min=72.12-5.0, max=72.12+5.0, step=0.5)
     # params.add("grating_height", 201, min=201-50.0, max=201+100.0, step=10.0)
-    params.add("grating_period", 834.2, min=834.2-3.0, max=834.2+3.0, step=0.1)
+    # params.add("grating_period", 834.2, min=834.2-3.0, max=834.2+3.0, step=0.1)
 
-    # params.add("r0", 225, min=225-12.0, max=225+12.0, step=0.2)
-    # params.add("r1", 360, min=360-12.0, max=360+12.0, step=0.2)
-    # params.add("bulk", 450, min=450-75.0, max=450+50.0, step=10.0)
+    params.add("r0", 225, min=225-12.0, max=225+12.0, step=0.2)
+    params.add("r1", 360, min=360-12.0, max=360+12.0, step=0.2)
+    params.add("bulk", 450, min=450-75.0, max=450+50.0, step=10.0)
 
     minimizer = ba.Minimizer()
-    minimizer.setMinimizer("Genetic", "", "MaxIterations=100;RandomSeed=1;PopSize=40")
-    result = minimizer.minimize(fit_objective.evaluate, params)
+    minimizer.setMinimizer("Genetic", "", "MaxIterations=100;RandomSeed=2;PopSize=30")
+    result = minimizer.minimize(fit_objective.evaluate_residuals, params)
     fit_objective.finalize(result)
 
     best_params_so_far = result.parameters()

@@ -9,7 +9,7 @@ from utils.json_utils import load_sample_setup
 
 def get_simulation(params):
     exp_config = load_experimental_setup("exp2")
-    sample_config = load_sample_setup("spherical")
+    sample_config = load_sample_setup("sinus")
 
     # sample_config["period"] = params["grating_period"]
     exp_config["sample_rotation"] = params["sample_rotation"]
@@ -36,7 +36,7 @@ def get_simulation(params):
 def run_fitting():
 
     exp_config = load_experimental_setup("exp2")
-    sample_config = load_sample_setup("spherical")
+    sample_config = load_sample_setup("sinus")
     builder = SimulationBuilder(exp_config, sample_config)
 
     fit_objective = ba.FitObjective()
@@ -47,7 +47,7 @@ def run_fitting():
 
     params = ba.Parameters()
     params.add("sample_rotation", -0.731, min=-0.731-0.2, max=-0.731+0.2, step=0.01)
-    params.add("det_dx", 0.00225, min=0.00225-0.01, max=0.00225+0.01, step=0.001)
+    params.add("det_dx", 0.00225, min=0.00225-0.005, max=0.00225+0.005, step=0.0005)
     params.add("beta_b", 72.12, min=72.12-5.0, max=72.12+5.0, step=0.5)
     # params.add("grating_height", 201, min=201-50.0, max=201+100.0, step=10.0)
     params.add("grating_period", 834.2, min=834.2-3.0, max=834.2+3.0, step=0.1)

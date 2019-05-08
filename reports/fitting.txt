@@ -45,3 +45,44 @@ Name       StartValue  Limits                        FitValue     Error
 # r0       2.250e+02   limited(2.13e+02,2.37e+02)    2.333e+02    1.512e-01 
 # r1       3.600e+02   limited(3.48e+02,3.72e+02)    3.720e+02    7.013e-02 
 # bulk     4.500e+02   limited(3.75e+02,5.00e+02)    3.930e+02    2.699e-01 
+
+----------------------------------
+Fitting #5
+----------------------------------
+
+exp2, spherical
+Fitting detector with spherical grating
+
+params.add("sample_rotation", -0.731, min=-0.731-0.2, max=-0.731+0.2, step=0.01)
+params.add("det_dx", 0.00225, min=0.00225-0.005, max=0.00225+0.005, step=0.0005)
+params.add("beta_b", 72.12, min=72.12-5.0, max=72.12+5.0, step=0.5)
+params.add("grating_period", 834.2, min=834.2-3.0, max=834.2+3.0, step=0.1)
+
+Name       StartValue  Limits                        FitValue     Error
+# sample_rotation -7.310e-01   limited(-9.31e-01,-5.31e-01)  -7.366e-01    5.791e-03 
+# det_dx   2.250e-03   limited(-2.75e-03,7.25e-03)   3.243e-03    2.155e-03 
+# beta_b   7.212e+01   limited(6.71e+01,7.71e+01)    7.268e+01    4.564e-01 
+# grating_period 8.342e+02   limited(8.31e+02,8.37e+02)    8.365e+02    5.613e-01 
+
+
+----------------------------------
+Fitting #5
+----------------------------------
+
+exp2, sinus
+Fitting detector with sinus grating
+
+
+params.add("sample_rotation", -0.731, min=-0.731-0.2, max=-0.731+0.2, step=0.01)
+params.add("det_dx", 0.00225, min=0.00225-0.005, max=0.00225+0.005, step=0.0005)
+params.add("beta_b", 72.12, min=72.12-5.0, max=72.12+5.0, step=0.5)
+params.add("grating_period", 834.2, min=834.2-3.0, max=834.2+3.0, step=0.1)
+
+# sample_rotation -7.310e-01   limited(-9.31e-01,-5.31e-01)  -7.366e-01    5.820e-03 
+# det_dx   2.250e-03   limited(-2.75e-03,7.25e-03)   -2.750e-03    9.197e-04 
+# beta_b   7.212e+01   limited(6.71e+01,7.71e+01)    7.200e+01    4.657e-01 
+# grating_period 8.342e+02   limited(8.31e+02,8.37e+02)    8.337e+02    4.797e-01 
+
+
+
+    

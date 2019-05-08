@@ -121,7 +121,7 @@ if __name__ == '__main__':
     report = ReportManager()
 
     exp_config = load_experimental_setup("exp2")
-    sample_config = load_sample_setup("spherical")
+    sample_config = load_sample_setup("sinus")
 
     run_single(exp_config, sample_config, report)
     # run_pack(exp_config, sample_config, report)

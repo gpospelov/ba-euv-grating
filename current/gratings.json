@@ -39,7 +39,7 @@
     "length": 10000,
     "grating_height": 161,
     "grating_width": 834.2,
-    "r_sigma" : 10.0,
+    "r_sigma" : 5.0,
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,
     "surface_density": 0.0002,

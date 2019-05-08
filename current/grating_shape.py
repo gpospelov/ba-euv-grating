@@ -80,34 +80,34 @@ class GratingShape:
             points = self.m_circle0.intersect(self.m_circle1)
             x_intersect = max(points[0][0], points[1][0])  # second intersection point
             if x < x_intersect:
-                print("a")
+                # print("a")
                 return max(self.m_circle0.get_y(x))
 
             else:
-                print("b")
+                # print("b")
                 return min(self.m_circle1.get_y(x))
         else:
             points = self.m_circle1.intersect(self.m_circle2)
             x_intersect = min(points[0][0], points[1][0])  # first intersection point
             if x < x_intersect:
-                print("c")
+                # print("c")
                 return min(self.m_circle1.get_y(x))
             else:
-                print("d")
+                # print("d")
                 return max(self.m_circle2.get_y(x))
 
 
     def rectangle_set(self):
 
         px_intersect = self.m_circle0.intersect(self.m_circle1)[0][0]
-        print(self.m_circle0.intersect(self.m_circle1))
+        # print(self.m_circle0.intersect(self.m_circle1))
         rectangles = []
         for i in range(0, self.m_nslices):
             dx = self.m_period/self.m_nslices
             x = i*dx
             y = self.get_y(x)
             rectangles.append(Rectangle(x, y, dx, self.m_thickness))
-            print(i, x, self.get_y(x))
+            # print(i, x, self.get_y(x))
 
         return rectangles
 
@@ -152,6 +152,6 @@ def test_plt(sample_config):
 if __name__ == '__main__':
 
     sample_config = load_sample_setup("spherical")
-    stress_test(sample_config)
-    # test_plt(sample_config)
+    # stress_test(sample_config)
+    test_plt(sample_config)
 

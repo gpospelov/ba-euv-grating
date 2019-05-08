@@ -1,7 +1,7 @@
 {
   "box" : {
     "builder": "SimpleBoxGrating",
-    "grating_period": 833.6,
+    "grating_period": 834.2,
     "length": 10000,
     "grating_height": 201,
     "grating_width": 29,
@@ -17,17 +17,17 @@
   },
   "parabox" : {
     "builder": "SimpleBoxGrating",
-    "grating_period": 833.6,
+    "grating_period": 834.2,
     "length": 10000,
     "grating_height": 201,
     "grating_width": 29,
     "r_sigma" : 5.0,
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,
-    "surface_density": 0.01,
+    "surface_density": 0.005,
     "interf": {
       "type" : "1dpara",
-      "distr_type" : "cauchy",
+      "distr_type" : "gauss",
       "damping_length" : 0,
       "domain_size": 100000.0,
       "omega" : 1.0
@@ -35,10 +35,10 @@
   },
   "sinus" : {
     "builder": "SimpleSinusGrating",
-    "grating_period": 833.7,
+    "grating_period": 834.2,
     "length": 10000,
     "grating_height": 161,
-    "grating_width": 833.7,
+    "grating_width": 834.2,
     "r_sigma" : 10.0,
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,
@@ -58,13 +58,13 @@
     "r_sigma" : 5.0,
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,
-    "surface_density": 0.0002,
+    "surface_density": 0.0001,
     "interf": {
       "type" : "1dpara",
-      "distr_type" : "cauchy",
+      "distr_type" : "gauss",
       "damping_length" : 0,
       "domain_size": 100000.0,
-      "omega" : 0.5
+      "omega" : 1.0
     }
   },
   "sinuscomp" : {
@@ -92,10 +92,10 @@
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,
     "surface_density": 0.0002,
-    "bulk": 450.0,
     "nslices" : 200,
-    "r0": 233.3,
-    "r1" : 372.0,
+    "r0": 233,
+    "r1" : 372,
+    "bulk": 393,
     "interf": {
       "type" : "1dlattice",
       "decay_type" : "gauss",
@@ -105,21 +105,21 @@
   "paraspherical" : {
     "builder": "SphericalGrating",
     "grating_period": 834.2,
-    "length": 20000,
+    "length": 10000,
     "r_sigma" : 5.0,
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,
-    "surface_density": 0.0002,
-    "bulk": 450,
+    "surface_density": 0.0001,
     "nslices" : 200,
-    "r0": 225,
-    "r1" : 340,
+    "r0": 233,
+    "r1" : 372,
+    "bulk": 393,
     "interf": {
       "type" : "1dpara",
-      "distr_type" : "cauchy",
+      "distr_type" : "gauss",
       "damping_length" : 0,
       "domain_size": 100000.0,
-      "omega" : 0.5
+      "omega" : 1.0
     }
   }
 }

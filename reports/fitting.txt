@@ -84,5 +84,26 @@ params.add("grating_period", 834.2, min=834.2-3.0, max=834.2+3.0, step=0.1)
 # grating_period 8.342e+02   limited(8.31e+02,8.37e+02)    8.337e+02    4.797e-01 
 
 
+----------------------------------
+Fitting #5
+----------------------------------
+
+exp2, sinus
+Fitting detector with sinus grating
+
+params.add("grating_height", 201, min=201-60.0, max=201+100.0, step=1.0)
+params.add("grating_period", 834.2, min=834.2-3.0, max=834.2+3.0, step=0.1)
+
+After Genetic
+Name       StartValue  Limits                        FitValue     Error
+# grating_height 2.010e+02   limited(1.41e+02,3.01e+02)    1.614e+02    0.000e+00 
+# grating_period 8.342e+02   limited(8.31e+02,8.37e+02)    8.331e+02   
+
+After Migrad
+Name       StartValue  Limits                        FitValue     Error
+# grating_height 2.010e+02   limited(1.41e+02,3.01e+02)    1.612e+02    1.260e-01 
+# grating_period 8.342e+02   limited(8.31e+02,8.37e+02)    8.342e+02    3.547e-01 
+
+    
 
     

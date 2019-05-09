@@ -9,6 +9,9 @@ from utils.json_utils import load_sample_setup
 import numpy as np
 
 
+EXPERIMENT_NAME = "exp2"
+SAMPLE_NAME = "sinus"
+
 class MyObjective(ba.FitObjective):
     """
     FitObjective extension for custom fitting metric.
@@ -25,17 +28,35 @@ class MyObjective(ba.FitObjective):
 
         # accessing simulated and experimental data as flat numpy arrays
         # applying sqrt to every element
-        sim = np.log(np.asarray(self.simulation_array()))
-        exp = np.log(np.asarray(self.experimental_array()))
-        print(np.max(sim-exp))
+
+        sim = np.log10(np.asarray(self.simulation_array()))
+        exp = np.log10(np.asarray(self.experimental_array()))
+        sim[np.isneginf(sim)] = 0
+        exp[np.isneginf(exp)] = 0
+
+        res = sim-exp
+        print(np.min(res), np.max(res))
+
+        # res = np.zeros_like(sim)
+        # for s, e in zip(sim, exp):
+        #
+        #
+
+        # sim = np.ma.log(sim)
+        # exp = np.ma.log(exp)
+        # print(len(sim), sim)
+        # print(len(exp), exp)
+        #
+        # print(np.max(sim-exp), np.min(sim-exp))
+        # print(len(sim-exp), sim-exp)
 
         # return vector of residuals
-        return sim - exp
+        return res
 
 
 def get_simulation(params):
-    exp_config = load_experimental_setup("exp2")
-    sample_config = load_sample_setup("sinus")
+    exp_config = load_experimental_setup(EXPERIMENT_NAME)
+    sample_config = load_sample_setup(SAMPLE_NAME)
 
     # sample_config["period"] = params["grating_period"]
     # exp_config["sample_rotation"] = params["sample_rotation"]
@@ -83,11 +104,12 @@ def run_fitting():
     # params.add("bulk", 450, min=450-75.0, max=450+50.0, step=10.0)
 
     minimizer = ba.Minimizer()
-    minimizer.setMinimizer("Genetic", "", "MaxIterations=200;RandomSeed=2;PopSize=20")
-    result = minimizer.minimize(fit_objective.evaluate_residuals, params)
-    fit_objective.finalize(result)
-
-    best_params_so_far = result.parameters()
+    # minimizer.setMinimizer("Genetic", "", "MaxIterations=200;RandomSeed=2;PopSize=20")
+    # result = minimizer.minimize(fit_objective.evaluate_residuals, params)
+    # fit_objective.finalize(result)
+    #
+    # best_params_so_far = result.parameters()
+    best_params_so_far = params
     minimizer.setMinimizer("Minuit2", "Migrad")
     result = minimizer.minimize(fit_objective.evaluate, best_params_so_far)
 

@@ -128,6 +128,7 @@
     "length": 10000,
     "grating_height": 161.2,
     "grating_width": 834.2,
+    "grating_bulk": 400.0,
     "r_sigma" : 5.0,
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,

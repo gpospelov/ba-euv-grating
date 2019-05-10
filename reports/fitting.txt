@@ -104,6 +104,26 @@ Name       StartValue  Limits                        FitValue     Error
 # grating_height 2.010e+02   limited(1.41e+02,3.01e+02)    1.612e+02    1.260e-01 
 # grating_period 8.342e+02   limited(8.31e+02,8.37e+02)    8.342e+02    3.547e-01 
 
-    
+----------------------------------
+Fitting #6
+----------------------------------
 
+exp2, spherical
+Determining parameters of spherical grating    
+
+params.add("r0", 225, min=225-12.0, max=225+12.0, step=0.2)
+params.add("r1", 360, min=360-12.0, max=360+12.0, step=0.2)
+params.add("bulk", 450, min=450-75.0, max=450+50.0, step=2.0)
+params.add("surface_density_coeff", 1.0, min=0.5, max=2.0, step=0.1)
     
+--- FitParameters --------------------------------------------------------------
+Name       StartValue  Limits                        FitValue     Error
+# r0       2.250e+02   limited(2.13e+02,2.37e+02)    2.336e+02    1.744e-01 
+# r1       3.600e+02   limited(3.48e+02,3.72e+02)    3.720e+02    3.125e-01 
+# bulk     4.500e+02   limited(3.75e+02,5.00e+02)    3.942e+02    2.173e-01 
+# surface_density_coeff 1.000e+00   limited(5.00e-01,2.00e+00)    2.000e+00    3.027e-03 
+--- Correlations ---------------------------------------------------------------
+#0         1.0000     0.0395     0.3091    -0.0000    
+#1         0.0395     1.0000    -0.0014     0.0000    
+#2         0.3091    -0.0014     1.0000    -0.0002    
+#3        -0.0000     0.0000    -0.0002     1.0000  

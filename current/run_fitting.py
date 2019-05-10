@@ -10,7 +10,7 @@ import numpy as np
 
 
 EXPERIMENT_NAME = "exp2"
-SAMPLE_NAME = "sinus"
+SAMPLE_NAME = "spherical"
 
 class MyObjective(ba.FitObjective):
     """
@@ -63,13 +63,14 @@ def get_simulation(params):
     # exp_config["det_dx"] = params["det_dx"]
     # exp_config["beta_b"] = params["beta_b"]
 
-    sample_config["grating_period"] = params["grating_period"]
+    # sample_config["grating_period"] = params["grating_period"]
     # sample_config["grating_width"] = params["grating_period"]
-    sample_config["grating_height"] = params["grating_height"]
+    # sample_config["grating_height"] = params["grating_height"]
 
-    # sample_config["r0"] = params["r0"]
-    # sample_config["r1"] = params["r1"]
-    # sample_config["bulk"] = params["bulk"]
+    sample_config["r0"] = params["r0"]
+    sample_config["r1"] = params["r1"]
+    sample_config["bulk"] = params["bulk"]
+    sample_config["surface_density"] = sample_config["surface_density"]*params["surface_density_coeff"]
 
     builder = SimulationBuilder(exp_config, sample_config)
 
@@ -96,20 +97,21 @@ def run_fitting():
     # params.add("sample_rotation", -0.731, min=-0.731-0.2, max=-0.731+0.2, step=0.01)
     # params.add("det_dx", 0.00225, min=0.00225-0.005, max=0.00225+0.005, step=0.0005)
     # params.add("beta_b", 72.12, min=72.12-5.0, max=72.12+5.0, step=0.5)
-    params.add("grating_height", 201, min=201-60.0, max=201+100.0, step=1.0)
+    # params.add("grating_height", 201, min=201-60.0, max=201+100.0, step=1.0)
 
-    params.add("grating_period", 834.2, min=834.2-3.0, max=834.2+3.0, step=0.1)
-    # params.add("r0", 225, min=225-12.0, max=225+12.0, step=0.2)
-    # params.add("r1", 360, min=360-12.0, max=360+12.0, step=0.2)
-    # params.add("bulk", 450, min=450-75.0, max=450+50.0, step=10.0)
+    # params.add("grating_period", 834.2, min=834.2-3.0, max=834.2+3.0, step=0.1)
+    params.add("r0", 225, min=225-12.0, max=225+12.0, step=0.2)
+    params.add("r1", 360, min=360-12.0, max=360+12.0, step=0.2)
+    params.add("bulk", 450, min=450-75.0, max=450+50.0, step=2.0)
+
+    params.add("surface_density_coeff", 1.0, min=0.5, max=2.0, step=0.1)
 
     minimizer = ba.Minimizer()
-    # minimizer.setMinimizer("Genetic", "", "MaxIterations=200;RandomSeed=2;PopSize=20")
-    # result = minimizer.minimize(fit_objective.evaluate_residuals, params)
-    # fit_objective.finalize(result)
+    minimizer.setMinimizer("Genetic", "", "MaxIterations=100;RandomSeed=2;PopSize=40")
+    result = minimizer.minimize(fit_objective.evaluate_residuals, params)
+    fit_objective.finalize(result)
     #
-    # best_params_so_far = result.parameters()
-    best_params_so_far = params
+    best_params_so_far = result.parameters()
     minimizer.setMinimizer("Minuit2", "Migrad")
     result = minimizer.minimize(fit_objective.evaluate, best_params_so_far)
 

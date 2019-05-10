@@ -39,9 +39,12 @@ class SinusShellGrating(GratingBase):
         composition = ba.ParticleComposition()
 
         sin_ff = ba.FormFactorLongRipple1Lorentz(self.grating_length(), self.grating_width(), self.grating_height())
+        # sin_ff = ba.FormFactorBox(100, self.grating_width()/3, self.grating_height())
 
         box_ff = ba.FormFactorLongBoxLorentz(self.grating_length(), self.grating_width(),
                                          self.grating_bulk())
+        # box_ff = ba.FormFactorBox(100, self.grating_width(),
+        #                                  self.grating_bulk())
 
         top_grating = ba.Particle(grating_material, sin_ff)
         box = ba.Particle(grating_material, box_ff)

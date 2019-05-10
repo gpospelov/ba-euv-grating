@@ -10,13 +10,15 @@ from SphericalGrating import SphericalGrating
 from detector_builder import DetectorBuilder
 from detector_builder import PIXEL_SIZE
 from SinusCompositionGrating import SinusCompositionGrating
+from SinusShellGrating import SinusShellGrating
 import time
 
 builders = {
     "SimpleBoxGrating": SimpleBoxGrating,
     "SimpleSinusGrating": SimpleSinusGrating,
     "SphericalGrating": SphericalGrating,
-    "SinusCompositionGrating": SinusCompositionGrating
+    "SinusCompositionGrating": SinusCompositionGrating,
+    "SinusShellGrating": SinusShellGrating
 }
 
 class DivergenceData:

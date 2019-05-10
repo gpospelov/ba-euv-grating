@@ -121,6 +121,22 @@
       "domain_size": 100000.0,
       "omega" : 1.0
     }
+  },
+  "sinusshell" : {
+    "builder": "SinusShellGrating",
+    "grating_period": 834.2,
+    "length": 10000,
+    "grating_height": 112.5,
+    "grating_width": 834.2,
+    "r_sigma" : 5.0,
+    "r_hurst" : 0.5,
+    "r_corr"  : 10.0,
+    "surface_density": 0.0002,
+    "interf": {
+      "type" : "1dlattice",
+      "decay_type" : "gauss",
+      "decay_length" : 2500
+    }
   }
 }
 

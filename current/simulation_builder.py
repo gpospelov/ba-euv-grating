@@ -75,7 +75,7 @@ class SimulationBuilder:
 
     def build_simulation(self):
         simulation = ba.GISASSimulation()
-        simulation.setTerminalProgressMonitor()
+        # simulation.setTerminalProgressMonitor()
 
         simulation.setDetector(self.m_detector_builder.create_detector())
         simulation.setBeamParameters(self.wavelength(), self.alpha_inc(), self.phi_inc())

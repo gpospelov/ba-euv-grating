@@ -31,6 +31,7 @@ class SimulationBuilder:
         self.m_phi_inc = 0
         self.m_beam_intensity = exp_config["intensity"]
         self.m_wavelength = exp_config["wavelength"]*nm
+        self.sim_weight = 1.0
         self.m_resolution_sigma_factor = exp_config["det_sigma_factor"]
         self.m_constant_background = exp_config["background"]
         self.m_beam_data_str = ""
@@ -40,6 +41,10 @@ class SimulationBuilder:
         self.m_time_spend = 0
         self.m_detector_builder = DetectorBuilder(exp_config)
         self.m_sample_builder = builders[sample_config["builder"]](exp_config, sample_config)
+        self.m_wl_use = exp_config["wl_use"]
+        self.wl_data = exp_config["wl_data"]
+        self.wl_weight = exp_config["wl_weight"]
+        self.wl_sel = exp_config["wl_sel"]
 
     def detector_resolution_sigma(self):
         return PIXEL_SIZE*self.m_resolution_sigma_factor
@@ -52,6 +57,9 @@ class SimulationBuilder:
 
     def wavelength(self):
         return self.m_wavelength
+
+    def wavelength_weight(self):
+        return self.sim_weight
 
     def get_run_parameters(self):
         result = RunParameters()
@@ -103,9 +111,9 @@ class SimulationBuilder:
         simulation.setSample(self.m_sample_builder.buildSample(self.wavelength()))
         return simulation
 
-    def run_simulation(self):
+    def run_single_simulation(self):
         start = time.time()
-        self.m_beam_data_str += "({:5.2f},{:5.2f})".format(self.wavelength(), 1.0)
+        self.m_beam_data_str += "({:5.2f},{:5.2f})".format(self.wavelength(), self.wavelength_weight())
 
         simulation = self.build_simulation()
         print(self.get_run_parameters().parameter_string())
@@ -115,6 +123,68 @@ class SimulationBuilder:
         self.m_time_spend = time.time() - start
 
         return simulation.result()
+
+    def run_simulation(self):
+        if self.m_wl_use:
+            return self.run_simulation_pack()
+        else:
+            return self.run_single_simulation()
+
+    def get_wl_data(self):
+        """
+        Calculates pair of (wavelength, weight)
+        """
+        sum = 0.0
+        for index in self.wl_sel:
+            sum += self.wl_weight[index]
+        print("XXXXXX", sum)
+        result = []
+        for index in self.wl_sel:
+            print("XXXXXX", sum, index)
+            result.append((self.wl_data[index], self.wl_weight[index] / sum))
+
+        print("AAAA", result)
+
+        return result
+
+    def run_simulation_pack(self):
+        sim_result = []
+        for wd in self.get_wl_data():
+            self.m_wavelength = wd[0]
+            self.sim_weight = wd[1]
+            sim_result.append(self.run_single_simulation())
+        return sim_result[0]
+
+    # def run_simulation(self, wavelength=13.52 * nm, weight=1.0):
+    #     self.m_beam_data_str += "({:5.2f},{:5.2f})".format(wavelength, weight)
+    #     simulation = self.build_simulation(wavelength)
+    #     simulation.setSampleBuilder(self.m_sample_builder)
+    #     simulation.runSimulation()
+    #     return simulation.result().histogram2d()
+    #
+    # def run(self):
+    #     self.init_workspace()
+    #
+    #     start = time.time()
+    #
+    #     sum_hist = None
+    #
+    #     self.m_beam_data_str = ""
+    #     # for b in beam_data():
+    #     #     wavelength = b[0]
+    #     #     weight = b[1]
+    #     #     result = self.run_simulation(wavelength, weight)
+    #     #     if not sum_hist:
+    #     #         sum_hist = result
+    #     #     else:
+    #     #         add_to_histogram(sum_hist, result, weight)
+    #
+    #     sum_hist = self.run_simulation()
+    #
+    #     end = time.time()
+    #     self.m_time_spend = end - start
+    #
+    #     return sum_hist
 
     def experimentalData(self):
         """

@@ -45,7 +45,9 @@ class RunParameters:
         if "intensity" in key:
             return "{:.5g}".format(value)
         if "wavelength" in key:
-            return "{:.4f}".format(value)
+            return "{:.5f}".format(value)
+        if "surface_density" in key:
+            return "{:.3E}".format(value)
         return str(value)
 
     def parameter_string(self):

@@ -154,7 +154,7 @@ def run_report(report):
 if __name__ == '__main__':
     report = ReportManager()
 
-    exp_config = load_experimental_setup("exp3")
+    exp_config = load_experimental_setup("exp2")
     sample_config = load_sample_setup("sinus")
 
     # run_report(report)

@@ -9,8 +9,8 @@ from utils.json_utils import load_sample_setup
 import numpy as np
 
 
-EXPERIMENT_NAME = "exp2"
-SAMPLE_NAME = "sinusshell"
+EXPERIMENT_NAME = "exp3"
+SAMPLE_NAME = "sinus"
 
 class MyObjective(ba.FitObjective):
     """
@@ -58,20 +58,20 @@ def get_simulation(params):
     exp_config = load_experimental_setup(EXPERIMENT_NAME)
     sample_config = load_sample_setup(SAMPLE_NAME)
 
-    # sample_config["period"] = params["grating_period"]
-    # exp_config["sample_rotation"] = params["sample_rotation"]
+    exp_config["sample_rotation"] = params["sample_rotation"]
     # exp_config["det_dx"] = params["det_dx"]
     # exp_config["beta_b"] = params["beta_b"]
+    # exp_config["intensity"] = exp_config["intensity"]*params["intensity_coeff"]
 
-    # sample_config["grating_period"] = params["grating_period"]
-    # sample_config["grating_width"] = params["grating_period"]
+    sample_config["grating_period"] = params["grating_period"]
+    sample_config["grating_width"] = params["grating_period"]
     sample_config["grating_height"] = params["grating_height"]
-    sample_config["grating_bulk"] = params["grating_bulk"]
+    # sample_config["grating_bulk"] = params["grating_bulk"]
 
     # sample_config["r0"] = params["r0"]
     # sample_config["r1"] = params["r1"]
     # sample_config["bulk"] = params["bulk"]
-    sample_config["surface_density"] = sample_config["surface_density"]*params["surface_density_coeff"]
+    # sample_config["surface_density"] = sample_config["surface_density"]*params["surface_density_coeff"]
 
     builder = SimulationBuilder(exp_config, sample_config)
 
@@ -95,21 +95,22 @@ def run_fitting():
     fit_objective.initPlot(1)
 
     params = ba.Parameters()
-    # params.add("sample_rotation", -0.731, min=-0.731-0.2, max=-0.731+0.2, step=0.01)
+    params.add("sample_rotation", 0.0, min=-1.0, max=1.0, step=0.02)
     # params.add("det_dx", 0.00225, min=0.00225-0.005, max=0.00225+0.005, step=0.0005)
     # params.add("beta_b", 72.12, min=72.12-5.0, max=72.12+5.0, step=0.5)
     params.add("grating_height", 225, min=225-75.0, max=225+75.0, step=2.0)
 
-    # params.add("grating_period", 834.2, min=834.2-3.0, max=834.2+3.0, step=0.1)
-    params.add("grating_bulk", 400, min=200.0, max=500, step=10.0)
+    params.add("grating_period", 834.2, min=834.2-3.0, max=834.2+3.0, step=0.1)
+    # params.add("grating_bulk", 400, min=200.0, max=500, step=10.0)
     # params.add("r0", 225, min=225-12.0, max=225+12.0, step=0.2)
     # params.add("r1", 360, min=360-12.0, max=360+12.0, step=0.2)
     # params.add("bulk", 450, min=450-75.0, max=450+50.0, step=2.0)
 
-    params.add("surface_density_coeff", 1.0, min=0.1, max=10.0, step=0.1)
+    # params.add("surface_density_coeff", 1.0, min=0.1, max=10.0, step=0.1)
+    # params.add("intensity_coeff", 1.0, min=0.1, max=10.0, step=0.1)
 
     minimizer = ba.Minimizer()
-    minimizer.setMinimizer("Genetic", "", "MaxIterations=100;RandomSeed=2;PopSize=30")
+    minimizer.setMinimizer("Genetic", "", "MaxIterations=150;RandomSeed=2;PopSize=30")
     result = minimizer.minimize(fit_objective.evaluate_residuals, params)
     fit_objective.finalize(result)
     #

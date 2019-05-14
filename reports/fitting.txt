@@ -142,3 +142,19 @@ params.add("surface_density_coeff", 1.0, min=0.1, max=10.0, step=0.1)
 # grating_height 2.250e+02   limited(1.50e+02,3.00e+02)    2.001e+02    2.692e-01 
 # grating_bulk 4.000e+02   limited(2.00e+02,5.00e+02)    3.130e+02    5.859e-01 
 # surface_density_coeff 1.000e+00   limited(1.00e-01,1.00e+01)    6.898e+00    2.871e-01 
+
+----------------------------------
+Fitting #6
+----------------------------------
+
+exp2, sinusshell
+Determining parameters of sinusshell
+
+Same as before, but 
+objective function changed to default one
+better masking of central peak
+
+grating_height 2.250e+02   limited(1.50e+02,3.00e+02)    2.002e+02    2.728e-01 
+grating_bulk 4.000e+02   limited(2.00e+02,5.00e+02)    2.023e+02    5.685e-01 
+surface_density_coeff 1.000e+00   limited(1.00e-01,1.00e+01)    1.058e+00    4.330e-02 
+

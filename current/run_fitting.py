@@ -88,7 +88,7 @@ def run_fitting():
     sample_config = load_sample_setup(SAMPLE_NAME)
     builder = SimulationBuilder(exp_config, sample_config)
 
-    fit_objective = MyObjective()
+    fit_objective = ba.FitObjective()
     fit_objective.addSimulationAndData(get_simulation, builder.experimentalData().array())
 
     fit_objective.initPrint(1)
@@ -109,7 +109,7 @@ def run_fitting():
     params.add("surface_density_coeff", 1.0, min=0.1, max=10.0, step=0.1)
 
     minimizer = ba.Minimizer()
-    minimizer.setMinimizer("Genetic", "", "MaxIterations=200;RandomSeed=2;PopSize=40")
+    minimizer.setMinimizer("Genetic", "", "MaxIterations=100;RandomSeed=2;PopSize=30")
     result = minimizer.minimize(fit_objective.evaluate_residuals, params)
     fit_objective.finalize(result)
     #

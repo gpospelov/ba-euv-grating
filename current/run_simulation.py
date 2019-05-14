@@ -15,7 +15,7 @@ import numpy as np
 from bornagain import nm, deg
 
 
-def plot_simulations(sim_results, exp_data):
+def plot_simulations(sim_results, exp_data, exp_config):
 
     fig = plt.figure(figsize=(16, 12))
 
@@ -43,7 +43,8 @@ def plot_simulations(sim_results, exp_data):
     mean = np.mean(amps)
 
     # plt.ylim(mean*0.005, mean*50)
-    plt.ylim(1e+03, 1e+07)
+    # plt.ylim(1e+03, 1e+07)
+    plt.ylim(exp_config["hmin"], exp_config["hmax"])
 
 
 def run_pack(exp_config, sample_config, report):
@@ -112,7 +113,7 @@ def run_single(exp_config, sample_config, report=None):
 
     sim_result = builder.run_simulation()
     exp_data = builder.experimentalData()
-    plot_simulations(sim_result, exp_data)
+    plot_simulations(sim_result, exp_data, exp_config)
 
     if report:
         report.write_report(builder.parameter_tuple())
@@ -153,7 +154,7 @@ def run_report(report):
 if __name__ == '__main__':
     report = ReportManager()
 
-    exp_config = load_experimental_setup("exp2")
+    exp_config = load_experimental_setup("exp3")
     sample_config = load_sample_setup("sinus")
 
     # run_report(report)

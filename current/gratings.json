@@ -4,7 +4,7 @@
     "grating_period": 834.2,
     "length": 10000,
     "grating_height": 201,
-    "grating_width": 834.2,
+    "grating_width": 29,
     "r_sigma" : 5.0,
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,

@@ -137,23 +137,33 @@ class SimulationBuilder:
         sum = 0.0
         for index in self.wl_sel:
             sum += self.wl_weight[index]
-        print("XXXXXX", sum)
         result = []
         for index in self.wl_sel:
-            print("XXXXXX", sum, index)
             result.append((self.wl_data[index], self.wl_weight[index] / sum))
-
-        print("AAAA", result)
-
         return result
 
     def run_simulation_pack(self):
-        sim_result = []
-        for wd in self.get_wl_data():
+        sim_results = []
+        wld = self.get_wl_data()
+        for wd in wld:
             self.m_wavelength = wd[0]
             self.sim_weight = wd[1]
-            sim_result.append(self.run_single_simulation())
-        return sim_result[0]
+            sim_results.append(self.run_single_simulation())
+
+        output = sim_results[0]
+        print("AAA", wld)
+        for index in range(0, output.size()):
+            sum = 0.0
+            nsim=0
+            for sim in sim_results:
+                sum += sim[index]*wld[nsim][1]
+                ++nsim
+            output[index] = sum
+
+        # for i in range(0, data.size()):
+        #     data[i] = data[i]*100
+
+        return output
 
     # def run_simulation(self, wavelength=13.52 * nm, weight=1.0):
     #     self.m_beam_data_str += "({:5.2f},{:5.2f})".format(wavelength, weight)

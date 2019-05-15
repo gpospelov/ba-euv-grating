@@ -120,34 +120,45 @@ def run_single(exp_config, sample_config, report=None):
 
 
 def run_report(report):
-    report.m_title = "Exp2 box"
-    exp_config = load_experimental_setup("exp2")
-    sample_config = load_sample_setup("box")
-    run_single(exp_config, sample_config, report)
+    # report.m_title = "Exp2 box"
+    # exp_config = load_experimental_setup("exp2")
+    # sample_config = load_sample_setup("box")
+    # run_single(exp_config, sample_config, report)
+    #
+    # report.m_title = "Exp2 parabox"
+    # exp_config = load_experimental_setup("exp2")
+    # sample_config = load_sample_setup("parabox")
+    # run_single(exp_config, sample_config, report)
+    #
+    # report.m_title = "Exp2 sinus"
+    # exp_config = load_experimental_setup("exp2")
+    # sample_config = load_sample_setup("sinus")
+    # run_single(exp_config, sample_config, report)
+    #
+    # report.m_title = "Exp2 parasinus"
+    # exp_config = load_experimental_setup("exp2")
+    # sample_config = load_sample_setup("parasinus")
+    # run_single(exp_config, sample_config, report)
+    #
+    # report.m_title = "Exp2 spherical"
+    # exp_config = load_experimental_setup("exp2")
+    # sample_config = load_sample_setup("spherical")
+    # run_single(exp_config, sample_config, report)
+    #
+    # report.m_title = "Exp2 paraspherical"
+    # exp_config = load_experimental_setup("exp2")
+    # sample_config = load_sample_setup("paraspherical")
+    # run_single(exp_config, sample_config, report)
 
-    report.m_title = "Exp2 parabox"
-    exp_config = load_experimental_setup("exp2")
-    sample_config = load_sample_setup("parabox")
-    run_single(exp_config, sample_config, report)
-
-    report.m_title = "Exp2 sinus"
-    exp_config = load_experimental_setup("exp2")
+    report.m_title = "Exp3 sinus"
+    exp_config = load_experimental_setup("exp3")
     sample_config = load_sample_setup("sinus")
     run_single(exp_config, sample_config, report)
 
-    report.m_title = "Exp2 parasinus"
-    exp_config = load_experimental_setup("exp2")
-    sample_config = load_sample_setup("parasinus")
-    run_single(exp_config, sample_config, report)
-
-    report.m_title = "Exp2 spherical"
-    exp_config = load_experimental_setup("exp2")
-    sample_config = load_sample_setup("spherical")
-    run_single(exp_config, sample_config, report)
-
-    report.m_title = "Exp2 paraspherical"
-    exp_config = load_experimental_setup("exp2")
-    sample_config = load_sample_setup("paraspherical")
+    report.m_title = "Exp3 sinus (true wavelength)"
+    exp_config = load_experimental_setup("exp3")
+    exp_config["wl_use"] = True
+    sample_config = load_sample_setup("sinus")
     run_single(exp_config, sample_config, report)
 
 
@@ -157,9 +168,9 @@ if __name__ == '__main__':
     exp_config = load_experimental_setup("exp3")
     sample_config = load_sample_setup("sinus")
 
-    # run_report(report)
+    run_report(report)
 
-    run_single(exp_config, sample_config, report)
+    # run_single(exp_config, sample_config, report)
     # run_pack(exp_config, sample_config, report)
 
     report.generate_pdf()

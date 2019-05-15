@@ -95,7 +95,7 @@ def run_fitting():
     fit_objective.initPlot(1)
 
     params = ba.Parameters()
-    params.add("sample_rotation", 0.0, min=-1.0, max=1.0, step=0.02)
+    params.add("sample_rotation", 0.15, min=0.0, max=0.3, step=0.01)
     # params.add("det_dx", 0.00225, min=0.00225-0.005, max=0.00225+0.005, step=0.0005)
     # params.add("beta_b", 72.12, min=72.12-5.0, max=72.12+5.0, step=0.5)
     params.add("grating_height", 225, min=225-75.0, max=225+75.0, step=2.0)

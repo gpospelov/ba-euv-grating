@@ -158,3 +158,18 @@ grating_height 2.250e+02   limited(1.50e+02,3.00e+02)    2.002e+02    2.728e-01
 grating_bulk 4.000e+02   limited(2.00e+02,5.00e+02)    2.023e+02    5.685e-01 
 surface_density_coeff 1.000e+00   limited(1.00e-01,1.00e+01)    1.058e+00    4.330e-02 
 
+
+----------------------------------
+Fitting #8
+----------------------------------
+
+exp3, sinus
+Initial grating parameters for 'sinus' and exp3
+
+params.add("sample_rotation", 0.15, min=0.0, max=0.3, step=0.01)
+params.add("grating_height", 225, min=225-75.0, max=225+75.0, step=2.0)
+params.add("grating_period", 834.2, min=834.2-3.0, max=834.2+3.0, step=0.1)
+
+sample_rotation 1.500e-01   limited(0.00e+00,3.00e-01)    1.309e-01    1.545e-03 
+grating_height 2.250e+02   limited(1.50e+02,3.00e+02)    1.658e+02    1.819e-01 
+grating_period 8.342e+02   limited(8.31e+02,8.37e+02)    8.312e+02    6.621e-03 

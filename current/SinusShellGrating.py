@@ -48,12 +48,13 @@ class SinusShellGrating(GratingBase):
 
         top_grating = ba.Particle(grating_material, sin_ff)
         box = ba.Particle(grating_material, box_ff)
-        bottom_grating = ba.Particle(air_material, sin_ff)
+        # bottom_grating = ba.Particle(air_material, sin_ff)
 
-        coreshell = ba.ParticleCoreShell(bottom_grating, box, ba.kvector_t(0.0, 0.0, 0.0))
+        # coreshell = ba.ParticleCoreShell(bottom_grating, box, ba.kvector_t(0.0, 0.0, 0.0))
 
         composition.addParticle(top_grating, ba.kvector_t(0.0, 0.0, self.grating_bulk()))
-        composition.addParticle(coreshell, ba.kvector_t(0.0, 0.0, 0.0))
+        # composition.addParticle(coreshell, ba.kvector_t(0.0, 0.0, 0.0))
+        composition.addParticle(box, ba.kvector_t(0.0, 0.0, 0.0))
 
         return composition
 

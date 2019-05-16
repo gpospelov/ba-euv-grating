@@ -170,7 +170,7 @@ if __name__ == '__main__':
 
     # run_report(report)
 
-    # run_single(exp_config, sample_config, report)
+    run_single(exp_config, sample_config, report)
     # run_pack(exp_config, sample_config, report)
 
     report.generate_pdf()

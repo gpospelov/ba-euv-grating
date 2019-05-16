@@ -53,7 +53,7 @@
   },
   "exp3" : {
     "alpha_inc"       : 5.57,
-    "sample_rotation" : 0.131,
+    "sample_rotation" : 0.1306,
     "beta_b"          : 89.03,
     "length_ccd"      : 57.45,
     "spec_x"          : 766,

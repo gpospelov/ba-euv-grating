@@ -150,6 +150,7 @@ def test_plt(sample_config):
 
     plt.show()
 
+
 if __name__ == '__main__':
 
     sample_config = load_setup("gratings.json", "spherical")

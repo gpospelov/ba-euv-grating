@@ -65,7 +65,7 @@ def run_single(exp_config, sample_config, report=None):
 
 def main():
     exp_config = load_setup("experiments.json", "exp3")
-    sample_config = load_setup("gratings.json", "sinus")
+    sample_config = load_setup("gratings.json", "spherical")
 
     run_single(exp_config, sample_config)
     print("Terminated successfully")

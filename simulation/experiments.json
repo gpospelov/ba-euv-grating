@@ -59,7 +59,7 @@
     "spec_x"          : 766,
     "spec_y"          : 541,
     "filename"        : "expdata3.txt.gz",
-    "intensity"       : 5e+2,
+    "intensity"       : 2e+2,
     "wavelength"      : 13.52,
     "background"      : 2e+1,
     "xpeaks"          : [7.05, 3.28, 10.82, 4.24, 8.00, 8.94, 9.86, 11.78, 6.13, 1.42, 5.15, 2.27],

@@ -5,12 +5,13 @@ from core.report_manager import ReportManager
 import numpy as np
 from run_simulation import run_single
 from core.utils import load_setup
+from tqdm import tqdm
 import os
 
 
 def scan_grating_height(exp_config, sample_config, report_manager):
     report_manager.m_title = "exp2/sinus height scan"
-    for value in np.linspace(225.0-100, 225.0+100, 10):
+    for value in tqdm(np.linspace(222.0-20, 222.0+20, 41)):
         sample_config["grating_height"] = value
         run_single(exp_config, sample_config, report_manager)
 

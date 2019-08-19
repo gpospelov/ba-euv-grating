@@ -35,6 +35,8 @@ class GratingBase:
             return ba.FTDecayFunction1DGauss(decay_value)
         elif decay_type == "cauchy":
             return ba.FTDecayFunction1DCauchy(decay_value)
+        elif decay_type == "triangle":
+            return ba.FTDecayFunction1DTriangle(decay_value)
         else:
             raise Exception("Unknown decay function type")
 
@@ -59,6 +61,7 @@ class GratingBase:
             self.m_decay_type = interf_setup["decay_type"]
             self.m_decay_length = interf_setup["decay_length"]
             self.interference_function.setDecayFunction(self.decay_function(self.m_decay_type, self.m_decay_length))
+            self.interference_function.setPositionVariance(10.0)
         elif interf_setup["type"] == "1dpara":
             self.m_distr_type = interf_setup["distr_type"]
             self.m_damping_length = interf_setup["damping_length"]

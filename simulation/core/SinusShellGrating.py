@@ -88,10 +88,12 @@ class SinusShellGrating(GratingBase):
         multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
         return multi_layer
 
+
 def get_sample():
     exp_config = load_setup("experiments.json", "exp2")
     sample_config = load_setup("gratings.json", "sinusshell")
     return SinusShellGrating(exp_config, sample_config).buildSample(1.0)
+
 
 if __name__ == '__main__':
     get_sample()

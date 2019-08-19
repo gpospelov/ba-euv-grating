@@ -1,6 +1,5 @@
 import bornagain as ba
 from bornagain import nm, deg
-from .material_library import MaterialLibrary
 from .grating_base import GratingBase
 from .utils import load_setup
 

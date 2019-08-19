@@ -1,7 +1,6 @@
 from bornagain import deg, nm
 from .BeamData import beam_data
 import bornagain as ba
-from .parameter_utils import RunParameters
 from bornagain import deg, micrometer, nm
 from .SimpleBoxGrating import SimpleBoxGrating
 from .SimpleSinusGrating import SimpleSinusGrating
@@ -61,20 +60,6 @@ class SimulationBuilder:
     def wavelength_weight(self):
         return self.sim_weight
 
-    def get_run_parameters(self):
-        result = RunParameters()
-        result.add_parameters(self)
-        self.m_detector_builder.add_parameters(result)
-        self.m_sample_builder.add_parameters(result)
-        return result
-
-    def parameter_tuple(self):
-        """
-        Return RunParameters representing all registered parameter of 'self' and
-        other children.
-        """
-        return self.get_run_parameters().parameter_tuple()
-
     def get_distribution(self, type, par1, par2):
         if type == "gauss":
             return ba.DistributionGaussian(par1, par2)
@@ -116,7 +101,6 @@ class SimulationBuilder:
         self.m_beam_data_str += "({:5.2f},{:5.2f})".format(self.wavelength(), self.wavelength_weight())
 
         simulation = self.build_simulation()
-        print(self.get_run_parameters().parameter_string())
 
         simulation.runSimulation()
 

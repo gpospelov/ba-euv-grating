@@ -123,6 +123,7 @@ class GratingShape:
             result.addParticle(ba.Particle(material, ff), pos)
         return result
 
+
 def stress_test(sample_config):
     for r0 in np.linspace(225-12.0, 225+12.0, 10):
         for r1 in np.linspace(360 - 12.0, 360 + 12.0, 10):

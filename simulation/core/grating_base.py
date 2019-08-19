@@ -18,9 +18,6 @@ class GratingBase:
     def rotation_angle(self):
         return self.m_rotation_angle*deg
 
-    def add_parameters(self, run_parameters):
-        run_parameters.add_parameters(self)
-
     def ambience_material(self, wavelength):
         return self.material_library.get_air(wavelength)
 

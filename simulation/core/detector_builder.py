@@ -29,9 +29,6 @@ class DetectorBuilder:
         self.m_det_dx = setup["det_dx"]
         self.print()
 
-    def add_parameters(self, run_parameters):
-        run_parameters.add_parameters(self)
-
     def alpha_inc(self):
         return self.alpha_inc_angle*deg
 

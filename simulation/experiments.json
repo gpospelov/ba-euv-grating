@@ -43,7 +43,7 @@
     "det_sigma_factor": 4.0,
     "center_peak_x"   : 6.00,
     "center_peak_y"   : 5.93,
-    "mask_center"     : true,
+    "mask_center"     : false,
     "hmin"            : 1e3,
     "hmax"            : 1e7,
     "wl_use"          : false,

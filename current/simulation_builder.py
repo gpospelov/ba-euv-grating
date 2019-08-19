@@ -122,6 +122,8 @@ class SimulationBuilder:
 
         self.m_time_spend = time.time() - start
 
+        print("time", self.m_time_spend)
+
         return simulation.result()
 
     def run_simulation(self):

@@ -54,6 +54,45 @@ class MyObjective(ba.FitObjective):
         return res
 
 
+class WLObjective:
+    def __init__(self):
+        self.m_data = None
+
+    def evaluate(self, params):
+        print(params, "XXX", params["sample_rotation"])
+        exp_config = load_experimental_setup(EXPERIMENT_NAME)
+        sample_config = load_sample_setup(SAMPLE_NAME)
+
+        exp_config["sample_rotation"] = params["sample_rotation"]
+        sample_config["grating_period"] = params["grating_period"]
+        sample_config["grating_width"] = params["grating_period"]
+        sample_config["grating_height"] = params["grating_height"]
+
+        return self.calculate_residuals(exp_config, sample_config)
+
+    def calculate_residuals(self, exp_config, sample_config):
+        builder = SimulationBuilder(exp_config, sample_config)
+
+        if not self.m_data:
+            self.m_data = builder.experimentalData()
+
+        sim_result = builder.run_simulation()
+
+        result = []
+        for i in range(0, self.m_data.size()):
+            if self.m_data[i] > 1:
+                sim = 0.0
+                exp = 0.0
+                if sim_result[i] > 1.0:
+                    sim = np.log10(sim_result[i])
+                if self.m_data[i] > 1.0:
+                    exp = np.log10(self.m_data[i])
+                result.append(sim-exp)
+
+        print(len(result), np.max(result), np.min(result), result)
+        return result
+
+
 def get_simulation(params):
     exp_config = load_experimental_setup(EXPERIMENT_NAME)
     sample_config = load_sample_setup(SAMPLE_NAME)
@@ -94,6 +133,8 @@ def run_fitting():
     fit_objective.initPrint(1)
     fit_objective.initPlot(1)
 
+    wlobjective = WLObjective()
+
     params = ba.Parameters()
     params.add("sample_rotation", 0.131, min=0.131-0.05, max=0.131+0.05, step=0.01)
     # params.add("det_dx", 0.00225, min=0.00225-0.005, max=0.00225+0.005, step=0.0005)
@@ -110,13 +151,14 @@ def run_fitting():
     # params.add("intensity_coeff", 1.0, min=0.1, max=10.0, step=0.1)
 
     minimizer = ba.Minimizer()
-    minimizer.setMinimizer("Genetic", "", "MaxIterations=100;RandomSeed=2;PopSize=30")
-    result = minimizer.minimize(fit_objective.evaluate_residuals, params)
-    fit_objective.finalize(result)
-    #
-    best_params_so_far = result.parameters()
+    # minimizer.setMinimizer("Genetic", "", "MaxIterations=100;RandomSeed=2;PopSize=30")
+    # result = minimizer.minimize(wlobjective.evaluate, params)
+    # fit_objective.finalize(result)
+    # #
+    # best_params_so_far = result.parameters()
+    best_params_so_far = params
     minimizer.setMinimizer("Minuit2", "Migrad")
-    result = minimizer.minimize(fit_objective.evaluate, best_params_so_far)
+    result = minimizer.minimize(wlobjective.evaluate, best_params_so_far)
 
     fit_objective.finalize(result)
     print("Fitting completed.")

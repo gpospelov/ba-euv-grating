@@ -35,10 +35,10 @@
   },
   "sinus" : {
     "builder": "SimpleSinusGrating",
-    "grating_period": 829.2,
+    "grating_period": 834.2,
     "length": 10000,
-    "grating_height": 165.8,
-    "grating_width": 829.2,
+    "grating_height": 221.8,
+    "grating_width": 834.2,
     "r_sigma" : 5.0,
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,

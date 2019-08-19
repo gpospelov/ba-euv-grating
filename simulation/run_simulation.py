@@ -10,7 +10,6 @@ rcParams['image.cmap'] = 'jet'
 import matplotlib.gridspec as gridspec
 from core.report_manager import ReportManager
 import numpy as np
-from bornagain import nm, deg
 from core.utils import load_setup
 
 
@@ -45,6 +44,7 @@ def plot_simulations(sim_results, exp_data, exp_config):
     # plt.ylim(1e+03, 1e+07)
     plt.ylim(exp_config["hmin"], exp_config["hmax"])
 
+    return fig
 
 
 def run_single(exp_config, sample_config, report=None):
@@ -52,21 +52,25 @@ def run_single(exp_config, sample_config, report=None):
 
     sim_result = builder.run_simulation()
     exp_data = builder.experimentalData()
-    plot_simulations(sim_result, exp_data, exp_config)
+
+    figs = []
+    figs.append(plot_simulations(sim_result, exp_data, exp_config))
 
     if report:
-        report.write_report(builder.parameter_tuple())
+        report.write_report(sample_config)
+        for fig in figs:
+            plt.close(fig)
+    else:
+        plt.show()
 
 
-if __name__ == '__main__':
-    report = ReportManager()
-
+def main():
     exp_config = load_setup("experiments.json", "exp3")
     sample_config = load_setup("gratings.json", "sinus")
 
-    # run_report(report)
+    run_single(exp_config, sample_config)
+    print("Terminated successfully")
 
-    run_single(exp_config, sample_config, report)
 
-    report.generate_pdf()
-    plt.show()
+if __name__ == '__main__':
+    main()

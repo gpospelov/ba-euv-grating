@@ -5,12 +5,13 @@ Cosine ripple on a 2D lattice. Beam is parallel to the grating.
 import bornagain as ba
 from matplotlib import pyplot as plt
 from core.simulation_builder import SimulationBuilder
-from matplotlib import rcParams
-rcParams['image.cmap'] = 'jet'
 import matplotlib.gridspec as gridspec
-from core.report_manager import ReportManager
 import numpy as np
 from core.utils import load_setup
+
+
+def plot_colormap(data, zmin=1e+03, zmax=1e+07, units=ba.AxesUnits.MM, zlabel="", cmap="jet", aspect="auto"):
+    ba.plot_colormap(data, zmin=zmin, zmax=zmax, units=units, zlabel=zlabel, cmap=cmap, aspect=aspect)
 
 
 def plot_simulations(sim_results, exp_data, exp_config):
@@ -23,10 +24,10 @@ def plot_simulations(sim_results, exp_data, exp_config):
     units = ba.AxesUnits.MM
 
     plt.subplot(gs1[0])
-    ba.plot_colormap(sim_results, zmin=1, zmax=1e+9, units=units, zlabel="")
+    plot_colormap(sim_results, zmin=1, zmax=1e+9)
 
     plt.subplot(gs1[1])
-    ba.plot_colormap(exp_data, zmin=1, zmax=1e+9, units=units, zlabel="")
+    plot_colormap(exp_data, zmin=1, zmax=1e+9)
 
     gs2 = gridspec.GridSpec(1, 1)
     gs2.update(left=0.05, right=0.95, bottom=0.05, top=0.455, wspace=0.05)
@@ -40,8 +41,6 @@ def plot_simulations(sim_results, exp_data, exp_config):
     amps = np.concatenate((exp_proj.getBinValues(), sim_proj.getBinValues()))
     mean = np.mean(amps)
 
-    # plt.ylim(mean*0.005, mean*50)
-    # plt.ylim(1e+03, 1e+07)
     plt.ylim(exp_config["hmin"], exp_config["hmax"])
 
     return fig
@@ -53,7 +52,7 @@ def run_single(exp_config, sample_config, report=None):
     sim_result = builder.run_simulation()
     exp_data = builder.experimentalData()
 
-    figs = []
+    figs = list()
     figs.append(plot_simulations(sim_result, exp_data, exp_config))
 
     if report:

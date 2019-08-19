@@ -9,8 +9,8 @@ import os
 
 
 def scan_grating_height(exp_config, sample_config, report_manager):
-    report_manager.m_title = "Grating height scan"
-    for value in np.linspace(180.0, 220.0, 11):
+    report_manager.m_title = "exp2/sinus height scan"
+    for value in np.linspace(225.0-100, 225.0+100, 10):
         sample_config["grating_height"] = value
         run_single(exp_config, sample_config, report_manager)
 
@@ -28,8 +28,8 @@ def single_shot(exp_config, sample_config, report_manager):
 
 
 def run_scan(exp_config, sample_config, report_manager):
-    # scan_grating_height(exp_config, sample_config, report_manager)
-    scan_grating_period(exp_config, sample_config, report_manager)
+    scan_grating_height(exp_config, sample_config, report_manager)
+    # scan_grating_period(exp_config, sample_config, report_manager)
 
 
 def main():

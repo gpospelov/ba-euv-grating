@@ -5,8 +5,10 @@ simulation runs.
 import os
 import glob
 import pylatex as pl
-from pylatex.utils import NoEscape, bold
+from pylatex.utils import NoEscape, bold, escape_latex
+from pylatex import SmallText, FootnoteText, HugeText, Figure
 from matplotlib import pyplot as plt
+import json
 
 
 def mono(s):
@@ -18,12 +20,11 @@ def tiny(s):
 
 
 class ReportManager:
-    def __init__(self, run_title="Experiment", output_dir="../../output"):
+    def __init__(self, output_dir="../output", run_title="Experiment"):
         self.m_title = run_title
         self.m_run_prefix = "run"
         self.m_comment = "none"
-        self.m_output_dir = os.path.abspath(
-            os.path.join(os.path.split(__file__)[0], output_dir))
+        self.m_output_dir = output_dir
         self.m_output_index = 1
 
         geometry_options = {"margin": "0.5in"}
@@ -47,10 +48,10 @@ class ReportManager:
         """
         Returns file name to store pyplot figure.
         """
-        return '{}/{}-{:02d}.png'.format(self.m_output_dir, self.m_run_prefix,
+        return '{}/{}-{:03d}.png'.format(self.m_output_dir, self.m_run_prefix,
                                          self.m_output_index)
 
-    def write_report(self, parameter_tuple=None, slide_title=None):
+    def write_report(self, json_config=None, slide_title=None):
         """
         Append single page to PDF report (in memory).
         The page will contain a table with current list of parameters, and single
@@ -64,31 +65,34 @@ class ReportManager:
 
         doc.append(pl.VerticalSpace("2cm"))
         doc.append("\n")
-        self.create_parameter_minipage(parameter_tuple)
+        if json_config:
+            self.create_json_minipage(json_config)
         self.create_figure_minipage()
         doc.append(pl.NewPage())
         self.m_output_index += 1
 
-    def create_parameter_minipage(self, parameter_tuple):
-        """
-        Creates minipage with latex table
-        """
+    def add_page(self, slide_title=None, json_config=None, mfig=None):
+        self.m_doc.append(pl.NewPage())
+        if slide_title:
+            self.m_doc.append(slide_title)
+        else:
+            self.m_doc.append(self.m_title)
+        if json_config:
+            self.create_json_minipage(json_config)
+        if mfig:
+            with self.m_doc.create(pl.MiniPage(width=r"0.74\textwidth",
+                                        height=r"0.25\textwidth",
+                                        content_pos='t')) as page:
+                with page.create(Figure(position='h!')) as plot:
+                    plot.add_plot(width=NoEscape(r"0.99\textwidth"), dpi=300)
+
+    def create_json_minipage(self, json_config):
         doc = self.m_doc
         with doc.create(pl.MiniPage(width=r"0.25\textwidth",
                                     height=r"0.25\textwidth",
-                                    content_pos='t')):
-            if not parameter_tuple:
-                doc.append(pl.HorizontalSpace("2cm"))
-                return
-            with doc.create(pl.Tabular('l l', row_height=0.8)) as table:
-                for l in parameter_tuple:
-                    if len(l[1]):
-                        myfont = [mono, tiny]
-                    else:
-                        myfont = [mono, tiny, bold]
-                        table.add_row(" ", " ", mapper=myfont)  # empty row
-
-                    table.add_row(l[0], l[1], mapper=myfont)
+                                    content_pos='t')) as page:
+            str = json.dumps(json_config, sort_keys=False, indent=2, separators=(',', ': '))
+            page.append(NoEscape(mono(tiny(escape_latex(str)))))
 
     def create_figure_minipage(self):
         """
@@ -96,11 +100,11 @@ class ReportManager:
         """
         doc = self.m_doc
         plt.savefig(self.output_png())
-        with doc.create(pl.MiniPage(width=r"0.75\textwidth",
+        with doc.create(pl.MiniPage(width=r"0.70\textwidth",
                                     height=r"0.25\textwidth",
-                                    content_pos='t')):
-            doc.append(pl.StandAloneGraphic(self.output_png(),
-                image_options=NoEscape(r'width=0.99\textwidth')))
+                                    content_pos='t')) as page:
+            page.append(pl.StandAloneGraphic(self.output_png(),
+                image_options=NoEscape(r'width=0.90\textwidth')))
             doc.append("\n")
 
     def generate_pdf(self):

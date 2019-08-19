@@ -2,8 +2,7 @@ import bornagain as ba
 from .grating_base import GratingBase
 from bornagain import nm, deg
 from .grating_base import GratingBase
-from .json_utils import load_sample_setup
-from .json_utils import load_experimental_setup
+from .utils import load_setup
 
 
 class SinusCompositionGrating(GratingBase):
@@ -74,9 +73,10 @@ class SinusCompositionGrating(GratingBase):
         multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
         return multi_layer
 
+
 def get_sample():
-    exp_config = load_experimental_setup("exp3")
-    sample_config = load_sample_setup("sinuscomp")
+    exp_config = load_setup("experiments.json", "exp3")
+    sample_config = load_setup("gratings.json", "sinuscomp")
     return SinusCompositionGrating(exp_config, sample_config).buildSample(1.0)
 
 

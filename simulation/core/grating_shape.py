@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import bornagain as ba
-from .json_utils import load_sample_setup
+from .utils import load_setup
 
 
 class Circle:
@@ -151,7 +151,7 @@ def test_plt(sample_config):
 
 if __name__ == '__main__':
 
-    sample_config = load_sample_setup("spherical")
+    sample_config = load_setup("gratings.json", "spherical")
     # stress_test(sample_config)
     test_plt(sample_config)
 

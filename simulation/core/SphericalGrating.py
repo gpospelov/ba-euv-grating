@@ -5,7 +5,7 @@ three-spheres-shape-like profile grating.
 import bornagain as ba
 from bornagain import nm, deg
 from .grating_shape import GratingShape
-from .json_utils import load_sample_setup
+from .utils import load_setup
 from .grating_base import GratingBase
 
 
@@ -65,5 +65,5 @@ class SphericalGrating(GratingBase):
 
 
 def get_sample():
-    sample_config = load_sample_setup("spherical")
+    sample_config = load_setup("gratings.json", "spherical")
     return SphericalGrating(sample_config).buildSample(1.0)

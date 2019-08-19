@@ -1,8 +1,8 @@
 import bornagain as ba
 from bornagain import nm, deg
 from .material_library import MaterialLibrary
-from .json_utils import load_sample_setup
 from .grating_base import GratingBase
+from .utils import load_setup
 
 
 class SimpleBoxGrating(GratingBase):
@@ -70,5 +70,5 @@ class SimpleBoxGrating(GratingBase):
 
 
 def get_sample():
-    sample_config = load_sample_setup("box")
+    sample_config = load_setup("gratings.json", "box")
     return SimpleBoxGrating(sample_config).buildSample(1.0)

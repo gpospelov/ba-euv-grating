@@ -1,8 +1,6 @@
 import bornagain as ba
 from .grating_base import GratingBase
-from .grating_base import GratingBase
-from .json_utils import load_sample_setup
-from .json_utils import load_experimental_setup
+from .utils import load_setup
 
 
 class SinusShellGrating(GratingBase):
@@ -91,8 +89,8 @@ class SinusShellGrating(GratingBase):
         return multi_layer
 
 def get_sample():
-    exp_config = load_experimental_setup("exp2")
-    sample_config = load_sample_setup("sinusshell")
+    exp_config = load_setup("experiments.json", "exp2")
+    sample_config = load_setup("gratings.json", "sinusshell")
     return SinusShellGrating(exp_config, sample_config).buildSample(1.0)
 
 if __name__ == '__main__':

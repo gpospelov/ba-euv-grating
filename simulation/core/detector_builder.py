@@ -8,7 +8,7 @@ import os
 from bornagain.plot_utils import *
 import numpy as np
 from matplotlib import pyplot as plt
-from .json_utils import load_experimental_setup
+from .utils import load_setup
 
 NX, NY = 1024, 1024
 PIXEL_SIZE = 13 * 1e-03  # mm
@@ -98,7 +98,7 @@ class DetectorBuilder:
 
 if __name__ == '__main__':
 
-    exp_config = load_experimental_setup("exp2")
+    exp_config = load_setup("experiments.json", "exp2")
     setup = DetectorBuilder(exp_config)
 
     hist = setup.get_histogram()

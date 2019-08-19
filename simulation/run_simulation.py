@@ -11,8 +11,7 @@ import matplotlib.gridspec as gridspec
 from core.report_manager import ReportManager
 import numpy as np
 from bornagain import nm, deg
-from core.json_utils import load_experimental_setup
-from core.json_utils import load_sample_setup
+from core.utils import load_setup
 
 
 def plot_simulations(sim_results, exp_data, exp_config):
@@ -47,66 +46,6 @@ def plot_simulations(sim_results, exp_data, exp_config):
     plt.ylim(exp_config["hmin"], exp_config["hmax"])
 
 
-def run_pack(exp_config, sample_config, report):
-
-    # report.m_title = "Grating height scan"
-    # for i in range(0, 40):
-    #     value = 180 + i*2.0
-    #     print("run_pack()", i, value)
-    #     builder.m_sample_builder.m_grating_height = value
-    #     run_single(builder, report)
-
-    # optimal: 826
-    # report.m_title = "Period scan"
-    # for i in range(0, 3):
-    #     value = 780 + i*2
-    #     print("run_pack()", i, value)
-    #     builder.m_sample_builder.m_grating_period = value
-    #     run_single(builder, report)
-
-    ## Optimal: 0.2 deg (exp1), -0.8 exp2
-    # report.m_title = "Rotation scan"
-    # for value in np.linspace(-0.8, 0.5, 14):
-    #     print("run_pack()", value)
-    #     builder.m_sample_builder.m_rotation_angle = value
-    #     run_single(builder, report)
-
-    # report.m_title = "Beta_b"
-    # for value in np.linspace(78.89-10.0, 78.89+10.0, 10):
-    #     print("run_pack()", value)
-    #     builder.m_detector_builder.m_beta_b = value
-    #     run_single(builder, report)
-
-    # report.m_title = "Det DX"
-    # for value in np.linspace(-1.0, 1.0, 11):
-    #     print("run_pack()", value)
-    #     builder.m_detector_builder.m_det_dx = value
-    #     run_single(builder, report)
-
-    # report.m_title = "Para Omega"
-    # for value in np.linspace(0.1, 100.0, 10):
-    #     print("run_pack()", value)
-    #     sample_config["interf"]["omega"] = value
-    #     run_single(exp_config, sample_config, report)
-
-    # report.m_title = "Exp2 parabox domainsize"
-    # for value in np.linspace(0.1, 100000.0, 10):
-    #     print("run_pack()", value)
-    #     sample_config["interf"]["domain_size"] = value
-    #     run_single(exp_config, sample_config, report)
-
-    # report.m_title = "Exp2 parasinus height"
-    # for value in np.linspace(150, 300.0, 10):
-    #     print("run_pack()", value)
-    #     sample_config["height"] = value
-    #     run_single(exp_config, sample_config, report)
-
-    report.m_title = "Exp2 sinus beta_b"
-    for value in np.linspace(78.89-20.0, 78.89+20.0, 10):
-        print("run_pack()", value)
-        exp_config["beta_b"] = value
-        run_single(exp_config, sample_config, report)
-
 
 def run_single(exp_config, sample_config, report=None):
     builder = SimulationBuilder(exp_config, sample_config)
@@ -119,59 +58,15 @@ def run_single(exp_config, sample_config, report=None):
         report.write_report(builder.parameter_tuple())
 
 
-def run_report(report):
-    # report.m_title = "Exp2 box"
-    # exp_config = load_experimental_setup("exp2")
-    # sample_config = load_sample_setup("box")
-    # run_single(exp_config, sample_config, report)
-    #
-    # report.m_title = "Exp2 parabox"
-    # exp_config = load_experimental_setup("exp2")
-    # sample_config = load_sample_setup("parabox")
-    # run_single(exp_config, sample_config, report)
-    #
-    # report.m_title = "Exp2 sinus"
-    # exp_config = load_experimental_setup("exp2")
-    # sample_config = load_sample_setup("sinus")
-    # run_single(exp_config, sample_config, report)
-    #
-    # report.m_title = "Exp2 parasinus"
-    # exp_config = load_experimental_setup("exp2")
-    # sample_config = load_sample_setup("parasinus")
-    # run_single(exp_config, sample_config, report)
-    #
-    # report.m_title = "Exp2 spherical"
-    # exp_config = load_experimental_setup("exp2")
-    # sample_config = load_sample_setup("spherical")
-    # run_single(exp_config, sample_config, report)
-    #
-    # report.m_title = "Exp2 paraspherical"
-    # exp_config = load_experimental_setup("exp2")
-    # sample_config = load_sample_setup("paraspherical")
-    # run_single(exp_config, sample_config, report)
-
-    report.m_title = "Exp3 sinus"
-    exp_config = load_experimental_setup("exp3")
-    sample_config = load_sample_setup("sinus")
-    run_single(exp_config, sample_config, report)
-
-    report.m_title = "Exp3 sinus (true wavelength)"
-    exp_config = load_experimental_setup("exp3")
-    exp_config["wl_use"] = True
-    sample_config = load_sample_setup("sinus")
-    run_single(exp_config, sample_config, report)
-
-
 if __name__ == '__main__':
     report = ReportManager()
 
-    exp_config = load_experimental_setup("exp3")
-    sample_config = load_sample_setup("sinus")
+    exp_config = load_setup("experiments.json", "exp3")
+    sample_config = load_setup("gratings.json", "sinus")
 
     # run_report(report)
 
     run_single(exp_config, sample_config, report)
-    # run_pack(exp_config, sample_config, report)
 
     report.generate_pdf()
     plt.show()

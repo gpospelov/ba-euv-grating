@@ -4,15 +4,15 @@ Cosine ripple on a 2D lattice. Beam is parallel to the grating.
 
 import bornagain as ba
 from matplotlib import pyplot as plt
-from simulation_builder import SimulationBuilder
+from core.simulation_builder import SimulationBuilder
 from matplotlib import rcParams
 rcParams['image.cmap'] = 'jet'
 import matplotlib.gridspec as gridspec
-from report_manager import ReportManager
-from utils.json_utils import load_experimental_setup
-from utils.json_utils import load_sample_setup
+from core.report_manager import ReportManager
 import numpy as np
 from bornagain import nm, deg
+from core.json_utils import load_experimental_setup
+from core.json_utils import load_sample_setup
 
 
 def plot_simulations(sim_results, exp_data, exp_config):

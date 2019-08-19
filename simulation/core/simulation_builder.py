@@ -1,16 +1,16 @@
 from bornagain import deg, nm
-from BeamData import beam_data
+from .BeamData import beam_data
 import bornagain as ba
-from utils.parameter_utils import RunParameters
+from .parameter_utils import RunParameters
 from bornagain import deg, micrometer, nm
-from SimpleBoxGrating import SimpleBoxGrating
-from SimpleSinusGrating import SimpleSinusGrating
-from BoxCompositionGrating import BoxCompositionGrating
-from SphericalGrating import SphericalGrating
-from detector_builder import DetectorBuilder
-from detector_builder import PIXEL_SIZE
-from SinusCompositionGrating import SinusCompositionGrating
-from SinusShellGrating import SinusShellGrating
+from .SimpleBoxGrating import SimpleBoxGrating
+from .SimpleSinusGrating import SimpleSinusGrating
+from .BoxCompositionGrating import BoxCompositionGrating
+from .SphericalGrating import SphericalGrating
+from .detector_builder import DetectorBuilder
+from .detector_builder import PIXEL_SIZE
+from .SinusCompositionGrating import SinusCompositionGrating
+from .SinusShellGrating import SinusShellGrating
 import time
 
 builders = {

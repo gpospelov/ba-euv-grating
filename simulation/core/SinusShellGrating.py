@@ -1,9 +1,8 @@
 import bornagain as ba
-from grating_base import GratingBase
-from bornagain import nm, deg
-from grating_base import GratingBase
-from utils.json_utils import load_sample_setup
-from utils.json_utils import load_experimental_setup
+from .grating_base import GratingBase
+from .grating_base import GratingBase
+from .json_utils import load_sample_setup
+from .json_utils import load_experimental_setup
 
 
 class SinusShellGrating(GratingBase):

@@ -3,7 +3,7 @@ Base class for all grating builders.
 """
 import bornagain as ba
 from bornagain import deg
-from material_library import MaterialLibrary
+from .material_library import MaterialLibrary
 
 
 class GratingBase:

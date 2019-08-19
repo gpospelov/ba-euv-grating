@@ -8,7 +8,7 @@ import os
 from bornagain.plot_utils import *
 import numpy as np
 from matplotlib import pyplot as plt
-from utils.json_utils import load_experimental_setup
+from .json_utils import load_experimental_setup
 
 NX, NY = 1024, 1024
 PIXEL_SIZE = 13 * 1e-03  # mm
@@ -78,7 +78,7 @@ class DetectorBuilder:
         return detector
 
     def get_histogram(self):
-        filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", self.filename)
+        filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "data", self.filename)
         print("loading histogram from: "+filename)
         result = ba.Histogram2D(NX, 0.0, self.det_width(), NY, 0.0, self.det_height())
 

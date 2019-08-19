@@ -1,10 +1,11 @@
 import bornagain as ba
-from grating_base import GratingBase
 from bornagain import nm, deg
-from grating_base import GratingBase
+from .material_library import MaterialLibrary
+from .json_utils import load_sample_setup
+from .grating_base import GratingBase
 
 
-class SimpleSinusGrating(GratingBase):
+class SimpleBoxGrating(GratingBase):
     def __init__(self, exp_setup, sample_setup):
         super().__init__(exp_setup, sample_setup)
         self.m_grating_period = sample_setup["grating_period"]
@@ -17,6 +18,9 @@ class SimpleSinusGrating(GratingBase):
         self.m_surface_density = sample_setup["surface_density"]
         self.init_interference(sample_setup["interf"])
 
+    def grating_period(self):
+        return self.m_grating_period
+
     def grating_height(self):
         return self.m_grating_height
 
@@ -26,12 +30,9 @@ class SimpleSinusGrating(GratingBase):
     def grating_length(self):
         return self.m_grating_length
 
-    def grating_period(self):
-        return self.m_grating_period
-
     def grating(self, material):
-        # ff = ba.FormFactorLongRipple1Lorentz(self.grating_length(), self.grating_width(), self.grating_height())
-        ff = ba.FormFactorLongRipple1Gauss(self.grating_length(), self.grating_width(), self.grating_height())
+        ff = ba.FormFactorLongBoxLorentz(self.grating_length(), self.grating_width(),
+                                         self.grating_height())
         return ba.Particle(material, ff)
 
     def buildSample(self, wavelength):
@@ -49,7 +50,7 @@ class SimpleSinusGrating(GratingBase):
         # assemble layers
         air_layer = ba.Layer(mat_ambience)
         intermediate = ba.Layer(mat_ambience, self.grating_height())
-        # under = ba.Layer(mat_ambience, 100*nm)
+        under = ba.Layer(mat_ambience, 100*nm)
         substrate_layer = ba.Layer(mat_substrate)
 
         intermediate.addLayout(layout)
@@ -63,6 +64,11 @@ class SimpleSinusGrating(GratingBase):
         multi_layer = ba.MultiLayer()
         multi_layer.addLayer(air_layer)
         multi_layer.addLayer(intermediate)
-        # multi_layer.addLayer(under)
+        multi_layer.addLayer(under)
         multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
         return multi_layer
+
+
+def get_sample():
+    sample_config = load_sample_setup("box")
+    return SimpleBoxGrating(sample_config).buildSample(1.0)

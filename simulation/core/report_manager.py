@@ -18,7 +18,7 @@ def tiny(s):
 
 
 class ReportManager:
-    def __init__(self, run_title="Experiment", output_dir="../output"):
+    def __init__(self, run_title="Experiment", output_dir="../../output"):
         self.m_title = run_title
         self.m_run_prefix = "run"
         self.m_comment = "none"

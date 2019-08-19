@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import bornagain as ba
-from utils.json_utils import load_sample_setup
+from .json_utils import load_sample_setup
 
 
 class Circle:

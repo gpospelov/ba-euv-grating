@@ -2,7 +2,7 @@
 Grating is made of two boxes partly embedded in additional gold layer.
 """
 import bornagain as ba
-from grating_base import GratingBase
+from .grating_base import GratingBase
 from bornagain import nm, deg
 
 

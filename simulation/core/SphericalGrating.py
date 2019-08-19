@@ -4,9 +4,9 @@ three-spheres-shape-like profile grating.
 """
 import bornagain as ba
 from bornagain import nm, deg
-from grating_shape import GratingShape
-from utils.json_utils import load_sample_setup
-from grating_base import GratingBase
+from .grating_shape import GratingShape
+from .json_utils import load_sample_setup
+from .grating_base import GratingBase
 
 
 class SphericalGrating(GratingBase):

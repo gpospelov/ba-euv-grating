@@ -18,10 +18,21 @@ def scan_grating_height(exp_config, sample_config, report_manager):
 
 def scan_grating_period(exp_config, sample_config, report_manager):
     report_manager.m_title = "Grating period scan"
-    for value in np.linspace(820.0, 840.0, 11):
+    for value in np.linspace(834.0-5, 834.0+5, 11):
         sample_config["grating_period"] = value
         run_single(exp_config, sample_config, report_manager)
 
+def scan_sample_rotation(exp_config, sample_config, report_manager):
+    report_manager.m_title = "Grating period scan"
+    for value in np.linspace(0.131-0.05, 0.131+0.05, 11):
+        exp_config["sample_rotation"] = value
+        run_single(exp_config, sample_config, report_manager)
+
+def scan_spherical_r0(exp_config, sample_config, report_manager):
+    report_manager.m_title = "Grating spherical r0"
+    for value in np.linspace(225.0-20, 225+20.0, 11):
+        sample_config["r0"] = value
+        run_single(exp_config, sample_config, report_manager)
 
 def single_shot(exp_config, sample_config, report_manager):
     report_manager.m_title = "Single shot"
@@ -29,8 +40,10 @@ def single_shot(exp_config, sample_config, report_manager):
 
 
 def run_scan(exp_config, sample_config, report_manager):
-    scan_grating_height(exp_config, sample_config, report_manager)
+    # scan_grating_height(exp_config, sample_config, report_manager)
     # scan_grating_period(exp_config, sample_config, report_manager)
+    # scan_sample_rotation(exp_config, sample_config, report_manager)
+    scan_spherical_r0(exp_config, sample_config, report_manager)
 
 
 def main():
@@ -38,7 +51,7 @@ def main():
     report_manager = ReportManager(output)
 
     exp_config = load_setup("experiments.json", "exp3")
-    sample_config = load_setup("gratings.json", "sinus")
+    sample_config = load_setup("gratings.json", "sphericalsym")
 
     run_scan(exp_config, sample_config, report_manager)
 

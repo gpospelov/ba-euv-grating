@@ -22,6 +22,7 @@ def plot_spherical():
 
 def plot_sphericalsym():
     sample_config = load_setup("gratings.json", "sphericalsym")
+    sample_config["r0"] = 200.0
     shape = GratingSymShape(sample_config)
     rect = shape.rectangle_set()
 

@@ -6,6 +6,7 @@ from .SimpleBoxGrating import SimpleBoxGrating
 from .SimpleSinusGrating import SimpleSinusGrating
 from .BoxCompositionGrating import BoxCompositionGrating
 from .SphericalGrating import SphericalGrating
+from .SphericalSymGrating import SphericalSymGrating
 from .detector_builder import DetectorBuilder
 from .detector_builder import PIXEL_SIZE
 from .SinusCompositionGrating import SinusCompositionGrating
@@ -16,6 +17,7 @@ builders = {
     "SimpleBoxGrating": SimpleBoxGrating,
     "SimpleSinusGrating": SimpleSinusGrating,
     "SphericalGrating": SphericalGrating,
+    "SphericalSymGrating": SphericalSymGrating,
     "SinusCompositionGrating": SinusCompositionGrating,
     "SinusShellGrating": SinusShellGrating
 }

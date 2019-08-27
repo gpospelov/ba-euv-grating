@@ -158,7 +158,7 @@
     }
   },
   "sphericalsym" : {
-    "builder": "SphericalGrating",
+    "builder": "SphericalSymGrating",
     "grating_period": 834.2,
     "grating_central_part": 400.0,
     "length": 10000,

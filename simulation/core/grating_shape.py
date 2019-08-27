@@ -11,8 +11,12 @@ class Circle:
         self.m_radius = radius
 
     def get_y(self, x):
-        sq = np.sqrt(self.m_radius**2 - (x-self.m_x0)**2)
-        return [self.m_y0 + sq, self.m_y0 - sq]
+        dist = self.m_radius**2 - (x-self.m_x0)**2
+        if dist > 0.0:
+            sq = np.sqrt(dist)
+            return [self.m_y0 + sq, self.m_y0 - sq]
+        else:
+            return None
 
     def intersect(self, other):
         """

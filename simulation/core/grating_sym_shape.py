@@ -11,19 +11,20 @@ class GratingSymShape:
         self.m_nslices = setup["nslices"]
         self.m_grating_length = setup["length"]
         self.m_r0 = setup["r0"]
+        self.m_r0_height = setup["r0_height"]
         self.m_r1 = setup["r1"]
-        self.m_circle0 = Circle(0.0, 0.0, self.m_r0)
+        self.m_circle0 = Circle(0.0, self.m_r0_height-self.m_r0, self.m_r0)
         self.m_circle1 = Circle(self.m_period/2.0, self.m_r1, self.m_r1)
 
     def get_y(self, x):
         """
         For x coordinate along grating ripples calculate y-value using one of 3 circles forming the grating
         """
-        xpos = abs(x)
-        if xpos < self.m_central_part/2:
-            return max(self.m_circle0.get_y(xpos))
+        result = self.m_circle0.get_y(abs(x))
+        if result:
+            return max(result)
         else:
-            return min(self.m_circle1.get_y(xpos)) + 10
+            return None
 
 
     def rectangle_set(self):
@@ -32,8 +33,9 @@ class GratingSymShape:
         for i in range(0, self.m_nslices):
             x = -self.m_period/2 + (i+0.5)*dx
             y = self.get_y(x)
-            print(i, x, y)
-            rectangles.append(Rectangle(x-dx/2., 0.0, dx, y))
+            if y and y > 0.0:
+                print(i, x, y)
+                rectangles.append(Rectangle(x-dx/2., 0.0, dx, y))
 
         return rectangles
 

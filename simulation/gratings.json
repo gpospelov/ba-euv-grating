@@ -45,8 +45,8 @@
     "surface_density": 0.0002,
     "interf": {
       "type" : "1dlattice",
-      "decay_type" : "gauss",
-      "decay_length" : 2500
+      "decay_type" : "cauchy",
+      "decay_length" : 50000
     }
   },
   "parasinus" : {
@@ -64,6 +64,24 @@
       "distr_type" : "gauss",
       "damping_length" : 0,
       "domain_size": 100000.0,
+      "omega" : 1.0
+    }
+  },
+  "para2sinus" : {
+    "builder": "SimpleSinusGrating",
+    "grating_period": 834.2,
+    "length": 10000,
+    "grating_height": 161.2,
+    "grating_width": 834.2,
+    "r_sigma" : 5.0,
+    "r_hurst" : 0.5,
+    "r_corr"  : 10.0,
+    "surface_density": 0.0015,
+    "interf": {
+      "type" : "2dpara",
+      "distr_type" : "gauss2d",
+      "damping_length" : 1e5,
+      "domain_size": 1e5,
       "omega" : 1.0
     }
   },

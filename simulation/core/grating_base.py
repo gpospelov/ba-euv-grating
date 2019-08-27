@@ -43,6 +43,8 @@ class GratingBase:
     def probability_distribution(self, distr_type, omega):
         if distr_type == "gauss":
             return ba.FTDistribution1DGauss(omega)
+        elif distr_type == "gauss2d":
+            return ba.FTDistribution2DGauss(omega, omega)
         elif distr_type == "cauchy":
             return ba.FTDistribution1DCauchy(omega)
         elif distr_type == "gate":
@@ -71,5 +73,13 @@ class GratingBase:
             self.interference_function.setProbabilityDistribution(self.probability_distribution(self.m_distr_type, self.m_omega))
             if self.m_domain_size != 0.0:
                 self.interference_function.setDomainSize(self.m_domain_size)
+        elif interf_setup["type"] == "2dpara":
+            self.m_distr_type = interf_setup["distr_type"]
+            self.m_damping_length = interf_setup["damping_length"]
+            self.m_domain_size = interf_setup["domain_size"]
+            self.m_omega = interf_setup["omega"]
+            self.interference_function = ba.InterferenceFunction2DParaCrystal.createHexagonal(self.grating_period(), self.m_damping_length, self.m_domain_size, self.m_domain_size)
+            distr = self.probability_distribution(self.m_distr_type, self.m_omega)
+            self.interference_function.setProbabilityDistributions(distr, distr)
         else:
             raise Exception("Unknown interference function")

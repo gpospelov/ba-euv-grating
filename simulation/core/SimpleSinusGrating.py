@@ -28,8 +28,8 @@ class SimpleSinusGrating(GratingBase):
         return self.m_grating_period
 
     def grating(self, material):
-        ff = ba.FormFactorLongRipple1Lorentz(self.grating_length(), self.grating_width(), self.grating_height())
-        # ff = ba.FormFactorLongRipple1Gauss(self.grating_length(), self.grating_width(), self.grating_height())
+        # ff = ba.FormFactorLongRipple1Lorentz(self.grating_length(), self.grating_width(), self.grating_height())
+        ff = ba.FormFactorLongRipple1Gauss(self.grating_length(), self.grating_width(), self.grating_height())
         return ba.Particle(material, ff)
 
     def buildSample(self, wavelength):

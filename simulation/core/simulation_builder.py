@@ -79,6 +79,8 @@ class SimulationBuilder:
 
         self.m_detector_builder.apply_masks(simulation)
 
+        # simulation.getOptions().setUseAvgMaterials(True)
+
         if self.m_monte_carlo:
             simulation.getOptions().setMonteCarloIntegration(True, 50)
 

@@ -166,7 +166,7 @@
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,
     "surface_density": 0.0004,
-    "nslices" : 51,
+    "nslices" : 101,
     "r0": 209.6,
     "r1" : 372.0,
     "bulk": 394.2,

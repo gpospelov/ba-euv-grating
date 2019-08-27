@@ -41,7 +41,7 @@ def scan_spherical_r0_height(exp_config, sample_config, report_manager):
         run_single(exp_config, sample_config, report_manager)
 
 def single_shot(exp_config, sample_config, report_manager):
-    report_manager.m_title = "Sphericalsym, exp3"
+    report_manager.m_title = "Sphericalsym, exp1"
     run_single(exp_config, sample_config, report_manager)
 
 
@@ -57,7 +57,7 @@ def main():
     output = os.path.abspath(os.path.join(os.path.split(__file__)[0], "../output"))
     report_manager = ReportManager(output)
 
-    exp_config = load_setup("experiments.json", "exp3")
+    exp_config = load_setup("experiments.json", "exp1")
     sample_config = load_setup("gratings.json", "sphericalsym")
 
     run_scan(exp_config, sample_config, report_manager)

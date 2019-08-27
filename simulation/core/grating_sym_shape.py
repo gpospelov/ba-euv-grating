@@ -6,15 +6,11 @@ import numpy as np
 class GratingSymShape:
     def __init__(self, setup):
         self.m_period = setup["grating_period"]
-        self.m_central_part = setup["grating_central_part"]
-        self.m_thickness = setup["bulk"]
         self.m_nslices = setup["nslices"]
         self.m_grating_length = setup["length"]
         self.m_r0 = setup["r0"]
         self.m_r0_height = setup["r0_height"]
-        self.m_r1 = setup["r1"]
         self.m_circle0 = Circle(0.0, self.m_r0_height-self.m_r0, self.m_r0)
-        self.m_circle1 = Circle(self.m_period/2.0, self.m_r1, self.m_r1)
 
     def get_y(self, x):
         """

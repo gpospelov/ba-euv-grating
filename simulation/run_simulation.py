@@ -64,7 +64,7 @@ def run_single(exp_config, sample_config, report=None):
 
 
 def main():
-    exp_config = load_setup("experiments.json", "exp3")
+    exp_config = load_setup("experiments.json", "exp1")
     sample_config = load_setup("gratings.json", "sphericalsym")
 
     run_single(exp_config, sample_config)

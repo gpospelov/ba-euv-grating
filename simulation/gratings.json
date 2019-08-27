@@ -165,22 +165,19 @@
   "sphericalsym" : {
     "builder": "SphericalSymGrating",
     "grating_period": 834.2,
-    "grating_central_part": 400.0,
     "length": 8000,
     "r_sigma" : 25.0,
     "r_hurst" : 1.0,
     "r_corr"  : 20.0,
-    "surface_density": 0.004,
+    "surface_density": 0.006,
     "nslices" : 101,
     "r0": 185.6,
     "r0_height": 160.0,
-    "r1" : 372.0,
-    "bulk": 394.2,
     "interf": {
       "type" : "1dlattice",
       "decay_type" : "gauss",
-      "decay_length" : 3500,
-      "variance": 10.0
+      "decay_length" : 2500,
+      "variance": 1.0
     }
   }
 }

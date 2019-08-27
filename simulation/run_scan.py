@@ -11,7 +11,7 @@ import os
 
 def scan_grating_height(exp_config, sample_config, report_manager):
     report_manager.m_title = "exp2/sinus height scan"
-    for value in tqdm(np.linspace(222.0-20, 222.0+20, 41)):
+    for value in tqdm(np.linspace(225.0-20, 225.0+20, 41)):
         sample_config["grating_height"] = value
         run_single(exp_config, sample_config, report_manager)
 
@@ -36,12 +36,12 @@ def scan_spherical_r0(exp_config, sample_config, report_manager):
 
 def scan_spherical_r0_height(exp_config, sample_config, report_manager):
     report_manager.m_title = "Grating spherical r0"
-    for value in np.linspace(150.0, 250.0, 51):
+    for value in np.linspace(100.0, 300.0, 51):
         sample_config["r0_height"] = value
         run_single(exp_config, sample_config, report_manager)
 
 def single_shot(exp_config, sample_config, report_manager):
-    report_manager.m_title = "Single shot"
+    report_manager.m_title = "Sphericalsym, exp3"
     run_single(exp_config, sample_config, report_manager)
 
 
@@ -50,8 +50,8 @@ def run_scan(exp_config, sample_config, report_manager):
     # scan_grating_period(exp_config, sample_config, report_manager)
     # scan_sample_rotation(exp_config, sample_config, report_manager)
     # scan_spherical_r0(exp_config, sample_config, report_manager)
-    scan_spherical_r0_height(exp_config, sample_config, report_manager)
-
+    # scan_spherical_r0_height(exp_config, sample_config, report_manager)
+    single_shot(exp_config, sample_config, report_manager)
 
 def main():
     output = os.path.abspath(os.path.join(os.path.split(__file__)[0], "../output"))

@@ -12,7 +12,8 @@
     "interf": {
       "type" : "1dlattice",
       "decay_type" : "gauss",
-      "decay_length" : 2500
+      "decay_length" : 2500,
+      "variance": 10.0
     }
   },
   "parabox" : {
@@ -46,7 +47,8 @@
     "interf": {
       "type" : "1dlattice",
       "decay_type" : "gauss",
-      "decay_length" : 2000
+      "decay_length" : 2000,
+      "variance": 10.0
     }
   },
   "parasinus" : {
@@ -99,7 +101,8 @@
     "interf": {
       "type" : "1dlattice",
       "decay_type" : "gauss",
-      "decay_length" : 2500
+      "decay_length" : 2500,
+      "variance": 10.0
     }
   },
   "spherical" : {
@@ -117,7 +120,8 @@
     "interf": {
       "type" : "1dlattice",
       "decay_type" : "gauss",
-      "decay_length" : 2500
+      "decay_length" : 2500,
+      "variance": 10.0
     }
   },
   "paraspherical" : {
@@ -154,7 +158,8 @@
     "interf": {
       "type" : "1dlattice",
       "decay_type" : "gauss",
-      "decay_length" : 2500
+      "decay_length" : 2500,
+      "variance": 10.0
     }
   },
   "sphericalsym" : {
@@ -173,7 +178,8 @@
     "interf": {
       "type" : "1dlattice",
       "decay_type" : "gauss",
-      "decay_length" : 2500
+      "decay_length" : 2500,
+      "variance": 0.1
     }
   }
 }

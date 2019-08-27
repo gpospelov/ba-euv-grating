@@ -62,8 +62,9 @@ class GratingBase:
             self.interference_function = ba.InterferenceFunction1DLattice(self.grating_period(), 90.0*deg - self.rotation_angle())
             self.m_decay_type = interf_setup["decay_type"]
             self.m_decay_length = interf_setup["decay_length"]
+            self.m_variance = interf_setup["variance"]
             self.interference_function.setDecayFunction(self.decay_function(self.m_decay_type, self.m_decay_length))
-            self.interference_function.setPositionVariance(10.0)
+            self.interference_function.setPositionVariance(self.m_variance)
         elif interf_setup["type"] == "1dpara":
             self.m_distr_type = interf_setup["distr_type"]
             self.m_damping_length = interf_setup["damping_length"]

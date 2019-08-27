@@ -5,6 +5,7 @@ three-spheres-shape-like profile grating.
 import bornagain as ba
 from bornagain import nm, deg
 from .grating_shape import GratingShape
+from .grating_sym_shape import GratingSymShape
 from .utils import load_setup
 from .grating_base import GratingBase
 
@@ -18,7 +19,8 @@ class SphericalGrating(GratingBase):
         self.m_rough_hurst = sample_setup["r_hurst"]
         self.m_rough_corr = sample_setup["r_corr"]
         self.m_surface_density = sample_setup["surface_density"]
-        self.m_grating_shape = GratingShape(sample_setup)
+        # self.m_grating_shape = GratingShape(sample_setup)
+        self.m_grating_shape = GratingSymShape(sample_setup)
         self.init_interference(sample_setup["interf"])
 
     def grating_length(self):
@@ -61,5 +63,5 @@ class SphericalGrating(GratingBase):
 
 
 def get_sample():
-    sample_config = load_setup("gratings.json", "spherical")
+    sample_config = load_setup("gratings.json", "sphericalsym")
     return SphericalGrating(sample_config).buildSample(1.0)

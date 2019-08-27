@@ -39,14 +39,14 @@
     "length": 10000,
     "grating_height": 221.8,
     "grating_width": 834.2,
-    "r_sigma" : 5.0,
+    "r_sigma" : 15.0,
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,
     "surface_density": 0.0002,
     "interf": {
       "type" : "1dlattice",
-      "decay_type" : "cauchy",
-      "decay_length" : 50000
+      "decay_type" : "gauss",
+      "decay_length" : 2000
     }
   },
   "parasinus" : {
@@ -110,7 +110,7 @@
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,
     "surface_density": 0.0004,
-    "nslices" : 200,
+    "nslices" : 100,
     "r0": 233.6,
     "r1" : 372.0,
     "bulk": 394.2,
@@ -127,7 +127,7 @@
     "r_sigma" : 5.0,
     "r_hurst" : 0.5,
     "r_corr"  : 10.0,
-    "surface_density": 0.0004,
+    "surface_density": 0.00004,
     "nslices" : 200,
     "r0": 233.6,
     "r1" : 372.0,

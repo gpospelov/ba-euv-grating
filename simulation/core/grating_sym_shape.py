@@ -34,7 +34,7 @@ class GratingSymShape:
             x = -self.m_period/2 + (i+0.5)*dx
             y = self.get_y(x)
             if y and y > 0.0:
-                print(i, x, y)
+                # print(i, x, y)
                 rectangles.append(Rectangle(x-dx/2., 0.0, dx, y))
 
         return rectangles

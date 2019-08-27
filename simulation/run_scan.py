@@ -30,8 +30,14 @@ def scan_sample_rotation(exp_config, sample_config, report_manager):
 
 def scan_spherical_r0(exp_config, sample_config, report_manager):
     report_manager.m_title = "Grating spherical r0"
-    for value in np.linspace(225.0-20, 225+20.0, 11):
+    for value in np.linspace(225.0-40, 225+40.0, 41):
         sample_config["r0"] = value
+        run_single(exp_config, sample_config, report_manager)
+
+def scan_spherical_r0_height(exp_config, sample_config, report_manager):
+    report_manager.m_title = "Grating spherical r0"
+    for value in np.linspace(150.0, 250.0, 51):
+        sample_config["r0_height"] = value
         run_single(exp_config, sample_config, report_manager)
 
 def single_shot(exp_config, sample_config, report_manager):
@@ -43,7 +49,8 @@ def run_scan(exp_config, sample_config, report_manager):
     # scan_grating_height(exp_config, sample_config, report_manager)
     # scan_grating_period(exp_config, sample_config, report_manager)
     # scan_sample_rotation(exp_config, sample_config, report_manager)
-    scan_spherical_r0(exp_config, sample_config, report_manager)
+    # scan_spherical_r0(exp_config, sample_config, report_manager)
+    scan_spherical_r0_height(exp_config, sample_config, report_manager)
 
 
 def main():

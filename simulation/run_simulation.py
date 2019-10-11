@@ -10,7 +10,7 @@ import numpy as np
 from core.utils import load_setup
 
 
-def plot_colormap(data, zmin=1e+03, zmax=1e+07, units=ba.AxesUnits.MM, zlabel="", cmap="jet", aspect="auto"):
+def plot_colormap(data, zmin=1e+03, zmax=1e+07, units=ba.AxesUnits.DEGREES, zlabel="", cmap="jet", aspect="auto"):
     ba.plot_colormap(data, zmin=zmin, zmax=zmax, units=units, zlabel=zlabel, cmap=cmap, aspect=aspect)
 
 

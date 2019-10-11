@@ -36,7 +36,9 @@ def run_fitting():
     fit_objective.addSimulationAndData(get_simulation, builder.experimentalData().array())
 
     fit_objective.initPrint(1)
-    fit_objective.initPlot(1)
+
+    plot_observer = ba.PlotterGISAS(units=ba.AxesUnits.DEGREES)
+    fit_objective.initPlot(1, plot_observer.plot)
 
     params = ba.Parameters()
     params.add("sample_rotation", 0.131, min=0.131-0.05, max=0.131+0.05, step=0.01)

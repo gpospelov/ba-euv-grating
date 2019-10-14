@@ -21,7 +21,7 @@ def plot_simulations(sim_results, exp_data, exp_config, sim_title=None):
     gs1 = gridspec.GridSpec(1, 2)
     gs1.update(left=0.05, right=1.0, bottom=0.525, top=0.95, wspace=0.05)
 
-    units = ba.AxesUnits.MM
+    units = ba.AxesUnits.DEGREES
 
     sim_canvas = plt.subplot(gs1[0])
     plot_colormap(sim_results, zmin=1, zmax=1e+9)

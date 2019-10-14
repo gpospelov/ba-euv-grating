@@ -37,6 +37,9 @@ def plot_simulations(sim_results, exp_data, exp_config, sim_title=None):
     gs2.update(left=0.05, right=0.95, bottom=0.05, top=0.455, wspace=0.05)
     plt.subplot(gs2[0])
     exp_proj = exp_data.histogram2d(units).projectionX()
+    print(type(exp_data.histogram2d(units).projectionX().array()))
+    np.savetxt("projectionx.txt", exp_data.histogram2d(units).projectionX().array())
+
     plt.semilogy(exp_proj.getBinCenters(), exp_proj.getBinValues()+1, label=r'$\phi=0.0^{\circ}$')
 
     sim_proj = sim_results.histogram2d(units).projectionX()

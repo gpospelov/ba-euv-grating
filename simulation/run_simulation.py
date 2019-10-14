@@ -54,6 +54,8 @@ def run_single(exp_config, sample_config, report=None, sim_title=None):
     builder = SimulationBuilder(exp_config, sample_config)
 
     sim_result = builder.run_simulation()
+    print(type(sim_result), type(sim_result.array()))
+    np.savetxt("intensity.txt", sim_result.array())
     exp_data = builder.experimentalData()
 
     figs = list()

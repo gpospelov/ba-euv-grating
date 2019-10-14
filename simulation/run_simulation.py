@@ -37,8 +37,12 @@ def plot_simulations(sim_results, exp_data, exp_config, sim_title=None):
     gs2.update(left=0.05, right=0.95, bottom=0.05, top=0.455, wspace=0.05)
     plt.subplot(gs2[0])
     exp_proj = exp_data.histogram2d(units).projectionX()
-    print(type(exp_data.histogram2d(units).projectionX().array()))
-    np.savetxt("projectionx.txt", exp_data.histogram2d(units).projectionX().array())
+
+    bin_values = exp_proj.getBinValues()
+    bin_centers = exp_proj.getBinCenters()
+    combined = np.vstack((bin_centers, bin_values)).T
+
+    np.savetxt("projectionx.txt", combined)
 
     plt.semilogy(exp_proj.getBinCenters(), exp_proj.getBinValues()+1, label=r'$\phi=0.0^{\circ}$')
 
@@ -57,8 +61,6 @@ def run_single(exp_config, sample_config, report=None, sim_title=None):
     builder = SimulationBuilder(exp_config, sample_config)
 
     sim_result = builder.run_simulation()
-    print(type(sim_result), type(sim_result.array()))
-    np.savetxt("intensity.txt", sim_result.array())
     exp_data = builder.experimentalData()
 
     figs = list()

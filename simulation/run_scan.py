@@ -11,7 +11,7 @@ import os
 
 def scan_grating_height(exp_config, sample_config, report_manager):
     report_manager.m_title = "exp2/sinus height scan"
-    for value in tqdm(np.linspace(225.0-20, 225.0+20, 3)):
+    for value in np.linspace(225.0-20, 225.0+20, 3):
         sample_config["grating_height"] = value
         run_single(exp_config, sample_config, report_manager, sim_title="height {:6.2f}".format(value))
 

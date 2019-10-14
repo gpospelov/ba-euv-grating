@@ -14,7 +14,7 @@ def plot_colormap(data, zmin=1e+03, zmax=1e+07, units=ba.AxesUnits.DEGREES, zlab
     ba.plot_colormap(data, zmin=zmin, zmax=zmax, units=units, zlabel=zlabel, cmap=cmap, aspect=aspect)
 
 
-def plot_simulations(sim_results, exp_data, exp_config):
+def plot_simulations(sim_results, exp_data, exp_config, sim_title=None):
 
     fig = plt.figure(figsize=(16, 12))
 
@@ -23,8 +23,12 @@ def plot_simulations(sim_results, exp_data, exp_config):
 
     units = ba.AxesUnits.MM
 
-    plt.subplot(gs1[0])
+    sim_canvas = plt.subplot(gs1[0])
     plot_colormap(sim_results, zmin=1, zmax=1e+9)
+
+    if sim_title:
+        sim_canvas.set_title(sim_title)
+        # sim_canvas.text(-7.5, 12.5, sim_title, horizontalalignment='center', verticalalignment='center', fontsize=12)
 
     plt.subplot(gs1[1])
     plot_colormap(exp_data, zmin=1, zmax=1e+9)
@@ -46,14 +50,16 @@ def plot_simulations(sim_results, exp_data, exp_config):
     return fig
 
 
-def run_single(exp_config, sample_config, report=None):
+def run_single(exp_config, sample_config, report=None, sim_title=None):
     builder = SimulationBuilder(exp_config, sample_config)
 
     sim_result = builder.run_simulation()
+    print(type(sim_result), type(sim_result.array()))
+    np.savetxt("intensity.txt", sim_result.array())
     exp_data = builder.experimentalData()
 
     figs = list()
-    figs.append(plot_simulations(sim_result, exp_data, exp_config))
+    figs.append(plot_simulations(sim_result, exp_data, exp_config, sim_title))
 
     if report:
         report.write_report(sample_config)
